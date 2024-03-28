@@ -38,7 +38,7 @@
 
             User user = new User()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("71fb597c-02f6-4faa-909d-e25e60e8e4e7"),
                 UserName = "administrator@mail.com",
                 NormalizedUserName = "ADMINISTRATOR@MAIL.COM",
                 Email = "administrator@mail.com",
@@ -56,7 +56,7 @@
 
             user = new User()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("119ca1f9-3f45-4391-a92e-408dce588da6"),
                 UserName = "user@mail.com",
                 NormalizedUserName = "USER@MAIL.COM",
                 Email = "user@mail.com",
