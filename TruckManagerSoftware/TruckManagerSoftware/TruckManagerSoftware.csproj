@@ -19,4 +19,10 @@
     <ProjectReference Include="..\TruckManagerSoftware.Infrastructure\TruckManagerSoftware.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Avatars\" />
+    <Folder Include="wwwroot\Images\Trailers\" />
+    <Folder Include="wwwroot\Images\Trucks\" />
+  </ItemGroup>
+
 </Project>

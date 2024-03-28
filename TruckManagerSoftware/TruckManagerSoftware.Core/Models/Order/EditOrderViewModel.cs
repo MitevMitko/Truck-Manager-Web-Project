@@ -1,50 +1,41 @@
-﻿namespace TruckManagerSoftware.Infrastructure.Data.Models
+﻿namespace TruckManagerSoftware.Core.Models.Order
 {
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using static Common.DataConstants.DataConstants.Order;
 
-    public class Order
+    public class EditOrderViewModel
     {
-        [Key]
+        [Required]
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(CargoMaxLength)]
+        [StringLength(CargoMaxLength, MinimumLength = CargoMinLength)]
         public string Cargo { get; set; } = null!;
 
         [Required]
         public int CargoWeight { get; set; }
 
         [Required]
-        [MaxLength(StartPointMaxLength)]
+        [StringLength(StartPointMaxLength, MinimumLength = StartPointMinLength)]
         public string StartPoint { get; set; } = null!;
 
         [Required]
-        [MaxLength(EndPointMaxLength)]
+        [StringLength(EndPointMaxLength, MinimumLength = EndPointMinLength)]
         public string EndPoint { get; set; } = null!;
 
         [Required]
-        [MaxLength(DeliveryTypeMaxLength)]
+        [StringLength(DeliveryTypeMaxLength, MinimumLength = DeliveryTypeMinLength)]
         public string DeliveryType { get; set; } = null!;
 
         [Required]
         public int TripDistance { get; set; }
 
         [Required]
-        [MaxLength(TripTimeMaxLength)]
+        [StringLength(TripTimeMaxLength, MinimumLength = TripTimeMinLength)]
         public string TripTime { get; set; } = null!;
 
         [Required]
         public int DeliveryPrice { get; set; }
-
-        [ForeignKey(nameof(Truck))]
-        public Guid? TruckId { get; set; }
-        public Truck? Truck { get; set; }
-
-        [ForeignKey(nameof(User))]
-        public Guid? UserId { get; set; }
-        public User? User { get; set; }
     }
 }

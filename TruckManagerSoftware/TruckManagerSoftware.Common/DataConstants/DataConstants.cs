@@ -76,6 +76,10 @@
             // Delivery Type
             public const int DeliveryTypeMinLength = 3;
             public const int DeliveryTypeMaxLength = 30;
+
+            // Trip Time
+            public const int TripTimeMinLength = 3;
+            public const int TripTimeMaxLength = 20;
         }
 
         public static class BankContact
@@ -116,6 +120,24 @@
             // Avatar
             public const int AvatarMinLength = 3;
             public const int AvatarMaxLength = 50;
+        }
+
+        public static class Image
+        {
+            // Width
+            public const int ImageWidth = 1200;
+
+            // Height
+            public const int ImageHeight = 600;
+
+            // User's Avatars Path
+            public const string UsersAvatarsPath = "~/wwwroot/Images/Avatars";
+
+            // Truck's Images Path
+            public const string TrucksImagesPath = "~/wwwroot/Images/Trucks";
+
+            // Trailer's Images Path
+            public const string TrailersImagesPath = "~/wwwroot/Images/Trailers";
         }
     }
 }
