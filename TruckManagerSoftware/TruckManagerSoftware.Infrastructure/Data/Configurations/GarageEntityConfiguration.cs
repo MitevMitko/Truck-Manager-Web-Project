@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<Garage> builder)
         {
-            builder.HasData(SeedGarages());
+            // builder.HasData(SeedGarages());
         }
 
         private List<Garage> SeedGarages()

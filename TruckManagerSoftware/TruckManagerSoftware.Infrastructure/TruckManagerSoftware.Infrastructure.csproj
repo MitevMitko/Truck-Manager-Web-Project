@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.cs\**" />
+    <Compile Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.Designer.cs\**" />
+    <EmbeddedResource Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.cs\**" />
+    <EmbeddedResource Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.Designer.cs\**" />
+    <None Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.cs\**" />
+    <None Remove="Migrations\20240329090353_SetUserNameNormalizedUserNameEmailNormalizedEmailPropertiesFromUsersEntityAsRequiredAndChangeTheValuesOfUserNameAndNormalizedUserNamePropertiesFromUsersEntity.Designer.cs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.24" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.24" />
   </ItemGroup>

@@ -6,10 +6,32 @@
 
     using Models;
 
+    using static Common.DataConstants.DataConstants.User;
+
     public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder
+                .Property(u => u.UserName)
+                .HasMaxLength(UserNameMaxLength)
+                .IsRequired();
+
+            builder
+                .Property(u => u.NormalizedUserName)
+                .HasMaxLength(UserNameMaxLength)
+                .IsRequired();
+
+            builder
+                .Property(u => u.Email)
+                .HasMaxLength(EmailMaxLength)
+                .IsRequired();
+
+            builder
+                .Property(u => u.NormalizedEmail)
+                .HasMaxLength(EmailMaxLength)
+                .IsRequired();
+
             builder
                 .HasOne(u => u.Garage)
                 .WithMany(o => o.Users)
@@ -28,7 +50,7 @@
                 .HasForeignKey<User>(u => u.OrderId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasData(SeedUsers());
+            // builder.HasData(SeedUsers());
         }
 
         private List<User> SeedUsers()

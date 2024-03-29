@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<Engine> builder)
         {
-            builder.HasData(SeedEngines());
+            // builder.HasData(SeedEngines());
         }
 
         private List<Engine> SeedEngines()

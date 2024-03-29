@@ -45,7 +45,7 @@
                 .HasForeignKey(t => t.TransmissionId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasData(SeedTrucks());
+            // builder.HasData(SeedTrucks());
         }
 
         private List<Truck> SeedTrucks()

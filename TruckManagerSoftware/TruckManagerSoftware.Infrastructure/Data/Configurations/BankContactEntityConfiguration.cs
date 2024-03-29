@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<BankContact> builder)
         {
-            builder.HasData(SeedBandContacts());
+            // builder.HasData(SeedBandContacts());
         }
 
         private List<BankContact> SeedBandContacts()

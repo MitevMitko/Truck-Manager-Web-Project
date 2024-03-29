@@ -9,7 +9,7 @@
     {
         public void Configure(EntityTypeBuilder<Transmission> builder)
         {
-            builder.HasData(SeedTransmissions());
+            // builder.HasData(SeedTransmissions());
         }
 
         private List<Transmission> SeedTransmissions()

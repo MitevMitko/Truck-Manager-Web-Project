@@ -113,6 +113,18 @@
 
         public static class User
         {
+            // UserName
+            public const int UserNameMinLength = 5;
+            public const int UserNameMaxLength = 20;
+
+            // Email
+            public const int EmailMinLength = 10;
+            public const int EmailMaxLength = 60;
+
+            // Password
+            public const int PasswordMinLength = 5;
+            public const int PasswordMaxLength = 20;
+
             // Status
             public const int StatusMinLength = 3;
             public const int StatusMaxLength = 30;
@@ -120,6 +132,9 @@
             // Avatar
             public const int AvatarMinLength = 3;
             public const int AvatarMaxLength = 50;
+
+            // Status Value When Register User
+            public const string StatusValueWhenRegisterUser = "roaming";
         }
 
         public static class Image

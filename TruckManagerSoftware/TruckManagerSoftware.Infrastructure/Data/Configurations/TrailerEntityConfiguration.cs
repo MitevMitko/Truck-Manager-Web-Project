@@ -21,7 +21,7 @@
                 .HasForeignKey<Trailer>(t => t.TruckId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasData(SeedTrailers());
+            // builder.HasData(SeedTrailers());
         }
 
         private List<Trailer> SeedTrailers()

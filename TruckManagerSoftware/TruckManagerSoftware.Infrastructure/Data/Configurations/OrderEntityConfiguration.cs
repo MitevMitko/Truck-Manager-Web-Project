@@ -21,7 +21,7 @@
                 .HasForeignKey<Order>(o => o.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasData(SeedOrders());
+            // builder.HasData(SeedOrders());
         }
 
         private List<Order> SeedOrders()

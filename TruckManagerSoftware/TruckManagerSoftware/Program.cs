@@ -5,6 +5,8 @@ namespace TruckManagerSoftware
 
     using Infrastructure.Data;
     using Infrastructure.Data.Models;
+    using Infrastructure.UnitOfWork.Contract;
+    using Infrastructure.UnitOfWork.Implementation;
 
     public class Program
     {
@@ -30,6 +32,8 @@ namespace TruckManagerSoftware
             )
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddControllersWithViews();
 
