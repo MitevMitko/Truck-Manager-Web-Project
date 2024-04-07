@@ -9,7 +9,7 @@
             public const int CountryMaxLength = 50;
 
             // City
-            public const int CityMinLength = 5;
+            public const int CityMinLength = 3;
             public const int CityMaxLength = 50;
 
             // Size
@@ -24,7 +24,7 @@
             public const int BrandMaxLength = 30;
 
             // Series
-            public const int SeriesMinLength = 3;
+            public const int SeriesMinLength = 1;
             public const int SeriesMaxLength = 30;
 
             // Image
@@ -80,6 +80,9 @@
             // Trip Time
             public const int TripTimeMinLength = 3;
             public const int TripTimeMaxLength = 20;
+
+            // RegEx Expression For Validation Of Trip Time
+            public const string TripTimeRegExExpression = @"^\d+h\s\d+m$";
         }
 
         public static class BankContact
@@ -146,13 +149,13 @@
             public const int ImageHeight = 600;
 
             // User's Avatars Path
-            public const string UsersAvatarsPath = "~/wwwroot/Images/Avatars";
+            public const string UsersAvatarsPath = "wwwroot\\Images\\Avatars";
 
             // Truck's Images Path
-            public const string TrucksImagesPath = "~/wwwroot/Images/Trucks";
+            public const string TrucksImagesPath = "wwwroot\\Images\\Trucks";
 
             // Trailer's Images Path
-            public const string TrailersImagesPath = "~/wwwroot/Images/Trailers";
+            public const string TrailersImagesPath = "wwwroot\\Images\\Trailers";
         }
     }
 }

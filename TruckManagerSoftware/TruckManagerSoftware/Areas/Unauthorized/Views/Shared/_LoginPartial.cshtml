@@ -1,0 +1,39 @@
+﻿@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewBag.Url = string.Empty;
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li>
+            <script>
+                window.location.href = '@Url.Action("Index", "Home", new { area = "Admin" })';
+            </script>
+        </li>
+
+        @* var user = await UserManager.FindByNameAsync(User.Identity?.Name);
+    var roles = await UserManager.GetRolesAsync(user);
+
+    if (roles.Contains("Admin") && roles.Contains("User"))
+    {
+    Url.Action("Index", "Home", new { area = "Admin" });
+    }
+    else if (roles.Contains("User"))
+    {
+    Url.Action("Index", "Home", new { area = "User" });
+    } *@
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Unauthorized" asp-controller="User" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Unauthorized" asp-controller="User" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

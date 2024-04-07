@@ -1,15 +1,13 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
-    using Microsoft.AspNetCore.Http;
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Formats.Jpeg;
     using SixLabors.ImageSharp.Processing;
+    using Microsoft.AspNetCore.Http;
 
     using System.IO;
 
     using Contract;
-
-    using static Common.Messages.Messages.Image;
 
     public class ImageService : IImageService
     {
@@ -24,20 +22,22 @@
 
         public Image ConvertIFormFileToImage(IFormFile imageFile)
         {
-            using (MemoryStream stream = new MemoryStream())
+            using (Stream stream = imageFile.OpenReadStream())
             {
+                return Image.Load(stream);
+
                 // Copy the contents of the uploaded file
                 // To a memory stream
-                imageFile.CopyTo(stream);
+                //imageFile.CopyTo(stream);
 
                 // Load the uploaded file from
                 // The memory stream called "stream"
                 // And then return the converted
                 // Uploaded file from IFormFile to Image
-                using (Image image = Image.Load(stream.ToArray()))
-                {
-                    return image;
-                }
+                //using (Image image = Image.Load(stream.ToArray()))
+                //{
+                //    return image;
+                //}
             }
         }
 
@@ -60,10 +60,10 @@
         public string SaveImage(Image imageFile, string destinationPath)
         {
             // Create new title for the image
-            string imageTitle = $"{Guid.NewGuid()}.jpg";
+            string imageTitle = Guid.NewGuid().ToString();
 
             // Create the destination path with the new image title
-            string imagePath = Path.Combine(destinationPath, imageTitle);
+            string imagePath = Path.Combine(destinationPath, $"{imageTitle}.jpg");
 
             //Save the image to the desired path
             imageFile.Save(imagePath, new JpegEncoder());

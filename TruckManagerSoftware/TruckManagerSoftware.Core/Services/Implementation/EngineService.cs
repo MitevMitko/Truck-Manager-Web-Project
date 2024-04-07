@@ -22,6 +22,15 @@
 
         public async Task AddEngine(AddEngineViewModel model)
         {
+            // Check if the engine
+            // With property Title == model.Title exists
+            // If the engine exists
+            // Throw argument exception
+            if (await unitOfWork.Engine.AnyAsync(e => e.Title == model.Title))
+            {
+                throw new ArgumentException(EngineTitleExistsMessage);
+            }
+
             // Create new engine
             Engine engine = new Engine() 
             {
@@ -41,9 +50,15 @@
         public async Task EditEngine(EditEngineViewModel model)
         {
             // Get the engine by id
+            // From the database
+            Engine engine = await unitOfWork.Engine.GetById(model.Id);
+
             // If engine does not exist
             // Throw argument exception
-            Engine engine = await unitOfWork.Engine.GetById(model.Id) ?? throw new ArgumentException(EngineNotExistMessage);
+            if (engine == null)
+            {
+                throw new ArgumentException(EngineNotExistMessage);
+            }
 
             // Assign the edited data
             // To the engine
@@ -89,9 +104,15 @@
         public async Task<EngineInfoViewModel> GetEngineInfoById(Guid id)
         {
             // Get the engine by id
+            // From the database
+            Engine engine = await unitOfWork.Engine.GetById(id);
+
             // If engine does not exist
             // Throw argument exception
-            Engine engine = await unitOfWork.Engine.GetById(id) ?? throw new ArgumentException(EngineNotExistMessage);
+            if (engine == null)
+            {
+                throw new ArgumentException(EngineNotExistMessage);
+            }
 
             // Create engine view model
             // Assign the data from the engine
@@ -104,6 +125,27 @@
                 PowerKw = engine.PowerKw,
                 TorqueNm = engine.TorqueNm
             };
+        }
+
+        public async Task RemoveEngine(Guid id)
+        {
+            // Get the engine by id
+            // From the database
+            Engine engine = await unitOfWork.Engine.GetById(id);
+
+            // If engine does not exist
+            // Throw argument exception
+            if (engine == null)
+            {
+                throw new ArgumentException(EngineNotExistMessage);
+            }
+
+            // Remove the engine
+            // From the database
+            unitOfWork.Engine.Remove(engine);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

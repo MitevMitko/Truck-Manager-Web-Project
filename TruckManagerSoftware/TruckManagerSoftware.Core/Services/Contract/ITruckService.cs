@@ -8,6 +8,8 @@
 
         Task EditTruck(EditTruckViewModel model);
 
+        Task RemoveTruck(Guid id);
+
         Task<TruckInfoViewModel> GetTruckInfoById(Guid id);
 
         Task<ICollection<TruckInfoViewModel>> GetAllTrucksInfo();

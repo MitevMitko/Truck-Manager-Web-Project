@@ -8,6 +8,8 @@
 
         Task EditBankContact(EditBankContactViewModel model);
 
+        Task RemoveBankContact(Guid id);
+
         Task<BankContactInfoViewModel> GetBankContactInfoById(Guid id);
 
         Task<ICollection<BankContactInfoViewModel>> GetAllBankContactsInfo();

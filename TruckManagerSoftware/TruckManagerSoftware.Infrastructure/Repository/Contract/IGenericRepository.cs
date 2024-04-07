@@ -14,9 +14,11 @@
 
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);
 
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
+
         Task Add(T entity);
 
-        void AddRange(IEnumerable<T> entities);
+        Task AddRange(IEnumerable<T> entities);
 
         void Remove(T entity);
 

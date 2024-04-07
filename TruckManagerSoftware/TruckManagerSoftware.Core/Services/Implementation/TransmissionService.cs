@@ -22,6 +22,15 @@
 
         public async Task AddTransmission(AddTransmissionViewModel model)
         {
+            // Check if the transmission
+            // With property Title == model.Title exists
+            // If the transmission exists
+            // Throw argument exception
+            if (await unitOfWork.Transmission.AnyAsync(t => t.Title == model.Title))
+            {
+                throw new ArgumentException(TransmissionTitleExistsMessage);
+            }
+
             // Create new transmission
             Transmission transmission = new Transmission() 
             {
@@ -40,9 +49,15 @@
         public async Task EditTransmission(EditTransmissionViewModel model)
         {
             // Get the transmission by id
+            // From the database
+            Transmission transmission = await unitOfWork.Transmission.GetById(model.Id);
+
             // If transmission does not exist
             // Throw argument exception
-            Transmission transmission = await unitOfWork.Transmission.GetById(model.Id) ?? throw new ArgumentException(TransmissionNotExistMessage);
+            if (transmission == null)
+            {
+                throw new ArgumentException(TransmissionNotExistMessage);
+            }
 
             // Assign the edited data
             // To the transmission
@@ -86,9 +101,15 @@
         public async Task<TransmissionInfoViewModel> GetTransmissionInfoById(Guid id)
         {
             // Get the transmission by id
+            // From the database
+            Transmission transmission = await unitOfWork.Transmission.GetById(id);
+
             // If transmission does not exist
             // Throw argument exception
-            Transmission transmission = await unitOfWork.Transmission.GetById(id) ?? throw new ArgumentException(TransmissionNotExistMessage);
+            if (transmission == null)
+            {
+                throw new ArgumentException(TransmissionNotExistMessage);
+            }
 
             // Create transmission view model
             // Assign the data from the transmission
@@ -100,6 +121,27 @@
                 GearsCount= transmission.GearsCount,
                 Retarder= transmission.Retarder
             };
+        }
+
+        public async Task RemoveTransmission(Guid id)
+        {
+            // Get the transmission by id
+            // From the database
+            Transmission transmission = await unitOfWork.Transmission.GetById(id);
+
+            // If engine does not exist
+            // Throw argument exception
+            if (transmission == null)
+            {
+                throw new ArgumentException(TransmissionNotExistMessage);
+            }
+
+            // Remove the transmission
+            // From the database
+            unitOfWork.Transmission.Remove(transmission);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

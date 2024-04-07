@@ -8,6 +8,8 @@
 
         Task EditTrailer(EditTrailerViewModel model);
 
+        Task RemoveTrailer(Guid id);
+
         Task<TrailerInfoViewModel> GetTrailerInfoById(Guid id);
 
         Task<ICollection<TrailerInfoViewModel>> GetAllTrailersInfo();

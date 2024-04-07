@@ -1,6 +1,7 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
     using SixLabors.ImageSharp;
+    using Microsoft.AspNetCore.Hosting;
 
     using System;
     using System.Collections.Generic;
@@ -21,10 +22,13 @@
 
         private readonly IImageService imageService;
 
-        public TrailerService(IUnitOfWork unitOfWork, IImageService imageService)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public TrailerService(IUnitOfWork unitOfWork, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.imageService = imageService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public async Task AddTrailer(AddTrailerViewModel model)
@@ -44,12 +48,21 @@
             };
 
             // Check if there is uploaded image file
-            if (model.Image != null)
+            if (model.Image != null && model.Image.Length != 0)
             {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the trailer's images folder
+                string trailersImagesPath = Path.Combine(rootPath, TrailersImagesPath);
+
                 // Check if the trailer's images path exists
                 // If the path does not exist
                 // Throw argument exception
-                if (Directory.Exists(TrailersImagesPath))
+                if (!Directory.Exists(trailersImagesPath))
                 {
                     throw new ArgumentException(FolderNotExistMessage);
                 }
@@ -68,7 +81,7 @@
                     // Saves the resized uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(resizedImage, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(resizedImage, trailersImagesPath);
 
                     trailer.Image = imageTitle;
                 }
@@ -77,7 +90,7 @@
                     // Saves the uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(convertedUploadedFile, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(convertedUploadedFile, trailersImagesPath);
 
                     trailer.Image = imageTitle;
                 }
@@ -93,9 +106,15 @@
         public async Task EditTrailer(EditTrailerViewModel model)
         {
             // Get the trailer by id
+            // From the database
+            Trailer trailer = await unitOfWork.Trailer.GetById(model.Id);
+
             // If trailer does not exist
             // Throw argument exception
-            Trailer trailer = await unitOfWork.Trailer.GetById(model.Id) ?? throw new ArgumentException(TrailerNotExistMessage);
+            if (trailer == null)
+            {
+                throw new ArgumentException(TrailerNotExistMessage);
+            }
 
             // Assign the edited data
             // To the trailer
@@ -109,20 +128,29 @@
             trailer.CargoTypes = model.CargoTypes;
 
             // Check if there is uploaded image file
-            if (model.Image != null)
+            if (model.Image != null && model.Image.Length != 0)
             {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the trailer's images folder
+                string trailersImagesPath = Path.Combine(rootPath, TrailersImagesPath);
+
                 // Check if the trailer's images path exists
                 // If the path does not exist
                 // Throw argument exception
-                if (Directory.Exists(TrailersImagesPath))
+                if (!Directory.Exists(trailersImagesPath))
                 {
                     throw new ArgumentException(FolderNotExistMessage);
                 }
 
-                if (trailer.Image != null)
+                if (trailer.Image != null && trailer.Image.Length != 0)
                 {
                     // Create the destination path with the new image title
-                    string imagePath = Path.Combine(TrailersImagesPath, trailer.Image);
+                    string imagePath = Path.Combine(trailersImagesPath, trailer.Image);
 
                     // Check if the image
                     // From the image path exists
@@ -148,7 +176,7 @@
                     // Saves the resized uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(resizedImage, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(resizedImage, trailersImagesPath);
 
                     trailer.Image = imageTitle;
                 }
@@ -157,7 +185,7 @@
                     // Saves the uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(convertedUploadedFile, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(convertedUploadedFile, trailersImagesPath);
 
                     trailer.Image = imageTitle;
                 }
@@ -205,9 +233,15 @@
         public async Task<TrailerInfoViewModel> GetTrailerInfoById(Guid id)
         {
             // Get the trailer by id
+            // From the database
+            Trailer trailer = await unitOfWork.Trailer.GetById(id);
+
             // If trailer does not exist
             // Throw argument exception
-            Trailer trailer = await unitOfWork.Trailer.GetById(id) ?? throw new ArgumentException(TrailerNotExistMessage);
+            if (trailer == null)
+            {
+                throw new ArgumentException(TrailerNotExistMessage);
+            }
 
             // Create trailer view model
             // Assign the data from the trailer
@@ -225,6 +259,51 @@
                 CargoTypes = trailer.CargoTypes,
                 Image = trailer.Image
             };
+        }
+
+        public async Task RemoveTrailer(Guid id)
+        {
+            // Get the trailer by id
+            // From the database
+            Trailer trailer = await unitOfWork.Trailer.GetById(id);
+
+            // If trailer does not exist
+            // Throw argument exception
+            if (trailer == null)
+            {
+                throw new ArgumentException(TrailerNotExistMessage);
+            }
+
+            if (trailer.Image != null && trailer.Image.Length != 0)
+            {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the truck's images folder
+                string trailersImagesPath = Path.Combine(rootPath, TrailersImagesPath);
+
+                // Create the destination path with the truck's image title
+                string imagePath = Path.Combine(trailersImagesPath, $"{trailer.Image}.jpg");
+
+                // Check if the image
+                // From the image path exists
+                if (!File.Exists(imagePath))
+                {
+                    throw new ArgumentException(ImageNotExistMessage);
+                }
+
+                imageService.RemoveImage(imagePath);
+            }
+
+            // Remove the trailer
+            // From the database
+            unitOfWork.Trailer.Remove(trailer);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

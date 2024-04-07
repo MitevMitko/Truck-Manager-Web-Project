@@ -25,9 +25,14 @@
             await context.Set<T>().AddAsync(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public async Task AddRange(IEnumerable<T> entities)
         {
-            context.Set<T>().AddRange(entities);
+            await context.Set<T>().AddRangeAsync(entities);
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await context.Set<T>().AnyAsync(predicate);
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate)

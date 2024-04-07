@@ -8,6 +8,8 @@
 
         Task EditGarage(EditGarageViewModel model);
 
+        Task RemoveGarage(Guid id);
+
         Task<GarageInfoViewModel> GetGarageInfoById(Guid id);
 
         Task<ICollection<GarageInfoViewModel>> GetAllGaragesInfo();

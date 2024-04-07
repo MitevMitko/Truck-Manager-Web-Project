@@ -22,6 +22,33 @@
 
         public async Task AddBankContact(AddBankContactViewModel model)
         {
+            // Check if the bank contact
+            // With property Name == model.Name exists
+            // If the bank contact exists
+            // Throw argument exception
+            if (await unitOfWork.BankContact.AnyAsync(bc => bc.Name == model.Name))
+            {
+                throw new ArgumentException(BankContactNameExistsMessage);
+            }
+
+            // Check if the bank contact
+            // With property Email == model.Email exists
+            // If the bank contact exists
+            // Throw argument exception
+            if (await unitOfWork.BankContact.AnyAsync(bc => bc.Email == model.Email))
+            {
+                throw new ArgumentException(BankContactEmailExistsMessage);
+            }
+
+            // Check if the bank contact
+            // With property PhoneNumber == model.PhoneNumber exists
+            // If the bank contact exists
+            // Throw argument exception
+            if (await unitOfWork.BankContact.AnyAsync(bc => bc.PhoneNumber == model.PhoneNumber))
+            {
+                throw new ArgumentException(BankContactPhoneNumberExistsMessage);
+            }
+
             // Create new bank contact
             BankContact bankContact = new BankContact()
             {
@@ -40,9 +67,15 @@
         public async Task EditBankContact(EditBankContactViewModel model)
         {
             // Get the bank contact by id
+            // From the database
+            BankContact bankContact = await unitOfWork.BankContact.GetById(model.Id);
+
             // If bank contact does not exist
             // Throw argument exception
-            BankContact bankContact = await unitOfWork.BankContact.GetById(model.Id) ?? throw new ArgumentException(BankContactNotExistMessage);
+            if (bankContact == null)
+            {
+                throw new ArgumentException(BankContactNotExistMessage);
+            }
 
             // Assign the edited data
             // To the bank contact
@@ -86,9 +119,15 @@
         public async Task<BankContactInfoViewModel> GetBankContactInfoById(Guid id)
         {
             // Get the bank contact by id
+            // From the database
+            BankContact bankContact = await unitOfWork.BankContact.GetById(id);
+
             // If bank contact does not exist
             // Throw argument exception
-            BankContact bankContact = await unitOfWork.BankContact.GetById(id) ?? throw new ArgumentException(BankContactNotExistMessage);
+            if (bankContact == null)
+            {
+                throw new ArgumentException(BankContactNotExistMessage);
+            }
 
             // Create bank contact view model
             // Assign the data from the bank contact
@@ -100,6 +139,27 @@
                 Email = bankContact.Email,
                 PhoneNumber = bankContact.PhoneNumber
             };
+        }
+
+        public async Task RemoveBankContact(Guid id)
+        {
+            // Get the bank contact by id
+            // From the database
+            BankContact bankContact = await unitOfWork.BankContact.GetById(id);
+
+            // If bank contact does not exist
+            // Throw argument exception
+            if (bankContact == null)
+            {
+                throw new ArgumentException(BankContactNotExistMessage);
+            }
+
+            // Remove the bank contact
+            // From the database
+            unitOfWork.BankContact.Remove(bankContact);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

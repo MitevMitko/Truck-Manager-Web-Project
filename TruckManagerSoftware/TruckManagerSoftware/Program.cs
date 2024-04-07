@@ -1,8 +1,11 @@
 namespace TruckManagerSoftware
 {
+    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
+    using Core.Services.Contract;
+    using Core.Services.Implementation;
     using Infrastructure.Data;
     using Infrastructure.Data.Models;
     using Infrastructure.UnitOfWork.Contract;
@@ -35,6 +38,27 @@ namespace TruckManagerSoftware
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            builder.Services.AddScoped<IBankContactService, BankContactService>();
+
+            builder.Services.AddScoped<IEngineService, EngineService>();
+
+            builder.Services.AddScoped<IGarageService, GarageService>();
+
+            builder.Services.AddScoped<IImageService, ImageService>();
+
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddScoped<ITrailerService, TrailerService>();
+
+            builder.Services.AddScoped<ITransmissionService, TransmissionService>();
+
+            builder.Services.AddScoped<ITruckService, TruckService>();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Unauthorized/User/Login";
+            });
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -42,11 +66,12 @@ namespace TruckManagerSoftware
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Unauthorized/Error/NotFound404");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -60,8 +85,11 @@ namespace TruckManagerSoftware
             app.UseAuthorization();
 
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}",
+                defaults: new { area = "Unauthorized" }
+                );
+
             app.MapRazorPages();
 
             app.Run();

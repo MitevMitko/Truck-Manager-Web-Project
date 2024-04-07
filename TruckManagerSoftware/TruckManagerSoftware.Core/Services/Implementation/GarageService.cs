@@ -23,11 +23,11 @@
         public async Task AddGarage(AddGarageViewModel model)
         {
             // Create new garage
-            Garage garage = new Garage() 
+            Garage garage = new Garage()
             {
                 Country = model.Country,
                 City = model.City,
-                Size = model.Size
+                Size = model.Size.ToString(),
             };
 
             // Add the created garage to the database
@@ -40,9 +40,15 @@
         public async Task EditGarage(EditGarageViewModel model)
         {
             // Get the garage by id
+            // From the database
+            Garage garage = await unitOfWork.Garage.GetById(model.Id);
+
             // If garage does not exist
             // Throw argument exception
-            Garage garage = await unitOfWork.Garage.GetById(model.Id) ?? throw new ArgumentException(GarageNotExistMessage);
+            if (garage == null)
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
 
             // Assign the edited data
             // To the garage
@@ -69,11 +75,12 @@
             // To the collection of garage view model
             foreach (Garage garage in garages)
             {
-                GarageInfoViewModel garageInfo = new GarageInfoViewModel() 
+                GarageInfoViewModel garageInfo = new GarageInfoViewModel()
                 {
                     Id = garage.Id,
                     Country = garage.Country,
-                    City = garage.City
+                    City = garage.City,
+                    Size = garage.Size
                 };
 
                 model.Add(garageInfo);
@@ -85,9 +92,15 @@
         public async Task<GarageInfoViewModel> GetGarageInfoById(Guid id)
         {
             // Get the garage by id
+            // From the database
+            Garage garage = await unitOfWork.Garage.GetById(id);
+
             // If garage does not exist
             // Throw argument exception
-            Garage garage = await unitOfWork.Garage.GetById(id) ?? throw new ArgumentException(GarageNotExistMessage);
+            if (garage == null)
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
 
             // Create garage view model
             // Assign the data from the garage
@@ -99,6 +112,27 @@
                 City = garage.City,
                 Size = garage.Size
             };
+        }
+
+        public async Task RemoveGarage(Guid id)
+        {
+            // Get the garage by id
+            // From the database
+            Garage garage = await unitOfWork.Garage.GetById(id);
+
+            // If garage does not exist
+            // Throw argument exception
+            if (garage == null)
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
+
+            // Remove the garage
+            // From the database
+            unitOfWork.Garage.Remove(garage);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

@@ -8,6 +8,8 @@
 
         Task EditOrder(EditOrderViewModel model);
 
+        Task RemoveOrder(Guid id);
+
         Task<OrderInfoViewModel> GetOrderInfoById(Guid id);
 
         Task<ICollection<OrderInfoViewModel>> GetAllOrdersInfo();

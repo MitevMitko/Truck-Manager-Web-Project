@@ -8,6 +8,8 @@
 
         Task EditTransmission(EditTransmissionViewModel model);
 
+        Task RemoveTransmission(Guid id);
+
         Task<TransmissionInfoViewModel> GetTransmissionInfoById(Guid id);
 
         Task<ICollection<TransmissionInfoViewModel>> GetAllTransmissionsInfo();

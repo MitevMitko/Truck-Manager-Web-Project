@@ -14,6 +14,7 @@
     using static Common.DataConstants.DataConstants.Image;
     using static Common.Messages.Messages.Truck;
     using static Common.Messages.Messages.Image;
+    using Microsoft.AspNetCore.Hosting;
 
     public class TruckService : ITruckService
     {
@@ -21,10 +22,13 @@
 
         private readonly IImageService imageService;
 
-        public TruckService(IUnitOfWork unitOfWork, IImageService imageService)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public TruckService(IUnitOfWork unitOfWork, IImageService imageService, IWebHostEnvironment webHostEnvironment)
         {
             this.unitOfWork = unitOfWork;
             this.imageService = imageService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public async Task AddTruck(AddTruckViewModel model)
@@ -39,12 +43,21 @@
             };
 
             // Check if there is uploaded image file
-            if (model.Image != null)
+            if (model.Image != null && model.Image.Length != 0)
             {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the truck's images folder
+                string trucksImagesPath = Path.Combine(rootPath, TrucksImagesPath);
+
                 // Check if the truck's images path exists
                 // If the path does not exist
                 // Throw argument exception
-                if (Directory.Exists(TrucksImagesPath))
+                if (!Directory.Exists(trucksImagesPath))
                 {
                     throw new ArgumentException(FolderNotExistMessage);
                 }
@@ -63,7 +76,7 @@
                     // Saves the resized uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(resizedImage, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(resizedImage, trucksImagesPath);
 
                     truck.Image = imageTitle;
                 }
@@ -72,7 +85,7 @@
                     // Saves the uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(convertedUploadedFile, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(convertedUploadedFile, trucksImagesPath);
 
                     truck.Image = imageTitle;
                 }
@@ -88,9 +101,15 @@
         public async Task EditTruck(EditTruckViewModel model)
         {
             // Get the truck by id
+            // From the database
+            Truck truck = await unitOfWork.Truck.GetById(model.Id);
+
             // If truck does not exist
             // Throw argument exception
-            Truck truck = await unitOfWork.Truck.GetById(model.Id) ?? throw new ArgumentException(TruckNotExistMessage);
+            if (truck == null)
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
 
             // Assign the edited data
             // To the truck
@@ -99,20 +118,29 @@
             truck.DrivenDistance = model.DrivenDistance;
 
             // Check if there is uploaded image file
-            if (model.Image != null)
+            if (model.Image != null && model.Image.Length != 0)
             {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the truck's images folder
+                string trucksImagesPath = Path.Combine(rootPath, TrucksImagesPath);
+
                 // Check if the truck's images path exists
                 // If the path does not exist
                 // Throw argument exception
-                if (Directory.Exists(TrucksImagesPath))
+                if (!Directory.Exists(trucksImagesPath))
                 {
                     throw new ArgumentException(FolderNotExistMessage);
                 }
 
-                if (truck.Image != null)
+                if (truck.Image != null && truck.Image.Length != 0)
                 {
                     // Create the destination path with the new image title
-                    string imagePath = Path.Combine(TrailersImagesPath, truck.Image);
+                    string imagePath = Path.Combine(trucksImagesPath, truck.Image);
 
                     // Check if the image
                     // From the image path exists
@@ -138,7 +166,7 @@
                     // Saves the resized uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(resizedImage, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(resizedImage, trucksImagesPath);
 
                     truck.Image = imageTitle;
                 }
@@ -147,14 +175,14 @@
                     // Saves the uploaded file
                     // And returns the new title
                     // Of the uploaded file
-                    string imageTitle = imageService.SaveImage(convertedUploadedFile, TrailersImagesPath);
+                    string imageTitle = imageService.SaveImage(convertedUploadedFile, trucksImagesPath);
 
                     truck.Image = imageTitle;
                 }
-
-                // Save changes to the database
-                await unitOfWork.CompleteAsync();
             }
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
 
         public async Task<ICollection<TruckInfoViewModel>> GetAllTrucksInfo()
@@ -190,9 +218,15 @@
         public async Task<TruckInfoViewModel> GetTruckInfoById(Guid id)
         {
             // Get the truck by id
+            // From the database
+            Truck truck = await unitOfWork.Truck.GetById(id);
+
             // If truck does not exist
             // Throw argument exception
-            Truck truck = await unitOfWork.Truck.GetById(id) ?? throw new ArgumentException(TruckNotExistMessage);
+            if (truck == null)
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
 
             // Create truck view model
             // Assign the data from the truck
@@ -205,6 +239,51 @@
                 DrivenDistance = truck.DrivenDistance,
                 Image = truck.Image
             };
+        }
+
+        public async Task RemoveTruck(Guid id)
+        {
+            // Get the truck by id
+            // From the database
+            Truck truck = await unitOfWork.Truck.GetById(id);
+
+            // If truck does not exist
+            // Throw argument exception
+            if (truck == null)
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
+
+            if (truck.Image != null && truck.Image.Length != 0)
+            {
+                // Get the physical path
+                // To the root directory
+                // Of the web application
+                string rootPath = webHostEnvironment.ContentRootPath;
+
+                // Combine the root path
+                // With the truck's images folder
+                string trucksImagesPath = Path.Combine(rootPath, TrucksImagesPath);
+
+                // Create the destination path with the truck's image title
+                string imagePath = Path.Combine(trucksImagesPath, $"{truck.Image}.jpg");
+
+                // Check if the image
+                // From the image path exists
+                if (!File.Exists(imagePath))
+                {
+                    throw new ArgumentException(ImageNotExistMessage);
+                }
+
+                imageService.RemoveImage(imagePath);
+            }
+
+            // Remove the truck
+            // From the database
+            unitOfWork.Truck.Remove(truck);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }

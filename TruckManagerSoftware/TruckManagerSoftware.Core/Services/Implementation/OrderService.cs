@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     using Contract;
@@ -9,6 +10,7 @@
     using Infrastructure.UnitOfWork.Contract;
     using Models.Order;
 
+    using static Common.DataConstants.DataConstants.Order;
     using static Common.Messages.Messages.Order;
 
     public class OrderService : IOrderService
@@ -22,8 +24,13 @@
 
         public async Task AddOrder(AddOrderViewModel model)
         {
+            if (!Regex.IsMatch(model.TripTime, TripTimeRegExExpression))
+            {
+                throw new ArgumentException(OrderTripTimePropertyIsNotMatch);
+            }
+
             // Create new order
-            Order order = new Order() 
+            Order order = new Order()
             {
                 Cargo = model.Cargo,
                 CargoWeight = model.CargoWeight,
@@ -45,9 +52,20 @@
         public async Task EditOrder(EditOrderViewModel model)
         {
             // Get the order by id
+            // From the database
+            Order order = await unitOfWork.Order.GetById(model.Id);
+
             // If order does not exist
             // Throw argument exception
-            Order order = await unitOfWork.Order.GetById(model.Id) ?? throw new ArgumentException(OrderNotExistMessage);
+            if (order == null)
+            {
+                throw new ArgumentException(OrderNotExistMessage);
+            }
+
+            if (!Regex.IsMatch(model.TripTime, TripTimeRegExExpression))
+            {
+                throw new ArgumentException(OrderTripTimePropertyIsNotMatch);
+            }
 
             // Assign the edited data
             // To the order
@@ -101,9 +119,15 @@
         public async Task<OrderInfoViewModel> GetOrderInfoById(Guid id)
         {
             // Get the order by id
+            // From the database
+            Order order = await unitOfWork.Order.GetById(id);
+
             // If order does not exist
             // Throw argument exception
-            Order order = await unitOfWork.Order.GetById(id) ?? throw new ArgumentException(OrderNotExistMessage);
+            if (order == null)
+            {
+                throw new ArgumentException(OrderNotExistMessage);
+            }
 
             // Create order view model
             // Assign the data from the order
@@ -120,6 +144,27 @@
                 TripTime = order.TripTime,
                 DeliveryPrice = order.DeliveryPrice
             };
+        }
+
+        public async Task RemoveOrder(Guid id)
+        {
+            // Get the order by id
+            // From the database
+            Order order = await unitOfWork.Order.GetById(id);
+
+            // If order does not exist
+            // Throw argument exception
+            if (order == null)
+            {
+                throw new ArgumentException(OrderNotExistMessage);
+            }
+
+            // Remove the order
+            // From the database
+            unitOfWork.Order.Remove(order);
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
         }
     }
 }
