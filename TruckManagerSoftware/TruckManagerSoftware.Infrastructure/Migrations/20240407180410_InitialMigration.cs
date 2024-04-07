@@ -77,7 +77,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                     EndPoint = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     DeliveryType = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     TripDistance = table.Column<int>(type: "int", nullable: false),
-                    TripTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TripTime = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DeliveryPrice = table.Column<int>(type: "int", nullable: false),
                     TruckId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -211,10 +211,10 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                     GarageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TruckId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -339,8 +339,8 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "Email", "EmailConfirmed", "GarageId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OrderId", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TruckId", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("35e9b241-fbb8-401a-99b0-67e06e5cbde6"), 0, null, "0c8aa95c-1cd3-41d0-9e82-2e608c8adef7", "user@mail.com", false, null, false, null, "USER@MAIL.COM", "USER@MAIL.COM", null, "AQAAAAEAACcQAAAAEPH/O4l/jV467uv24Nsyh5QkwMQPB8dekJejXqSYyCrnbz1vQ51voB4WOOV2isWbcg==", null, false, null, "roaming", null, false, "user@mail.com" },
-                    { new Guid("f6bea029-72b5-4368-addb-f6852285f978"), 0, null, "5bdf669a-1adc-4431-8b0b-519e74cd26b1", "administrator@mail.com", false, null, false, null, "ADMINISTRATOR@MAIL.COM", "ADMINISTRATOR@MAIL.COM", null, "AQAAAAEAACcQAAAAEJ4FnEJKV27O+maVFK8+xDXTYNePqi/JQMVd/JXqaTU8OmE4P0Lg55hN4Fj5ed/JAA==", null, false, null, "roaming", null, false, "administrator@mail.com" }
+                    { new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"), 0, null, "9d578ac4-b91f-4fc0-ba10-bb92704b75cf", "user@mail.com", false, null, false, null, "USER@MAIL.COM", "USER", null, "AQAAAAEAACcQAAAAEJFrjv3kX0JrSEfH9Ul0cNz2J/fBagHiDOD/5gI32v8MPJWUeLspdIK33/CI1F9S9g==", null, false, "AQAAAAEAACcQAAAAEHRPDwxLCimalXWz3qV0/+CY2jextE/Pw9RTwtEO8aBcYhUe00K3be8eZPy4Z23JCg==", "roaming", null, false, "user" },
+                    { new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"), 0, null, "4c9ba500-41d9-4b73-9ded-a612d597c42a", "administrator@mail.com", false, null, false, null, "ADMINISTRATOR@MAIL.COM", "ADMINISTRATOR", null, "AQAAAAEAACcQAAAAEL0gZLK5MJUHSLk18C67ZvAeMiM3uDZJjOkuUs/eoLkxahhGCtzYqK7ahP80Yx079A==", null, false, "AQAAAAEAACcQAAAAECQHfTAwNUaRvO451trA3Hfjtvu9qJ5/n31AEUQYr+gzuHD80TDJCP7CPNo39kNveQ==", "roaming", null, false, "administrator" }
                 });
 
             migrationBuilder.InsertData(
@@ -348,8 +348,8 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 columns: new[] { "Id", "Email", "Name", "PhoneNumber" },
                 values: new object[,]
                 {
-                    { new Guid("a204b0ca-adb3-472e-93ab-765ae5c507b4"), "unicredit@unicredit.com", "Unicredi Bulbank", "1234567890" },
-                    { new Guid("e2dd672e-6c70-4dd4-adb0-005c6fa69fa2"), "dsk@dsk.com", "DSK", "0123456789" }
+                    { new Guid("bfd81dcf-f66a-4e88-a534-7b58ba4681b6"), "dsk@dsk.com", "DSK", "0123456789" },
+                    { new Guid("f0b0dc9a-5826-4dfd-9aa4-cad5a902268b"), "unicredit@unicredit.com", "Unicredi Bulbank", "1234567890" }
                 });
 
             migrationBuilder.InsertData(
@@ -475,8 +475,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trailers_GarageId",

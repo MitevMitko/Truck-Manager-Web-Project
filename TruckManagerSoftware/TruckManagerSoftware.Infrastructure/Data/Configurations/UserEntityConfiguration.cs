@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
+    using Microsoft.Extensions.DependencyInjection;
     using Models;
 
     using static Common.DataConstants.DataConstants.User;
@@ -61,8 +61,8 @@
             User user = new User()
             {
                 Id = Guid.Parse("71fb597c-02f6-4faa-909d-e25e60e8e4e7"),
-                UserName = "administrator@mail.com",
-                NormalizedUserName = "ADMINISTRATOR@MAIL.COM",
+                UserName = "administrator",
+                NormalizedUserName = "ADMINISTRATOR",
                 Email = "administrator@mail.com",
                 NormalizedEmail = "ADMINISTRATOR@MAIL.COM",
                 Status = "roaming",
@@ -73,14 +73,15 @@
             };
 
             user.PasswordHash = hasher.HashPassword(user, "administrator");
+            user.SecurityStamp = hasher.HashPassword(user, "securitystamp1");
 
             users.Add(user);
 
             user = new User()
             {
                 Id = Guid.Parse("119ca1f9-3f45-4391-a92e-408dce588da6"),
-                UserName = "user@mail.com",
-                NormalizedUserName = "USER@MAIL.COM",
+                UserName = "user",
+                NormalizedUserName = "USER",
                 Email = "user@mail.com",
                 NormalizedEmail = "USER@MAIL.COM",
                 Status = "roaming",
@@ -91,6 +92,7 @@
             };
 
             user.PasswordHash = hasher.HashPassword(user, "user");
+            user.SecurityStamp = hasher.HashPassword(user, "securitystamp2");
 
             users.Add(user);
 

@@ -12,7 +12,7 @@ using TruckManagerSoftware.Infrastructure.Data;
 namespace TruckManagerSoftware.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240321080239_InitialMigration")]
+    [Migration("20240407180410_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,14 +187,14 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a204b0ca-adb3-472e-93ab-765ae5c507b4"),
+                            Id = new Guid("f0b0dc9a-5826-4dfd-9aa4-cad5a902268b"),
                             Email = "unicredit@unicredit.com",
                             Name = "Unicredi Bulbank",
                             PhoneNumber = "1234567890"
                         },
                         new
                         {
-                            Id = new Guid("e2dd672e-6c70-4dd4-adb0-005c6fa69fa2"),
+                            Id = new Guid("bfd81dcf-f66a-4e88-a534-7b58ba4681b6"),
                             Email = "dsk@dsk.com",
                             Name = "DSK",
                             PhoneNumber = "0123456789"
@@ -352,7 +352,8 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.Property<string>("TripTime")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<Guid?>("TruckId")
                         .HasColumnType("uniqueidentifier");
@@ -686,6 +687,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -702,10 +704,12 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -736,6 +740,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -748,8 +753,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.HasIndex("OrderId")
                         .IsUnique()
@@ -764,35 +768,37 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f6bea029-72b5-4368-addb-f6852285f978"),
+                            Id = new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5bdf669a-1adc-4431-8b0b-519e74cd26b1",
+                            ConcurrencyStamp = "4c9ba500-41d9-4b73-9ded-a612d597c42a",
                             Email = "administrator@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@MAIL.COM",
-                            NormalizedUserName = "ADMINISTRATOR@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ4FnEJKV27O+maVFK8+xDXTYNePqi/JQMVd/JXqaTU8OmE4P0Lg55hN4Fj5ed/JAA==",
+                            NormalizedUserName = "ADMINISTRATOR",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL0gZLK5MJUHSLk18C67ZvAeMiM3uDZJjOkuUs/eoLkxahhGCtzYqK7ahP80Yx079A==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "AQAAAAEAACcQAAAAECQHfTAwNUaRvO451trA3Hfjtvu9qJ5/n31AEUQYr+gzuHD80TDJCP7CPNo39kNveQ==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
-                            UserName = "administrator@mail.com"
+                            UserName = "administrator"
                         },
                         new
                         {
-                            Id = new Guid("35e9b241-fbb8-401a-99b0-67e06e5cbde6"),
+                            Id = new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0c8aa95c-1cd3-41d0-9e82-2e608c8adef7",
+                            ConcurrencyStamp = "9d578ac4-b91f-4fc0-ba10-bb92704b75cf",
                             Email = "user@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@MAIL.COM",
-                            NormalizedUserName = "USER@MAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPH/O4l/jV467uv24Nsyh5QkwMQPB8dekJejXqSYyCrnbz1vQ51voB4WOOV2isWbcg==",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFrjv3kX0JrSEfH9Ul0cNz2J/fBagHiDOD/5gI32v8MPJWUeLspdIK33/CI1F9S9g==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "AQAAAAEAACcQAAAAEHRPDwxLCimalXWz3qV0/+CY2jextE/Pw9RTwtEO8aBcYhUe00K3be8eZPy4Z23JCg==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
-                            UserName = "user@mail.com"
+                            UserName = "user"
                         });
                 });
 

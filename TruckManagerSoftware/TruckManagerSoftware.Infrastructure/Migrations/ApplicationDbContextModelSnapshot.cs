@@ -180,7 +180,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BankContacts", (string)null);
+                    b.ToTable("BankContacts");
 
                     b.HasData(
                         new
@@ -221,7 +221,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Engines", (string)null);
+                    b.ToTable("Engines");
 
                     b.HasData(
                         new
@@ -273,7 +273,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Garages", (string)null);
+                    b.ToTable("Garages");
 
                     b.HasData(
                         new
@@ -361,7 +361,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
 
                     b.HasData(
                         new
@@ -458,7 +458,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasIndex("GarageId");
 
-                    b.ToTable("Trailers", (string)null);
+                    b.ToTable("Trailers");
 
                     b.HasData(
                         new
@@ -541,7 +541,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transmissions", (string)null);
+                    b.ToTable("Transmissions");
 
                     b.HasData(
                         new
@@ -624,7 +624,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
 
                     b.HasIndex("TransmissionId");
 
-                    b.ToTable("Trucks", (string)null);
+                    b.ToTable("Trucks");
 
                     b.HasData(
                         new
@@ -724,7 +724,6 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
@@ -769,15 +768,15 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         {
                             Id = new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bcb6a1b9-b95d-428c-9331-0ab821c69dce",
+                            ConcurrencyStamp = "4c9ba500-41d9-4b73-9ded-a612d597c42a",
                             Email = "administrator@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@MAIL.COM",
                             NormalizedUserName = "ADMINISTRATOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAELsmyXtenSduocNgwChSAn6FD2yLPmVVDLnDrzKm4LC3nmz8OYLLbd7zcEIb6P0GpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL0gZLK5MJUHSLk18C67ZvAeMiM3uDZJjOkuUs/eoLkxahhGCtzYqK7ahP80Yx079A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "CAF1B8DCED0B41709F041359B9D03603",
+                            SecurityStamp = "AQAAAAEAACcQAAAAECQHfTAwNUaRvO451trA3Hfjtvu9qJ5/n31AEUQYr+gzuHD80TDJCP7CPNo39kNveQ==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
                             UserName = "administrator"
@@ -786,15 +785,15 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         {
                             Id = new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "152ef754-a197-4773-9851-f04b9661534f",
+                            ConcurrencyStamp = "9d578ac4-b91f-4fc0-ba10-bb92704b75cf",
                             Email = "user@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@MAIL.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB0kGpnH9ZCmbTln3RApISjl8eHEhkxYnoXfc3oDPFMSooqtUXMvKynjtCGjrMoIGw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFrjv3kX0JrSEfH9Ul0cNz2J/fBagHiDOD/5gI32v8MPJWUeLspdIK33/CI1F9S9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3F2BAC119197451C9DB26F3CF28E5B89",
+                            SecurityStamp = "AQAAAAEAACcQAAAAEHRPDwxLCimalXWz3qV0/+CY2jextE/Pw9RTwtEO8aBcYhUe00K3be8eZPy4Z23JCg==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
                             UserName = "user"
