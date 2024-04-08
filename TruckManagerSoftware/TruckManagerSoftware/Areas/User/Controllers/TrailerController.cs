@@ -6,10 +6,11 @@
     using Core.Models.Trailer;
     using Core.Services.Contract;
 
+    using static Common.DataConstants.DataConstants.User;
     using static Common.Messages.Messages.Common;
 
-    [Area("User")]
-    [Authorize]
+    [Area(UserAreaName)]
+    [Authorize(Roles = UserRoleName)]
     public class TrailerController : Controller
     {
         private readonly ITrailerService trailerService;

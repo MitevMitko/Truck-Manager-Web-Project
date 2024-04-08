@@ -17,7 +17,7 @@
     <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
 }
 
-<form asp-controller="Garage" asp-action="Add" method="get" enctype="multipart/form-data">
+<form asp-area="User" asp-controller="Garage" asp-action="Add" method="get" enctype="multipart/form-data">
     <div class="form-group mb-3">
         <input class="btn btn-primary" type="submit" value="Add" />
     </div>
@@ -46,7 +46,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <form asp-controller="Garage" asp-action="Edit" asp-route-id="@garage.Id" method="get" enctype="multipart/form-data">
+                                <form asp-area="User" asp-controller="Garage" asp-action="Edit" asp-route-id="@garage.Id" method="get" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <input class="btn btn-warning" type="submit" value="Edit" />
                                     </div>
@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="col">
-                                <form asp-controller="Garage" asp-action="Remove" asp-route-id="@garage.Id" method="post" enctype="multipart/form-data">
+                                <form asp-area="User" asp-controller="Garage" asp-action="Remove" asp-route-id="@garage.Id" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <input class="btn btn-danger" type="submit" value="Delete" />
                                     </div>

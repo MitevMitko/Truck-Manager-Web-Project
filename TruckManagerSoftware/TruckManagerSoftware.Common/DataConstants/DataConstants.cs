@@ -147,6 +147,12 @@
             public const int ImageMaxLength = 50;
         }
 
+        public static class Unauthorized
+        {
+            // Area Name
+            public const string UnauthorizedAreaName = "Unauthorized";
+        }
+
         public static class User
         {
             // UserName

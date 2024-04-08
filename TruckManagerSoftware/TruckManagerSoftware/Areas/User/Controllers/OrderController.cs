@@ -6,10 +6,11 @@
     using Core.Models.Order;
     using Core.Services.Contract;
 
+    using static Common.DataConstants.DataConstants.User;
     using static Common.Messages.Messages.Common;
 
-    [Area("User")]
-    [Authorize]
+    [Area(UserAreaName)]
+    [Authorize(Roles = UserRoleName)]
     public class OrderController : Controller
     {
         private readonly IOrderService orderService;

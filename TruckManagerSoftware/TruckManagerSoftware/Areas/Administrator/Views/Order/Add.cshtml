@@ -1,0 +1,104 @@
+﻿@model AddOrderViewModel
+
+@{
+    ViewBag.Title = "Create New Order";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<p>@Html.ValidationSummary(false)</p>
+
+@if (TempData["ExceptionMessage"] != null)
+{
+    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-area="Administrator" asp-controller="Order" asp-action="Add" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="@Model.Cargo" class="form-label-add-edit fw-bold">Cargo</label>
+                <input asp-for="@Model.Cargo" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Cargo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.CargoWeight" class="form-label-add-edit fw-bold">Cargo Weight</label>
+                <div class="input-group">
+                    <input asp-for="@Model.CargoWeight" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">Ton</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.CargoWeight" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.StartPoint" class="form-label-add-edit fw-bold">Start Destination</label>
+                <input asp-for="@Model.StartPoint" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.StartPoint" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.EndPoint" class="form-label-add-edit fw-bold">Target Destination</label>
+                <input asp-for="@Model.EndPoint" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.EndPoint" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.DeliveryType" class="form-label-add-edit fw-bold">Delivery Type</label>
+                <select asp-for="@Model.DeliveryType" class="form-control">
+                    @foreach (var option in Html.GetEnumSelectList<OrderDeliveryTypeEnum>())
+                    {
+                        <option value="@option.Text">@option.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.DeliveryType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.TripDistance" class="form-label-add-edit fw-bold">Trip Distance</label>
+                <div class="input-group">
+                    <input asp-for="@Model.TripDistance" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">Kilometer</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.TripDistance" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.TripTime" class="form-label-add-edit fw-bold">Trip Time</label>
+                <input asp-for="@Model.TripTime" class="form-control" aria-required="true" placeholder="Example: 10h 15m" />
+                <span asp-validation-for="@Model.TripTime" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.DeliveryPrice" class="form-label-add-edit fw-bold">Delivery Price</label>
+                <div class="input-group">
+                    <input asp-for="@Model.DeliveryPrice" class="form-control" aria-required="true" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">BGN</span>
+                    </div>
+                </div>
+                <span asp-validation-for="@Model.DeliveryPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Add" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        window.setTimeout(function () {
+            $("#alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>
+}

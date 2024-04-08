@@ -6,8 +6,10 @@
 
     using Infrastructure.Data.Models;
 
-    [Area("User")]
-    [Authorize]
+    using static Common.DataConstants.DataConstants.User;
+
+    [Area(UserAreaName)]
+    [Authorize(Roles = UserRoleName)]
     public class UserController : Controller
     {
         private readonly SignInManager<User> signInManager;

@@ -1,0 +1,99 @@
+﻿@model ICollection<OrderInfoViewModel>
+
+@{
+    ViewBag.Title = "All Orders";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (TempData["Message"] != null)
+{
+    <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
+}
+
+@if (TempData["ExceptionMessage"] != null)
+{
+    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
+}
+
+<form asp-area="Administrator" asp-controller="Order" asp-action="Add" method="get" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>
+
+<div class="container">
+    <div class="row">
+        @foreach (var order in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div>
+                            <span class="fw-bold">Cargo: </span> @order.Cargo
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Cargo Weight: </span> @order.CargoWeight Tons
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Start Destination: </span> @order.StartPoint
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Target Destination: </span> @order.EndPoint
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Delivery Type: </span> @order.DeliveryType
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Trip Distance: </span> @order.TripDistance Kilometers
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Trip Time: </span> @order.TripTime
+                        </div>
+
+                        <div>
+                            <span class="fw-bold">Delivery Price: </span> @order.DeliveryPrice BGN
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <form asp-area="Administrator" asp-controller="Order" asp-action="Edit" asp-route-id="@order.Id" method="get" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input class="btn btn-warning" type="submit" value="Edit" />
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col">
+                                <form asp-area="Administrator" asp-controller="Order" asp-action="Remove" asp-route-id="@order.Id" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input class="btn btn-danger" type="submit" value="Delete" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.setTimeout(function () {
+            $("#alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>
+}

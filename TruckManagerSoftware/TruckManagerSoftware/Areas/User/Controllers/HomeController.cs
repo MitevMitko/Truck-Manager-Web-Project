@@ -3,8 +3,10 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Area("User")]
-    [Authorize]
+    using static Common.DataConstants.DataConstants.User;
+
+    [Area(UserAreaName)]
+    [Authorize(Roles = UserRoleName)]
     public class HomeController : Controller
     {
         public IActionResult Index()

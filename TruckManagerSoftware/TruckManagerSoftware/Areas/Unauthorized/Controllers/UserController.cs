@@ -6,9 +6,11 @@
     using Core.Models.User;
     using Infrastructure.Data.Models;
 
+    using static Common.DataConstants.DataConstants.Admin;
+    using static Common.DataConstants.DataConstants.Unauthorized;
     using static Common.DataConstants.DataConstants.User;
 
-    [Area("Unauthorized")]
+    [Area(UnauthorizedAreaName)]
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -114,18 +116,16 @@
                 if (result.Succeeded)
                 {
                     // Get the user's roles
-                    //var roles = await userManager.GetRolesAsync(user);
+                    var roles = await userManager.GetRolesAsync(user);
 
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
-
-                    //if (roles.Contains("Admin") && roles.Contains("User"))
-                    //{
-                    //    return RedirectToAction("Index", "Home", new { area = "Admin" });
-                    //}
-                    //else if (roles.Contains("User"))
-                    //{
-                    //    return RedirectToAction("Index", "Home", new { area = "User" });
-                    //}
+                    if (roles.Contains(AdminRoleName))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = AdminAreaName });
+                    }
+                    else if (roles.Contains(UserRoleName))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = UserAreaName });
+                    }
                 }
             }
 

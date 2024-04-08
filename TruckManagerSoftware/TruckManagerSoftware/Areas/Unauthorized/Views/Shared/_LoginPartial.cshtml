@@ -8,23 +8,25 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li>
-            <script>
-                window.location.href = '@Url.Action("Index", "Home", new { area = "Admin" })';
-            </script>
-        </li>
+        var user = await UserManager.FindByNameAsync(User.Identity?.Name);
+        var roles = await UserManager.GetRolesAsync(user);
 
-        @* var user = await UserManager.FindByNameAsync(User.Identity?.Name);
-    var roles = await UserManager.GetRolesAsync(user);
-
-    if (roles.Contains("Admin") && roles.Contains("User"))
-    {
-    Url.Action("Index", "Home", new { area = "Admin" });
-    }
-    else if (roles.Contains("User"))
-    {
-    Url.Action("Index", "Home", new { area = "User" });
-    } *@
+        if (roles.Contains(AdminRoleName))
+        {
+            <li>
+                <script>
+                    window.location.href = '@Url.Action("Index", "Home", new { area = AdminAreaName })';
+                </script>
+            </li>
+        }
+        else if (roles.Contains(UserRoleName))
+        {
+            <li>
+                <script>
+                    window.location.href = '@Url.Action("Index", "Home", new { area = UserAreaName })';
+                </script>
+            </li>
+        }
 
     }
     else

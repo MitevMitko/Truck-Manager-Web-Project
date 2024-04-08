@@ -2,7 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    [Area("Unauthorized")]
+    using static Common.DataConstants.DataConstants.Unauthorized;
+
+    [Area(UnauthorizedAreaName)]
     public class ErrorController : Controller
     {
         public IActionResult NotFound404()
