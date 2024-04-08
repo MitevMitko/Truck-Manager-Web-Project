@@ -1,7 +1,44 @@
 ﻿namespace TruckManagerSoftware.Common.DataConstants
 {
+    using static TruckManagerSoftware.Common.DataConstants.DataConstants;
+
     public static class DataConstants
     {
+        public static class Admin
+        {
+            // Role Name
+            public const string AdminRoleName = "Administrator";
+
+            // Development Email
+            public const string AdminDevelopmentEmail = "administrator@mail.com";
+
+            // Area Name
+            public const string AdminAreaName = "Administrator";
+
+        }
+
+        public static class BankContact
+        {
+            // Name
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 50;
+
+            // Email
+            public const int EmailMinLength = 3;
+            public const int EmailMaxLength = 30;
+
+            // Phone Number
+            public const int PhoneNumberMinLength = 10;
+            public const int PhoneNumberMaxLength = 20;
+        }
+
+        public static class Engine
+        {
+            // Title
+            public const int TitleMinLength = 3;
+            public const int TitleMaxLength = 30;
+        }
+
         public static class Garage
         {
             // Country
@@ -17,19 +54,48 @@
             public const int SizeMaxLength = 30;
         }
 
-        public static class Truck
+        public static class Image
         {
-            // Brand
-            public const int BrandMinLength = 3;
-            public const int BrandMaxLength = 30;
+            // Width
+            public const int ImageWidth = 1200;
 
-            // Series
-            public const int SeriesMinLength = 1;
-            public const int SeriesMaxLength = 30;
+            // Height
+            public const int ImageHeight = 600;
 
-            // Image
-            public const int ImageMinLength = 3;
-            public const int ImageMaxLength = 50;
+            // User's Avatars Path
+            public const string UsersAvatarsPath = "wwwroot\\Images\\Avatars";
+
+            // Truck's Images Path
+            public const string TrucksImagesPath = "wwwroot\\Images\\Trucks";
+
+            // Trailer's Images Path
+            public const string TrailersImagesPath = "wwwroot\\Images\\Trailers";
+        }
+
+        public static class Order
+        {
+            // Cargo
+            public const int CargoMinLength = 3;
+            public const int CargoMaxLength = 30;
+
+            // Start Point
+            public const int StartPointMinLength = 3;
+            public const int StartPointMaxLength = 30;
+
+            // End Point
+            public const int EndPointMinLength = 3;
+            public const int EndPointMaxLength = 30;
+
+            // Delivery Type
+            public const int DeliveryTypeMinLength = 3;
+            public const int DeliveryTypeMaxLength = 30;
+
+            // Trip Time
+            public const int TripTimeMinLength = 3;
+            public const int TripTimeMaxLength = 20;
+
+            // RegEx Expression For Validation Of Trip Time
+            public const string TripTimeRegExExpression = @"^\d+h\s\d+m$";
         }
 
         public static class Trailer
@@ -59,59 +125,26 @@
             public const int ImageMaxLength = 50;
         }
 
-        public static class Order
-        {
-            // Cargo
-            public const int CargoMinLength = 3;
-            public const int CargoMaxLength = 30;
-
-            // Start Point
-            public const int StartPointMinLength = 3;
-            public const int StartPointMaxLength = 30;
-
-            // End Point
-            public const int EndPointMinLength = 3;
-            public const int EndPointMaxLength = 30;
-
-            // Delivery Type
-            public const int DeliveryTypeMinLength = 3;
-            public const int DeliveryTypeMaxLength = 30;
-
-            // Trip Time
-            public const int TripTimeMinLength = 3;
-            public const int TripTimeMaxLength = 20;
-
-            // RegEx Expression For Validation Of Trip Time
-            public const string TripTimeRegExExpression = @"^\d+h\s\d+m$";
-        }
-
-        public static class BankContact
-        {
-            // Name
-            public const int NameMinLength = 3;
-            public const int NameMaxLength = 50;
-
-            // Email
-            public const int EmailMinLength = 3;
-            public const int EmailMaxLength = 30;
-
-            // Phone Number
-            public const int PhoneNumberMinLength = 10;
-            public const int PhoneNumberMaxLength = 20;
-        }
-
-        public static class Engine
-        {
-            // Title
-            public const int TitleMinLength = 3;
-            public const int TitleMaxLength = 30;
-        }
-
         public static class Transmission
         {
             // Title
             public const int TitleMinLength = 3;
             public const int TitleMaxLength = 30;
+        }
+
+        public static class Truck
+        {
+            // Brand
+            public const int BrandMinLength = 3;
+            public const int BrandMaxLength = 30;
+
+            // Series
+            public const int SeriesMinLength = 1;
+            public const int SeriesMaxLength = 30;
+
+            // Image
+            public const int ImageMinLength = 3;
+            public const int ImageMaxLength = 50;
         }
 
         public static class User
@@ -138,24 +171,15 @@
 
             // Status Value When Register User
             public const string StatusValueWhenRegisterUser = "roaming";
-        }
 
-        public static class Image
-        {
-            // Width
-            public const int ImageWidth = 1200;
+            // Role Name
+            public const string UserRoleName = "User";
 
-            // Height
-            public const int ImageHeight = 600;
+            // Development Email
+            public const string UserDevelopmentEmail = "user@mail.com";
 
-            // User's Avatars Path
-            public const string UsersAvatarsPath = "wwwroot\\Images\\Avatars";
-
-            // Truck's Images Path
-            public const string TrucksImagesPath = "wwwroot\\Images\\Trucks";
-
-            // Trailer's Images Path
-            public const string TrailersImagesPath = "wwwroot\\Images\\Trailers";
+            // Area Name
+            public const string UserAreaName = "User";
         }
     }
 }

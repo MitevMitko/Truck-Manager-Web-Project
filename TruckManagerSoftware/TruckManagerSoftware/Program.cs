@@ -6,6 +6,7 @@ namespace TruckManagerSoftware
 
     using Core.Services.Contract;
     using Core.Services.Implementation;
+    using Infrastructure.Extensions;
     using Infrastructure.Data;
     using Infrastructure.Data.Models;
     using Infrastructure.UnitOfWork.Contract;
@@ -83,6 +84,9 @@ namespace TruckManagerSoftware
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdmin();
+            app.SeedUser();
 
             app.MapControllerRoute(
                 name: "areas",
