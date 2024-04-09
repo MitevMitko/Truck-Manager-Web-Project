@@ -9,6 +9,7 @@ namespace TruckManagerSoftware
     using Infrastructure.Extensions;
     using Infrastructure.Data;
     using Infrastructure.Data.Models;
+    using Infrastructure.ModelBinders;
     using Infrastructure.UnitOfWork.Contract;
     using Infrastructure.UnitOfWork.Implementation;
 
@@ -60,7 +61,11 @@ namespace TruckManagerSoftware
                 options.LoginPath = "/Unauthorized/User/Login";
             });
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider());
+                });
 
             var app = builder.Build();
 

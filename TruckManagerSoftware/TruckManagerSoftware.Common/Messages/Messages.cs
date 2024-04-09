@@ -62,7 +62,7 @@
 
             public const string TrailerSuccessfullyCreatedMessage = "Trailer was successfully added!";
 
-            public const string TrailerSuccessfullyEditedMessage = "Trailer was successfully created!";
+            public const string TrailerSuccessfullyEditedMessage = "Trailer was successfully edited!";
 
             public const string TrailerSuccessfullyRemovedMessage = "Trailer was successfully removed!";
         }
