@@ -47,7 +47,7 @@
 
                 TempData["Message"] = TrailerSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Trailer");
+                return RedirectToAction("All", "Trailer");
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Trailer");
+                return RedirectToAction("All", "Trailer");
             }
         }
 
@@ -107,7 +107,7 @@
 
                 TempData["Message"] = TrailerSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Trailer");
+                return RedirectToAction("All", "Trailer");
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -128,14 +128,20 @@
 
                 TempData["Message"] = TrailerSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Trailer");
+                return RedirectToAction("All", "Trailer");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Trailer");
+                return RedirectToAction("All", "Trailer");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -147,7 +153,7 @@
                 // All trailers from the database
                 ICollection<TrailerInfoViewModel> serviceModel = await trailerService.GetAllTrailersInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

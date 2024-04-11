@@ -47,7 +47,7 @@
 
                 TempData["Message"] = EngineSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Engine");
+                return RedirectToAction("All", "Engine");
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Engine");
+                return RedirectToAction("All", "Engine");
             }
         }
 
@@ -103,7 +103,7 @@
 
                 TempData["Message"] = EngineSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Engine");
+                return RedirectToAction("All", "Engine");
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -124,14 +124,20 @@
 
                 TempData["Message"] = EngineSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Engine");
+                return RedirectToAction("All", "Engine");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Engine");
+                return RedirectToAction("All", "Engine");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -143,7 +149,7 @@
                 // All engines from the database
                 ICollection<EngineInfoViewModel> serviceModel = await engineService.GetAllEnginesInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

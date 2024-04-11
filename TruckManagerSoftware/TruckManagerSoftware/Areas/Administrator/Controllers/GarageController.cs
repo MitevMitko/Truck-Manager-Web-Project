@@ -47,7 +47,7 @@
 
                 TempData["Message"] = GarageSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Garage");
+                return RedirectToAction("All", "Garage");
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Garage");
+                return RedirectToAction("All", "Garage");
             }
         }
 
@@ -102,7 +102,7 @@
 
                 TempData["Message"] = GarageSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Garage");
+                return RedirectToAction("All", "Garage");
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -123,14 +123,20 @@
 
                 TempData["Message"] = GarageSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Garage");
+                return RedirectToAction("All", "Garage");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Garage");
+                return RedirectToAction("All", "Garage");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -142,7 +148,7 @@
                 // All garages from the database
                 ICollection<GarageInfoViewModel> serviceModel = await garageService.GetAllGaragesInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

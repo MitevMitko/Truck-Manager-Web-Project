@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TruckManagerSoftware.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap-table.min.css" />
 </head>
 <body>
     <header>
@@ -24,31 +25,31 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="BankContact" asp-action="GetAll">Bank Contacts</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="BankContact" asp-action="All">Bank Contacts</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Engine" asp-action="GetAll">Engines</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Engine" asp-action="All">Engines</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Garage" asp-action="GetAll">Garages</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Garage" asp-action="All">Garages</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Order" asp-action="GetAll">Orders</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Order" asp-action="All">Orders</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Trailer" asp-action="GetAll">Trailers</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Trailer" asp-action="All">Trailers</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Transmission" asp-action="GetAll">Transmissions</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Transmission" asp-action="All">Transmissions</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Truck" asp-action="GetAll">Trucks</a>
+                            <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Truck" asp-action="All">Trucks</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -70,6 +71,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap-table.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

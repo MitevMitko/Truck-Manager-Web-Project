@@ -47,7 +47,7 @@
 
                 TempData["Message"] = TruckSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Truck");
+                return RedirectToAction("All", "Truck");
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Truck");
+                return RedirectToAction("All", "Truck");
             }
         }
 
@@ -102,7 +102,7 @@
 
                 TempData["Message"] = TruckSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Truck");
+                return RedirectToAction("All", "Truck");
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -123,14 +123,20 @@
 
                 TempData["Message"] = TruckSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Truck");
+                return RedirectToAction("All", "Truck");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Truck");
+                return RedirectToAction("All", "Truck");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -142,7 +148,7 @@
                 // All trucks from the database
                 ICollection<TruckInfoViewModel> serviceModel = await truckService.GetAllTrucksInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

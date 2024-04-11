@@ -47,7 +47,7 @@
 
                 TempData["Message"] = TransmissionSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Transmission");
+                return RedirectToAction("All", "Transmission");
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Transmission");
+                return RedirectToAction("All", "Transmission");
             }
         }
 
@@ -102,7 +102,7 @@
 
                 TempData["Message"] = TransmissionSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Transmission");
+                return RedirectToAction("All", "Transmission");
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -123,14 +123,20 @@
 
                 TempData["Message"] = TransmissionSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Transmission");
+                return RedirectToAction("All", "Transmission");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Transmission");
+                return RedirectToAction("All", "Transmission");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -142,7 +148,7 @@
                 // All transmissions from the database
                 ICollection<TransmissionInfoViewModel> serviceModel = await transmissionService.GetAllTransmissionsInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

@@ -47,7 +47,7 @@
 
                 TempData["Message"] = OrderSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "Order");
+                return RedirectToAction("All", "Order");
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Order");
+                return RedirectToAction("All", "Order");
             }
         }
 
@@ -107,7 +107,7 @@
 
                 TempData["Message"] = OrderSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "Order");
+                return RedirectToAction("All", "Order");
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -128,14 +128,20 @@
 
                 TempData["Message"] = OrderSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "Order");
+                return RedirectToAction("All", "Order");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "Order");
+                return RedirectToAction("All", "Order");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -147,7 +153,7 @@
                 // All orders from the database
                 ICollection<OrderInfoViewModel> serviceModel = await orderService.GetAllOrdersInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

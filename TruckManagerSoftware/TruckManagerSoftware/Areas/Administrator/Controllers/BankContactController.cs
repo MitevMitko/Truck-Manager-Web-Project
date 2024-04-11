@@ -47,7 +47,7 @@
 
                 TempData["Message"] = BankContactSuccessfullyCreatedMessage;
 
-                return RedirectToAction("GetAll", "BankContact");
+                return RedirectToAction("All", "BankContact");
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "BankContact");
+                return RedirectToAction("All", "BankContact");
             }
         }
 
@@ -102,7 +102,7 @@
 
                 TempData["Message"] = BankContactSuccessfullyEditedMessage;
 
-                return RedirectToAction("GetAll", "BankContact");
+                return RedirectToAction("All", "BankContact");
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
@@ -123,14 +123,20 @@
 
                 TempData["Message"] = BankContactSuccessfullyRemovedMessage;
 
-                return RedirectToAction("GetAll", "BankContact");
+                return RedirectToAction("All", "BankContact");
             }
             catch (Exception ex)
             {
                 TempData["ExceptionMessage"] = ex.Message;
 
-                return RedirectToAction("GetAll", "BankContact");
+                return RedirectToAction("All", "BankContact");
             }
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -142,7 +148,7 @@
                 // All bank contacts from the database
                 ICollection<BankContactInfoViewModel> serviceModel = await bankContactService.GetAllBankContactsInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {

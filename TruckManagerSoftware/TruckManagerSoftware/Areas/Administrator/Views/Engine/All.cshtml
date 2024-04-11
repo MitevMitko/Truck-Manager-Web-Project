@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "All Engines";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (TempData["Message"] != null)
+{
+    <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
+}
+
+@if (TempData["ExceptionMessage"] != null)
+{
+    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
+}
+
+<form asp-area="Administrator" asp-controller="Engine" asp-action="Add" method="get" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>
+
+<div>
+    <table class="table table-bordered table-striped"
+           id="table"
+           data-click-to-select="true"
+           data-toggle="table"
+           data-search="true"
+           data-pagination="true"
+           data-url="@Url.Action("GetAll", "Engine", new { area = "Administrator" })"
+           data-page-size="5"
+           data-page-list="[10, 25, 50, 100]">
+        <thead>
+            <tr>
+                <th data-field="count" data-formatter="rowNumberFormatter">No.</th>
+                <th data-field="title" data-sortable="true">Title</th>
+                <th data-field="powerHp" data-sortable="true">Power (Horse Power)</th>
+                <th data-field="powerKw" data-sortable="true">Power (Kilowatt)</th>
+                <th data-field="torqueNm" data-sortable="true">Torque (Newton-meter)</th>
+                <th data-field="buttons" class="table-hover" data-formatter="actionButtons">Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function rowNumberFormatter(value, row, index) {
+            return index + 1;
+        }
+    </script>
+
+    <script>
+        function actionButtons(row, value) {
+            let editUrl = "@Url.Action("Edit", "Engine", new { area = "Administrator", id = '0' })";
+            editUrl = editUrl.replace('0', value.id);
+
+            let removeUrl = "@Url.Action("Remove", "Engine", new { area = "Administrator", id = '0' })";
+            removeUrl = removeUrl.replace('0', value.id);
+
+            return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
+                            <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>`;
+        }
+    </script>
+
+    <script>
+        window.setTimeout(function () {
+            $("#alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 5000);
+    </script>
+}
