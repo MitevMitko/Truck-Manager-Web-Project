@@ -9,5 +9,9 @@
         public string City { get; set; } = null!;
 
         public string Size { get; set; } = null!;
+
+        public int TrucksCapacity { get; set; }
+
+        public int TrailersCapacity { get; set; }
     }
 }

@@ -4,6 +4,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Core.Models.Garage;
+    using Core.Models.Trailer;
+    using Core.Models.Truck;
     using Core.Services.Contract;
 
     using static Common.DataConstants.DataConstants.Admin;
@@ -16,9 +18,15 @@
     {
         private readonly IGarageService garageService;
 
-        public GarageController(IGarageService garageService)
+        private readonly ITrailerService trailerService;
+
+        private readonly ITruckService truckService;
+
+        public GarageController(IGarageService garageService, ITrailerService trailerService, ITruckService truckService)
         {
             this.garageService = garageService;
+            this.trailerService = trailerService;
+            this.truckService = truckService;
         }
 
         [HttpGet]
@@ -155,6 +163,236 @@
                 TempData["ExceptionMessage"] = SomethingWentWrongMessage;
 
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GarageTrucks(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // garage with property Id == id
+                GarageInfoViewModel garageInfo = await garageService.GetGarageInfoById(id);
+
+                return View(garageInfo);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetGarageTrucks(Guid id)
+        {
+            try
+            {
+                ICollection<GarageTruckInfoViewModel> serviceModel = await garageService.GetGarageTrucksInfo(id);
+
+                return Json(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GarageTrailers(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // garage with property Id == id
+                GarageInfoViewModel garageInfo = await garageService.GetGarageInfoById(id);
+
+                return View(garageInfo);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetGarageTrailers(Guid id)
+        {
+            try
+            {
+                ICollection<GarageTrailerInfoViewModel> serviceModel = await garageService.GetGarageTrailersInfo(id);
+
+                return Json(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GarageTrucksTrailers(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // garage with property Id == id
+                GarageInfoViewModel garageInfo = await garageService.GetGarageInfoById(id);
+
+                return View(garageInfo);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetGarageTrucksTrailers(Guid id)
+        {
+            try
+            {
+                ICollection<GarageTruckTrailerInfoViewModel> serviceModel = await garageService.GetGarageTrucksTrailersInfo(id);
+
+                return Json(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalGarageTruckInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional garage's truck info
+                // By id from the database
+                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("GarageTrucks", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalGarageTrailerInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional garage's trailer info
+                // By id from the database
+                TrailerAdditionalInfoViewModel serviceModel = await trailerService.GetAdditionalTrailerInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("GarageTrailers", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChooseTruckTrailer(Guid id)
+        {
+            try
+            {
+                // Get additional garage's truck info
+                // By id from the database
+                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("GarageTrucks", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetGarageTrailersWithoutTruckId(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // trailers with property
+                // TruckId == null
+                // And property GarageId == id
+                ICollection<TrailerInfoViewModel> serviceModel = await trailerService.GetAllTrailersInfoByGarageIdWithoutTruckId(id);
+
+                return Json(serviceModel);
+            }
+            catch (Exception)
+            {
+                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+
+                return RedirectToAction("GarageTrucks", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddGarageTruckToGarageTrailer(Guid id, Guid trailerId)
+        {
+            try
+            {
+                // Service which adds trailer
+                // With property Id == trailerId
+                // To truck with property Id == id
+                await garageService.AddGarageTruckToGarageTrailer(id, trailerId);
+
+                TempData["Message"] = GarageTrailerSuccessfullyAddedToGarageTruckMessage;
+
+                return RedirectToAction("GetAdditionalGarageTruckInfoById", "Garage", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("GarageTrucks", "Garage");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveGarageTruckFromGarageTrailer(Guid id, Guid trailerId)
+        {
+            try
+            {
+                // Service which removes trailer
+                // With property Id == trailerId
+                // From truck with property Id == id
+                await garageService.RemoveGarageTruckFromGarageTrailer(id, trailerId);
+
+                TempData["Message"] = GarageTrailerSuccessfullyRemovedFromGarageTruckMessage;
+
+                return RedirectToAction("GetAdditionalGarageTruckInfoById", "Garage", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("GarageTrucks", "Garage");
             }
         }
     }

@@ -76,6 +76,17 @@
             </div>
 
             <div class="mb-3">
+                <label asp-for="@Model.GarageId" class="form-label-add-edit fw-bold">Garage (Country | City | Size)</label>
+                <select asp-for="@Model.GarageId" class="form-control" aria-required="true">
+                    @foreach (var garage in Model.Garages)
+                    {
+                        <option value="@garage.Id">@garage.Country | @garage.City | @garage.Size</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.GarageId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
                 <label asp-for="@Model.Image" class="form-label-add-edit fw-bold">Upload Trailer Image</label>
                 <input asp-for="@Model.Image" class="form-control" type="file" name="Image" />
             </div>

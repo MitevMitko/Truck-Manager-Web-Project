@@ -4,10 +4,17 @@
 
     using System.ComponentModel.DataAnnotations;
 
+    using Garage;
+
     using static Common.DataConstants.DataConstants.Trailer;
 
     public class AddTrailerViewModel
     {
+        public AddTrailerViewModel()
+        {
+            this.Garages = new HashSet<GarageInfoViewModel>();
+        }
+
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; } = null!;
@@ -38,5 +45,10 @@
         public string CargoTypes { get; set; } = null!;
 
         public IFormFile? Image { get; set; }
+
+        [Required]
+        public Guid GarageId { get; set; }
+
+        public ICollection<GarageInfoViewModel> Garages { get; set; } = null!;
     }
 }

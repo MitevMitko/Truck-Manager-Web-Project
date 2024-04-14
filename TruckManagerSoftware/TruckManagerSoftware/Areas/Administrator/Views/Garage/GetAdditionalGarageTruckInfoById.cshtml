@@ -1,0 +1,122 @@
+﻿@model TruckAdditionalInfoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Brand: </span> @Model.Brand
+                </div>
+
+                <div>
+                    <span class="fw-bold">Series: </span> @Model.Series
+                </div>
+
+                <div>
+                    <span class="fw-bold">Driven Distance: </span> @Model.DrivenDistance
+                </div>
+
+                @{
+                    ViewBag.Image = $"{Model.Image}.jpg";
+                }
+
+                <img src="~/Images/Trucks/@ViewBag.Image" class="card-img-top" alt="image">
+
+                <div>
+                    @{
+                        if (Model.Garage != null)
+                        {
+                            ViewBag.Garage = $"{Model.Garage.Country}/{Model.Garage.City}/{Model.Garage.Size}";
+                        }
+                        else
+                        {
+                            ViewBag.Garage = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Garage: </span> @ViewBag.Garage
+                </div>
+
+                <div>
+                    @{
+                        if (Model.Trailer != null)
+                        {
+                            ViewBag.Trailer = $"{Model.Trailer.Title} {Model.Trailer.Series}";
+                        }
+                        else
+                        {
+                            ViewBag.Trailer = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Trailer: </span> @ViewBag.Trailer
+                </div>
+
+                <div>
+                    @{
+                        if (Model.Order != null)
+                        {
+                            ViewBag.Order = Model.Order.Cargo;
+                        }
+                        else
+                        {
+                            ViewBag.Order = "N/A";
+                        }
+
+                        <span class="fw-bold">Order: </span> @ViewBag.Order
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.Engine != null)
+                        {
+                            ViewBag.Engine = Model.Engine.Title;
+                        }
+                        else
+                        {
+                            ViewBag.Engine = "N/A";
+                        }
+
+                        <span class="fw-bold">Engine: </span> @ViewBag.Engine
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.Transmission != null)
+                        {
+                            ViewBag.Transmission = Model.Transmission.Title;
+                        }
+                        else
+                        {
+                            ViewBag.Transmission = "N/A";
+                        }
+
+                        <span class="fw-bold">Transmission: </span> @ViewBag.Transmission
+                        ;
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.User != null)
+                        {
+                            ViewBag.User = Model.User.UserName;
+                        }
+                        else
+                        {
+                            ViewBag.User = "N/A";
+                        }
+
+                        <span class="fw-bold">User: </span> @ViewBag.User
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

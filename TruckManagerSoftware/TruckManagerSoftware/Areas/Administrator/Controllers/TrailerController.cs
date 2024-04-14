@@ -9,23 +9,36 @@
     using static Common.DataConstants.DataConstants.Admin;
     using static Common.Messages.Messages.Common;
     using static Common.Messages.Messages.Trailer;
+    using TruckManagerSoftware.Core.Models.Garage;
+    using TruckManagerSoftware.Core.Services.Implementation;
 
     [Area(AdminAreaName)]
     [Authorize(Roles = AdminRoleName)]
     public class TrailerController : Controller
     {
+        private readonly IGarageService garageService;
+
         private readonly ITrailerService trailerService;
 
-        public TrailerController(ITrailerService trailerService)
+        public TrailerController(IGarageService garageService, ITrailerService trailerService)
         {
+            this.garageService = garageService;
             this.trailerService = trailerService;
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            // Service which returns
+            // All garages with free space
+            // For trailers from the database
+            ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrailers = await garageService.GetAllGaragesInfoWithFreeSpaceForTrailers();
+
             // Return add trailer view model
-            return View(new AddTrailerViewModel());
+            return View(new AddTrailerViewModel()
+            {
+                Garages = garagesWithFreeSpaceForTrailers
+            });
         }
 
         [HttpPost]
@@ -66,6 +79,11 @@
                 // From the database
                 TrailerInfoViewModel trailerInfo = await trailerService.GetTrailerInfoById(id);
 
+                // Service which returns
+                // All garages with free space
+                // For trailers from the database
+                ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrailers = await garageService.GetAllGaragesInfoWithFreeSpaceForTrailers();
+
                 // Return edit trailer view model
                 return View(new EditTrailerViewModel()
                 {
@@ -77,7 +95,9 @@
                     TareWeight = trailerInfo.TareWeight,
                     AxleCount = trailerInfo.AxleCount,
                     TotalLength = trailerInfo.TotalLength,
-                    CargoTypes = trailerInfo.CargoTypes
+                    CargoTypes = trailerInfo.CargoTypes,
+                    GarageId = trailerInfo.GarageId,
+                    Garages = garagesWithFreeSpaceForTrailers
                 });
             }
             catch (Exception ex)

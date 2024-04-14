@@ -12,6 +12,10 @@
 
         Task<TrailerInfoViewModel> GetTrailerInfoById(Guid id);
 
+        Task<TrailerAdditionalInfoViewModel> GetAdditionalTrailerInfoById(Guid id);
+
         Task<ICollection<TrailerInfoViewModel>> GetAllTrailersInfo();
+
+        Task<ICollection<TrailerInfoViewModel>> GetAllTrailersInfoByGarageIdWithoutTruckId(Guid id);
     }
 }

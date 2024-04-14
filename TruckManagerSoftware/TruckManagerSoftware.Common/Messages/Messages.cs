@@ -41,6 +41,10 @@
             public const string GarageSuccessfullyEditedMessage = "Garage was successfully edited!";
 
             public const string GarageSuccessfullyRemovedMessage = "Garage was successfully removed!";
+
+            public const string GarageTrailerSuccessfullyAddedToGarageTruckMessage = "Garage trailer was successfully added to the garage truck!";
+
+            public const string GarageTrailerSuccessfullyRemovedFromGarageTruckMessage = "Garage trailer was successfully removed from the garage truck!";
         }
 
         public static class Order

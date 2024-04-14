@@ -12,6 +12,8 @@
 
         Task<TruckInfoViewModel> GetTruckInfoById(Guid id);
 
+        Task<TruckAdditionalInfoViewModel> GetAdditionalTruckInfoById(Guid id);
+
         Task<ICollection<TruckInfoViewModel>> GetAllTrucksInfo();
     }
 }

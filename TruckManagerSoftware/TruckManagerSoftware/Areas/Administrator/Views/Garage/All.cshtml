@@ -5,21 +5,10 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-@if (TempData["Message"] != null)
-{
-    <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
-}
-
 @if (TempData["ExceptionMessage"] != null)
 {
     <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
 }
-
-<form asp-area="Administrator" asp-controller="Garage" asp-action="Add" method="get" enctype="multipart/form-data">
-    <div class="form-group mb-3">
-        <input class="btn btn-primary" type="submit" value="Add" />
-    </div>
-</form>
 
 <div>
     <table class="table table-bordered table-striped"
@@ -58,8 +47,20 @@
             let removeUrl = "@Url.Action("Remove", "Garage", new { area = "Administrator", id = '0' })";
             removeUrl = removeUrl.replace('0', value.id);
 
+            let garageTrucksUrl = "@Url.Action("GarageTrucks", "Garage", new { area = "Administrator", id = '0' })";
+            garageTrucksUrl = garageTrucksUrl.replace('0', value.id);
+
+            let garageTrailersUrl = "@Url.Action("GarageTrailers", "Garage", new { area = "Administrator", id = '0' })";
+            garageTrailersUrl = garageTrailersUrl.replace('0', value.id);
+
+            let garageTrucksTrailersUrl = "@Url.Action("GarageTrucksTrailers", "Garage", new { area = "Administrator", id = '0' })";
+            garageTrucksTrailersUrl = garageTrucksTrailersUrl.replace('0', value.id);
+
             return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
-                                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>`;
+                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
+                    <a href="${garageTrucksUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks</a>
+                    <a href="${garageTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trailers</a>
+                    <a href="${garageTrucksTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks + Trailers</a>`;
         }
     </script>
 

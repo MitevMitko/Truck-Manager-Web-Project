@@ -1,7 +1,5 @@
 ﻿namespace TruckManagerSoftware.Core.Models.Truck
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class TruckInfoViewModel
     {
         public Guid Id { get; set; }
@@ -13,5 +11,11 @@
         public double DrivenDistance { get; set; }
 
         public string? Image { get; set; }
+
+        public Guid? GarageId { get; set; }
+
+        public Guid? EngineId { get; set; }
+
+        public Guid? TransmissionId { get; set; }
     }
 }

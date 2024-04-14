@@ -13,8 +13,9 @@
     using Models.Trailer;
 
     using static Common.DataConstants.DataConstants.Image;
-    using static Common.Messages.Messages.Trailer;
     using static Common.Messages.Messages.Image;
+    using static Common.Messages.Messages.Garage;
+    using static Common.Messages.Messages.Trailer;
 
     public class TrailerService : ITrailerService
     {
@@ -33,6 +34,15 @@
 
         public async Task AddTrailer(AddTrailerViewModel model)
         {
+            // Check if the garage
+            // With property Id == model.GarageId exists
+            // If the garage does not exist
+            // Throw argument exception
+            if (!await unitOfWork.Garage.AnyAsync(g => g.Id == model.GarageId))
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
+
             // Create new trailer
             Trailer trailer = new Trailer()
             {
@@ -44,7 +54,8 @@
                 AxleCount = model.AxleCount,
                 TotalLength = model.TotalLength,
                 CargoTypes = model.CargoTypes,
-                Image = null
+                Image = null,
+                GarageId = model.GarageId
             };
 
             // Check if there is uploaded image file
@@ -116,6 +127,15 @@
                 throw new ArgumentException(TrailerNotExistMessage);
             }
 
+            // Check if the garage
+            // With property Id == model.GarageId exists
+            // If the garage does not exist
+            // Throw argument exception
+            if (!await unitOfWork.Garage.AnyAsync(g => g.Id == model.GarageId))
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
+
             // Assign the edited data
             // To the trailer
             trailer.Title = model.Title;
@@ -126,6 +146,7 @@
             trailer.AxleCount = model.AxleCount;
             trailer.TotalLength = model.TotalLength;
             trailer.CargoTypes = model.CargoTypes;
+            trailer.GarageId = model.GarageId;
 
             // Check if there is uploaded image file
             if (model.Image != null && model.Image.Length != 0)
@@ -195,6 +216,70 @@
             await unitOfWork.CompleteAsync();
         }
 
+        public async Task<TrailerAdditionalInfoViewModel> GetAdditionalTrailerInfoById(Guid id)
+        {
+            // Get the trailer by id
+            // From the database
+            Trailer trailer = await unitOfWork.Trailer.GetById(id);
+
+            // If trailer does not exist
+            // Throw argument exception
+            if (trailer == null)
+            {
+                throw new ArgumentException(TrailerNotExistMessage);
+            }
+
+            // Create TrailerAdditionalInfoViewModel
+            // Assign the data from the trailer
+            TrailerAdditionalInfoViewModel trailerAdditionalInfo = new TrailerAdditionalInfoViewModel()
+            {
+                Id = trailer.Id,
+                Title = trailer.Title,
+                Series = trailer.Series,
+                TrailerType = trailer.TrailerType,
+                BodyType = trailer.BodyType,
+                TareWeight = trailer.TareWeight,
+                AxleCount = trailer.AxleCount,
+                TotalLength = trailer.TotalLength,
+                CargoTypes = trailer.CargoTypes,
+                Image = trailer.Image
+            };
+
+            // If the trailer's property called GarageId has value
+            // Get the trailer's garage from the database
+            // If the trailer's property GarageId does not have value
+            // Return null
+            if (trailer.GarageId.HasValue)
+            {
+                // Get the trailer's garage
+                // With id == trailer.GarageId
+                // From the database
+                trailerAdditionalInfo.Garage = await unitOfWork.Garage.GetById(trailer.GarageId.Value);
+            }
+            else
+            {
+                trailerAdditionalInfo.Garage = null;
+            }
+
+            // If the trailer's property called TruckId has value
+            // Get the trailer's truck from the database
+            // If the trailer's property TruckId does not have value
+            // Return null
+            if (trailer.TruckId.HasValue)
+            {
+                // Get the trailer's truck
+                // With id == trailer.TruckId
+                // From the database
+                trailerAdditionalInfo.Truck = await unitOfWork.Truck.GetById(trailer.TruckId.Value);
+            }
+            else
+            {
+                trailerAdditionalInfo.Truck = null;
+            }
+
+            return trailerAdditionalInfo;
+        }
+
         public async Task<ICollection<TrailerInfoViewModel>> GetAllTrailersInfo()
         {
             // Create collection of trailer view model
@@ -230,6 +315,38 @@
             return model;
         }
 
+        public async Task<ICollection<TrailerInfoViewModel>> GetAllTrailersInfoByGarageIdWithoutTruckId(Guid id)
+        {
+            if (!await unitOfWork.Garage.AnyAsync(g => g.Id == id))
+            {
+                throw new ArgumentException(GarageNotExistMessage);
+            }
+
+            ICollection<TrailerInfoViewModel> model = new List<TrailerInfoViewModel>();
+
+            // Get all trailers
+            // With property GarageId == id
+            // And property TruckId == null
+            // From the database
+            ICollection<Trailer> trailers = unitOfWork.Trailer.Find(t => t.GarageId == id && t.TruckId == null).ToList();
+
+            foreach (Trailer trailer in trailers)
+            {
+                TrailerInfoViewModel trailerInfo = new TrailerInfoViewModel()
+                {
+                    Id = trailer.Id,
+                    Title = trailer.Title,
+                    Series = trailer.Series,
+                    TrailerType = trailer.TrailerType,
+                    BodyType = trailer.BodyType
+                };
+
+                model.Add(trailerInfo);
+            }
+
+            return model;
+        }
+
         public async Task<TrailerInfoViewModel> GetTrailerInfoById(Guid id)
         {
             // Get the trailer by id
@@ -257,7 +374,9 @@
                 AxleCount = trailer.AxleCount,
                 TotalLength = trailer.TotalLength,
                 CargoTypes = trailer.CargoTypes,
-                Image = trailer.Image
+                Image = trailer.Image,
+                GarageId = trailer.GarageId,
+                TruckId = trailer.TruckId,
             };
         }
 

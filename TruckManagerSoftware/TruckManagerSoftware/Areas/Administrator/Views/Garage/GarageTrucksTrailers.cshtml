@@ -1,0 +1,76 @@
+﻿@model GarageInfoViewModel
+
+@{
+    ViewBag.Title = "Garage Trucks Trailers Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <span class="fw-bold">Country: </span> @Model.Country
+            </div>
+
+            <div>
+                <span class="fw-bold">City: </span> @Model.City
+            </div>
+
+            <div>
+                <span class="fw-bold">Size: </span> @Model.Size
+            </div>
+
+            <div>
+                <span class="fw-bold">Trucks Max Capacity: </span> @Model.TrucksCapacity
+            </div>
+
+            <div class="fw-bold">Trailers Max Capacity: </div> @Model.TrailersCapacity
+        </div>
+    </div>
+</div>
+
+<div>
+    <table class="table table-bordered table-striped"
+           id="table"
+           data-click-to-select="true"
+           data-toggle="table"
+           data-search="true"
+           data-pagination="true"
+           data-url="@Url.Action("GetGarageTrucksTrailers", "Garage", new { area = "Administrator", id = Model.Id })"
+           data-page-size="5"
+           data-page-list="[10, 25, 50, 100]">
+        <thead>
+            <tr>
+                <th data-field="count" data-formatter="rowNumberFormatter">No.</th>
+                <th data-field="truckBrand" data-sortable="true"> Truck Brand</th>
+                <th data-field="truckSeries" data-sortable="true">Truck Series</th>
+                <th data-field="trailerTitle" data-sortable="true">Trailer Title</th>
+                <th data-field="trailerSeries" data-sortable="true">Trailer Series</th>
+                <th data-field="buttons" class="table-hover" data-formatter="actionButtons">Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function actionButtons(row, value) {
+            let garageTruckUrl = "@Url.Action("GetAdditionalGarageTruckInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            garageTruckUrl = garageTruckUrl.replace('0', value.truckId);
+
+            let garageTrailerUrl = "@Url.Action("GetAdditionalGarageTrailerInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            garageTrailerUrl = garageTrailerUrl.replace('0', value.trailerId);
+
+            return `<a href="${garageTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Truck</a>
+                    <a href="${garageTrailerUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trailer</a>`;
+        }
+    </script>
+
+    <script>
+        function rowNumberFormatter(value, row, index) {
+            return index + 1;
+        }
+    </script>
+}

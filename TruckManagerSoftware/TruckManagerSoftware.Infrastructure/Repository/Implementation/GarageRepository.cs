@@ -3,6 +3,8 @@
     using Contract;
     using Data;
     using Data.Models;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class GarageRepository : GenericRepository<Garage>, IGarageRepository
     {

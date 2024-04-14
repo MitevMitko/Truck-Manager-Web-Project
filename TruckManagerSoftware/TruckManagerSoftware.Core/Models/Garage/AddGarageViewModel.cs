@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Enums;
-
     using static Common.DataConstants.DataConstants.Garage;
 
     public class AddGarageViewModel

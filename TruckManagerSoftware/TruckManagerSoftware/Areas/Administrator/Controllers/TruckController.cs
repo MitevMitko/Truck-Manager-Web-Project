@@ -3,6 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Core.Models.Engine;
+    using Core.Models.Garage;
+    using Core.Models.Transmission;
     using Core.Models.Truck;
     using Core.Services.Contract;
 
@@ -14,18 +17,48 @@
     [Authorize(Roles = AdminRoleName)]
     public class TruckController : Controller
     {
+        private readonly IEngineService engineService;
+
+        private readonly IGarageService garageService;
+
+        private readonly ITransmissionService transmissionService;
+
         private readonly ITruckService truckService;
 
-        public TruckController(ITruckService truckService)
+        public TruckController(IEngineService engineService,
+            IGarageService garageService,
+            ITransmissionService transmissionService,
+            ITruckService truckService)
         {
+            this.engineService = engineService;
+            this.garageService = garageService;
+            this.transmissionService = transmissionService;
             this.truckService = truckService;
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            // Service which returns
+            // All garages with free space
+            // For trucks from the database
+            ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrucks = await garageService.GetAllGaragesInfoWithFreeSpaceForTrucks();
+
+            // Service which returns
+            // All engines from the database
+            ICollection<EngineInfoViewModel> engines = await engineService.GetAllEnginesInfo();
+
+            // Service which returns
+            // All transmissions from the database
+            ICollection<TransmissionInfoViewModel> transmissions = await transmissionService.GetAllTransmissionsInfo();
+
             // Return add truck view model
-            return View(new AddTruckViewModel());
+            return View(new AddTruckViewModel()
+            {
+                Garages = garagesWithFreeSpaceForTrucks,
+                Engines = engines,
+                Transmissions = transmissions
+            });
         }
 
         [HttpPost]
@@ -66,13 +99,32 @@
                 // From the database
                 TruckInfoViewModel truckInfo = await truckService.GetTruckInfoById(id);
 
+                // Service which returns
+                // All garages with free space
+                // For trucks from the database
+                ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrucks = await garageService.GetAllGaragesInfoWithFreeSpaceForTrucks();
+
+                // Service which returns
+                // All engines from the database
+                ICollection<EngineInfoViewModel> engines = await engineService.GetAllEnginesInfo();
+
+                // Service which returns
+                // All transmissions from the database
+                ICollection<TransmissionInfoViewModel> transmissions = await transmissionService.GetAllTransmissionsInfo();
+
                 // Return edit truck view model
                 return View(new EditTruckViewModel()
                 {
                     Id = truckInfo.Id,
                     Brand = truckInfo.Brand,
                     Series = truckInfo.Series,
-                    DrivenDistance = truckInfo.DrivenDistance
+                    DrivenDistance = truckInfo.DrivenDistance,
+                    GarageId = truckInfo.GarageId,
+                    EngineId = truckInfo.EngineId,
+                    TransmissionId = truckInfo.TransmissionId,
+                    Garages = garagesWithFreeSpaceForTrucks,
+                    Engines = engines,
+                    Transmissions = transmissions
                 });
             }
             catch (Exception ex)
@@ -155,6 +207,44 @@
                 TempData["ExceptionMessage"] = SomethingWentWrongMessage;
 
                 return View("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Get truck by id
+                // From the database
+                TruckInfoViewModel serviceModel = await truckService.GetTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Truck");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional truck info
+                // By id from the database
+                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["ExceptionMessage"] = ex.Message;
+
+                return RedirectToAction("All", "Truck");
             }
         }
     }
