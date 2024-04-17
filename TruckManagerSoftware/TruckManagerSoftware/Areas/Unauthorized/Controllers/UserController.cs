@@ -1,41 +1,28 @@
 ﻿namespace TruckManagerSoftware.Areas.Unauthorized.Controllers
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using Core.Models.User;
-    using Infrastructure.Data.Models;
+    using Core.Services.Contract;
 
     using static Common.DataConstants.DataConstants.Admin;
     using static Common.DataConstants.DataConstants.Unauthorized;
     using static Common.DataConstants.DataConstants.User;
+    using static Common.Messages.Messages.User;
 
     [Area(UnauthorizedAreaName)]
     public class UserController : Controller
     {
-        private readonly UserManager<User> userManager;
+        private readonly IUserService userService;
 
-        private readonly SignInManager<User> signInManager;
-
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserController(IUserService userService)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            this.userService = userService;
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            // Check if the user is authenticated
-            // If the user is authenticated
-            // Redirect to action Index from Home Controller
-            //if (User?.Identity?.IsAuthenticated ?? false)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
-            // If the user is not authenticated
-            // Return the register view model
             return View(new RegisterViewModel());
         }
 
@@ -50,43 +37,23 @@
                 return View(model);
             }
 
-            // Create new user
-            User user = new User()
+            try
             {
-                UserName = model.UserName,
-                Email = model.Email,
-                Status = StatusValueWhenRegisterUser
-            };
+                await userService.RegisterUser(model);
 
-            // Try to create new user using
-            // The user manager
-            IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                TempData["Message"] = UserSuccessfullyCreated;
 
-            // If the user is created successfully
-            // Redirect to action Login from User Controller
-            if (result.Succeeded)
-            {
                 return RedirectToAction("Login", "User");
             }
-
-            // If the user is not created successfully
-            // Return the view
-            return View(model);
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            // Check if the user is authenticated
-            // If the user is authenticated
-            // Redirect to action Index from Home Controller
-            //if (User?.Identity?.IsAuthenticated ?? false)
-            //{
-            //    return RedirectToAction("Index", "Home", new { area = "Unauthorized" });
-            //}
-
-            // If the user is not authenticated
-            // Return the login view model
             return View(new LoginViewModel());
         }
 
@@ -101,37 +68,30 @@
                 return View(model);
             }
 
-            // Find the user by username
-            User user = await userManager.FindByNameAsync(model.UserName);
-
-            // Check if user exists
-            if (user != null)
+            try
             {
-                // Returns result if the user is
-                // Signed in successfully
-                var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                // Service which returns
+                // the user's roles
+                // If the user is successfully logged in
+                IList<string> userRoles = await userService.LoginUser(model);
 
-                // If the user is signed in successfully
-                // Redirect to action Index from Home Controller
-                if (result.Succeeded)
+                // Redirect to action Index in Home Controller
+                // If the user's roles contains AdminRoleName
+                // And does not contain UserRoleName
+                if (userRoles.Contains(AdminRoleName) && !userRoles.Contains(UserRoleName))
                 {
-                    // Get the user's roles
-                    var roles = await userManager.GetRolesAsync(user);
-
-                    if (roles.Contains(AdminRoleName))
-                    {
-                        return RedirectToAction("Index", "Home", new { area = AdminAreaName });
-                    }
-                    else if (roles.Contains(UserRoleName))
-                    {
-                        return RedirectToAction("Index", "Home", new { area = UserAreaName });
-                    }
+                    return RedirectToAction("Index", "Home", new { area = AdminAreaName });
                 }
-            }
 
-            // If the user is not signed in successfully
-            // Return the view
-            return View(model);
+                // Redirect to action Index in Home Controller
+                // If the user's roles contains UserRoleName
+                // And does not contain AdminRoleName
+                return RedirectToAction("Index", "Home", new { area = UserAreaName });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
         }
     }
 }

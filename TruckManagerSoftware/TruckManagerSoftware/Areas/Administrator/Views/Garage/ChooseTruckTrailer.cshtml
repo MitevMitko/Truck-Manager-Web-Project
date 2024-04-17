@@ -31,9 +31,9 @@
 
                 <div>
                     @{
-                        if (Model.Garage != null)
+                        if (Model.GarageInfo != null)
                         {
-                            ViewBag.Garage = $"{Model.Garage.Country}/{Model.Garage.City}/{Model.Garage.Size}";
+                            ViewBag.Garage = $"{Model.GarageInfo.Country}/{Model.GarageInfo.City}/{Model.GarageInfo.Size}";
                         }
                         else
                         {
@@ -46,9 +46,9 @@
 
                 <div>
                     @{
-                        if (Model.Trailer != null)
+                        if (Model.TrailerInfo != null)
                         {
-                            ViewBag.Trailer = $"{Model.Trailer.Title} {Model.Trailer.Series}";
+                            ViewBag.Trailer = $"{Model.TrailerInfo.Title} {Model.TrailerInfo.Series}";
                         }
                         else
                         {
@@ -61,9 +61,9 @@
 
                 <div>
                     @{
-                        if (Model.Order != null)
+                        if (Model.OrderInfo != null)
                         {
-                            ViewBag.Order = Model.Order.Cargo;
+                            ViewBag.Order = Model.OrderInfo.Cargo;
                         }
                         else
                         {
@@ -76,9 +76,9 @@
 
                 <div>
                     @{
-                        if (Model.Engine != null)
+                        if (Model.EngineInfo != null)
                         {
-                            ViewBag.Engine = Model.Engine.Title;
+                            ViewBag.Engine = Model.EngineInfo.Title;
                         }
                         else
                         {
@@ -91,9 +91,9 @@
 
                 <div>
                     @{
-                        if (Model.Transmission != null)
+                        if (Model.TransmissionInfo != null)
                         {
-                            ViewBag.Transmission = Model.Transmission.Title;
+                            ViewBag.Transmission = Model.TransmissionInfo.Title;
                         }
                         else
                         {
@@ -107,9 +107,9 @@
 
                 <div>
                     @{
-                        if (Model.User != null)
+                        if (Model.UserInfo != null)
                         {
-                            ViewBag.User = Model.User.UserName;
+                            ViewBag.User = Model.UserInfo.UserName;
                         }
                         else
                         {
@@ -131,7 +131,7 @@
            data-toggle="table"
            data-search="true"
            data-pagination="true"
-           data-url="@Url.Action("GetGarageTrailersWithoutTruckId", "Garage", new { area = "Administrator", id = Model.Garage!.Id })"
+           data-url="@Url.Action("GetGarageTrailersWithoutTruckId", "Garage", new { area = "Administrator", id = Model.GarageInfo!.Id })"
            data-page-size="5"
            data-page-list="[10, 25, 50, 100]">
         <thead>

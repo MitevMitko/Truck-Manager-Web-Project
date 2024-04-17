@@ -9,11 +9,6 @@
 
 <p>@Html.ValidationSummary(false)</p>
 
-@if (TempData["ExceptionMessage"] != null)
-{
-    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
-}
-
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form asp-area="Administrator" asp-controller="Order" asp-action="Add" method="post" enctype="multipart/form-data">
@@ -91,14 +86,3 @@
         </form>
     </div>
 </div>
-
-
-@section Scripts {
-    <script>
-        window.setTimeout(function () {
-            $("#alert").fadeTo(500, 0).slideUp(500, function () {
-                $(this).remove();
-            });
-        }, 5000);
-    </script>
-}

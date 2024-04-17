@@ -21,6 +21,12 @@
         }
 
         [HttpGet]
+        public IActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -29,13 +35,71 @@
                 // All orders from the database
                 ICollection<OrderInfoViewModel> serviceModel = await orderService.GetAllOrdersInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetOrdersWithoutTruckId()
+        {
+            try
+            {
+                ICollection<OrderInfoViewModel> serviceModel = orderService.GetOrdersInfoWithoutTruckId();
+
+                return Json(serviceModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                OrderAdditionalInfoViewModel serviceModel = await orderService.GetAdditionalOrderInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddOrderToTruck(Guid id, Guid orderId)
+        {
+            try
+            {
+                await orderService.AddOrderToTruck(id, orderId);
 
                 return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FinishOrder(Guid id)
+        {
+            try
+            {
+                await orderService.FinishOrder(id);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

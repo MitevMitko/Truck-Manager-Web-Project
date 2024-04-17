@@ -57,10 +57,10 @@
 @section Scripts {
     <script>
         function actionButtons(row, value) {
-            let garageTrailerUrl = "@Url.Action("GetAdditionalGarageTrailerInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            let garageTrailerUrl = "@Url.Action("GetAdditionalInfoById", "Trailer", new { area = "Administrator", id = '0' })";
             garageTrailerUrl = garageTrailerUrl.replace('0', value.id);
 
-            let garageTruckUrl = "@Url.Action("GetAdditionalGarageTruckInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            let garageTruckUrl = "@Url.Action("GetAdditionalInfoById", "Truck", new { area = "Administrator", id = '0' })";
             garageTruckUrl = garageTruckUrl.replace('0', value.truckId);
 
             if (value.truckId !== null) {

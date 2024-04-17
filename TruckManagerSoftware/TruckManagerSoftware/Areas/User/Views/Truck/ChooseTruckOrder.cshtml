@@ -1,0 +1,167 @@
+﻿@model TruckAdditionalInfoViewModel
+
+@{
+    ViewBag.Title = "Choose Order for Truck";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Brand: </span> @Model.Brand
+                </div>
+
+                <div>
+                    <span class="fw-bold">Series: </span> @Model.Series
+                </div>
+
+                <div>
+                    <span class="fw-bold">Driven Distance: </span> @Model.DrivenDistance
+                </div>
+
+                @{
+                    ViewBag.Image = $"{Model.Image}.jpg";
+                }
+
+                <img src="~/Images/Trucks/@ViewBag.Image" class="card-img-top" alt="image">
+
+                <div>
+                    @{
+                        if (Model.GarageInfo != null)
+                        {
+                            ViewBag.Garage = $"{Model.GarageInfo.Country}/{Model.GarageInfo.City}/{Model.GarageInfo.Size}";
+                        }
+                        else
+                        {
+                            ViewBag.Garage = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Garage: </span> @ViewBag.Garage
+                </div>
+
+                <div>
+                    @{
+                        if (Model.TrailerInfo != null)
+                        {
+                            ViewBag.Trailer = $"{Model.TrailerInfo.Title} {Model.TrailerInfo.Series}";
+                        }
+                        else
+                        {
+                            ViewBag.Trailer = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Trailer: </span> @ViewBag.Trailer
+                </div>
+
+                <div>
+                    @{
+                        if (Model.OrderInfo != null)
+                        {
+                            ViewBag.Order = Model.OrderInfo.Cargo;
+                        }
+                        else
+                        {
+                            ViewBag.Order = "N/A";
+                        }
+
+                        <span class="fw-bold">Order: </span> @ViewBag.Order
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.EngineInfo != null)
+                        {
+                            ViewBag.Engine = Model.EngineInfo.Title;
+                        }
+                        else
+                        {
+                            ViewBag.Engine = "N/A";
+                        }
+
+                        <span class="fw-bold">Engine: </span> @ViewBag.Engine
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.TransmissionInfo != null)
+                        {
+                            ViewBag.Transmission = Model.TransmissionInfo.Title;
+                        }
+                        else
+                        {
+                            ViewBag.Transmission = "N/A";
+                        }
+
+                        <span class="fw-bold">Transmission: </span> @ViewBag.Transmission
+                        ;
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.UserInfo != null)
+                        {
+                            ViewBag.User = Model.UserInfo.UserName;
+                        }
+                        else
+                        {
+                            ViewBag.User = "N/A";
+                        }
+
+                        <span class="fw-bold">User: </span> @ViewBag.User
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <table class="table table-bordered table-striped"
+           id="table"
+           data-click-to-select="true"
+           data-toggle="table"
+           data-search="true"
+           data-pagination="true"
+           data-url="@Url.Action("GetOrdersWithoutTruckId", "Order", new { area = "User" })"
+           data-page-size="5"
+           data-page-list="[10, 25, 50, 100]">
+        <thead>
+            <tr>
+                <th data-field="count" data-formatter="rowNumberFormatter">No.</th>
+                <th data-field="cargo" data-sortable="true">Cargo</th>
+                <th data-field="startPoint" data-sortable="true">Start Destination</th>
+                <th data-field="endPoint" data-sortable="true">Target Destination</th>
+                <th data-field="deliveryType" data-sortable="true">Delivery Type</th>
+                <th data-field="buttons" class="table-hover" data-formatter="actionButtons">Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        function actionButtons(row, value) {
+            let orderUrl = "@Url.Action("GetAdditionalInfoById", "Order", new { area = "User", id = '0' })";
+            orderUrl = orderUrl.replace('0', value.id);
+
+            let addOrderToTruckUrl = `/User/Order/AddOrderToTruck/${"@Model.Id"}?orderId=${value.id}`;
+
+            return `<a href="${orderUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Details</a><a href="${addOrderToTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Choose Order</a>`;
+        }
+    </script>
+
+    <script>
+        function rowNumberFormatter(value, row, index) {
+            return index + 1;
+        }
+    </script>
+}

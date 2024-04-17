@@ -10,11 +10,6 @@
     <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
 }
 
-@if (TempData["ExceptionMessage"] != null)
-{
-    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
-}
-
 <form asp-area="Administrator" asp-controller="Truck" asp-action="Add" method="get" enctype="multipart/form-data">
     <div class="form-group mb-3">
         <input class="btn btn-primary" type="submit" value="Add" />
@@ -58,8 +53,12 @@
             let removeUrl = "@Url.Action("Remove", "Truck", new { area = "Administrator", id = '0' })";
             removeUrl = removeUrl.replace('0', value.id);
 
+            let detailsUrl = "@Url.Action("GetAdditionalInfoById", "Truck", new { area = "Administrator", id = '0' })";
+            detailsUrl = detailsUrl.replace('0', value.id);
+
             return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
-                                                                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>`;
+                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
+                    <a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a>`;
         }
     </script>
 

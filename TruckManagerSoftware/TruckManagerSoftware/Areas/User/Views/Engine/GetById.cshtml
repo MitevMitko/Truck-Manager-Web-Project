@@ -1,0 +1,32 @@
+﻿@model EngineInfoViewModel
+
+@{
+    ViewBag.Title = "Engine Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Title: </span> @Model.Title
+                </div>
+
+                <div>
+                    <span class="fw-bold">Power: </span> @Model.PowerHp HorsePowers
+                </div>
+
+                <div>
+                    <span class="fw-bold">Power: </span> @Model.PowerKw Kilowatts
+                </div>
+
+                <div>
+                    <span class="fw-bold">Torque: </span> @Model.TorqueNm Newton-metres
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

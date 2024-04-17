@@ -89,7 +89,7 @@
                     Id = transmission.Id,
                     Title = transmission.Title,
                     GearsCount = transmission.GearsCount,
-                    Retarder = transmission.Retarder
+                    Retarder = transmission.Retarder ? "Available" : "N/A"
                 };
 
                 model.Add(transmissionInfo);
@@ -118,8 +118,8 @@
             {
                 Id = transmission.Id,
                 Title = transmission.Title,
-                GearsCount= transmission.GearsCount,
-                Retarder= transmission.Retarder
+                GearsCount = transmission.GearsCount,
+                Retarder = transmission.Retarder ? "Available" : "N/A"
             };
         }
 

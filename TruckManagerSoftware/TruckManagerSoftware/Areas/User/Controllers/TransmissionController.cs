@@ -21,6 +21,12 @@
         }
 
         [HttpGet]
+        public ActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -29,13 +35,29 @@
                 // All transmissions from the database
                 ICollection<TransmissionInfoViewModel> serviceModel = await transmissionService.GetAllTransmissionsInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Info for transmission
+                // With Id == id
+                TransmissionInfoViewModel serviceModel = await transmissionService.GetTransmissionInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

@@ -56,6 +56,8 @@ namespace TruckManagerSoftware
 
             builder.Services.AddScoped<ITruckService, TruckService>();
 
+            builder.Services.AddScoped<IUserService, UserService>();
+
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Unauthorized/User/Login";

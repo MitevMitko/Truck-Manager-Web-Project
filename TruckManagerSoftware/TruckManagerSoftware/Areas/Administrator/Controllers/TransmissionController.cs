@@ -51,9 +51,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -72,14 +70,12 @@
                     Id = transmissionInfo.Id,
                     Title = transmissionInfo.Title,
                     GearsCount = transmissionInfo.GearsCount,
-                    Retarder = transmissionInfo.Retarder
+                    Retarder = transmissionInfo.Retarder == "Available" ? true : false
                 });
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Transmission");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -106,9 +102,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -127,9 +121,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Transmission");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -152,9 +144,25 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Info for transmission
+                // With Id == id
+                TransmissionInfoViewModel serviceModel = await transmissionService.GetTransmissionInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

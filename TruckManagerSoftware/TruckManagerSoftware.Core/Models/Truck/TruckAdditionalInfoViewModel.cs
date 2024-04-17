@@ -1,6 +1,11 @@
 ﻿namespace TruckManagerSoftware.Core.Models.Truck
 {
-    using Infrastructure.Data.Models;
+    using Engine;
+    using Garage;
+    using Order;
+    using Trailer;
+    using Transmission;
+    using User;
 
     public class TruckAdditionalInfoViewModel
     {
@@ -14,16 +19,16 @@
 
         public string? Image { get; set; }
 
-        public Garage? Garage { get; set; }
+        public GarageInfoViewModel? GarageInfo { get; set; }
 
-        public Trailer? Trailer { get; set; }
+        public TrailerInfoViewModel? TrailerInfo { get; set; }
 
-        public Order? Order { get; set; }
+        public OrderInfoViewModel? OrderInfo { get; set; }
 
-        public Engine? Engine { get; set; }
+        public EngineInfoViewModel? EngineInfo { get; set; }
 
-        public Transmission? Transmission { get; set; }
+        public TransmissionInfoViewModel? TransmissionInfo { get; set; }
 
-        public User? User { get; set; }
+        public UserInfoViewModel? UserInfo { get; set; }
     }
 }

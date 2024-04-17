@@ -10,6 +10,10 @@
 
         Task RemoveGarageTruckFromGarageTrailer(Guid id, Guid trailerId);
 
+        Task AddGarageTruckToUser(Guid id, Guid truckId);
+
+        Task RemoveGarageTruckFromUser(Guid id, Guid truckId);
+
         Task EditGarage(EditGarageViewModel model);
 
         Task RemoveGarage(Guid id);

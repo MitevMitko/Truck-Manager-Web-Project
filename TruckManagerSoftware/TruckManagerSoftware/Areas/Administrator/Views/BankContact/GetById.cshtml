@@ -1,0 +1,28 @@
+﻿@model BankContactInfoViewModel
+
+@{
+    ViewBag.Title = "Bank Contact Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Name: </span> @Model.Name
+                </div>
+
+                <div>
+                    <span class="fw-bold">Email: </span> @Model.Email
+                </div>
+
+                <div>
+                    <span class="fw-bold">Phone Number: </span> @Model.PhoneNumber
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,9 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
+    using Microsoft.AspNetCore.Http;
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Formats.Jpeg;
     using SixLabors.ImageSharp.Processing;
-    using Microsoft.AspNetCore.Http;
 
     using System.IO;
 
@@ -16,7 +16,7 @@
             using (MemoryStream stream = new MemoryStream())
             {
                 // Check if the image is in the desired sizes
-                return imageFile.Width > width && imageFile.Height > height;
+                return imageFile.Width > width || imageFile.Height > height;
             }
         }
 

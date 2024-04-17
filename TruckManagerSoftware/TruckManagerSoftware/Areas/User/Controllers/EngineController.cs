@@ -21,6 +21,12 @@
         }
 
         [HttpGet]
+        public ActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -29,13 +35,29 @@
                 // All engines from the database
                 ICollection<EngineInfoViewModel> serviceModel = await engineService.GetAllEnginesInfo();
 
+                return Json(serviceModel);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Info for engine
+                // With Id == id
+                EngineInfoViewModel serviceModel = await engineService.GetEngineInfoById(id);
+
                 return View(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
             }
         }
     }

@@ -51,9 +51,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -77,9 +75,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "BankContact");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -106,9 +102,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -127,9 +121,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "BankContact");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -152,9 +144,25 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Info about the bank contact
+                // With Id == id
+                BankContactInfoViewModel serviceModel = await bankContactService.GetBankContactInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

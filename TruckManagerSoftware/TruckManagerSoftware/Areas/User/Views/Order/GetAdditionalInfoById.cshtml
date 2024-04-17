@@ -1,0 +1,78 @@
+﻿@model OrderAdditionalInfoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Cargo: </span> @Model.Cargo
+                </div>
+
+                <div>
+                    <span class="fw-bold">Cargo Weight: </span> @Model.CargoWeight Tons
+                </div>
+
+                <div>
+                    <span class="fw-bold">Start Destination: </span> @Model.StartPoint
+                </div>
+
+                <div>
+                    <span class="fw-bold">Target Destination: </span> @Model.EndPoint
+                </div>
+
+                <div>
+                    <span class="fw-bold">Delivery Type: </span> @Model.DeliveryType
+                </div>
+
+                <div>
+                    <span class="fw-bold">Trip Distance: </span> @Model.TripDistance Kilometers
+                </div>
+
+                <div>
+                    <span class="fw-bold">Trip Time: </span> @Model.TripTime
+                </div>
+
+                <div>
+                    <span class="fw-bold">Delivery Price: </span> @Model.DeliveryPrice BGN
+                </div>
+
+                <div>
+                    @{
+                        if (Model.TruckInfo != null)
+                        {
+                            ViewBag.TruckInfo = $"{Model.TruckInfo.Brand} {Model.TruckInfo.Series}";
+                        }
+                        else
+                        {
+                            ViewBag.TruckInfo = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Truck: </span> @ViewBag.TruckInfo
+                </div>
+
+                <div>
+                    @{
+                        if (Model.UserInfo != null)
+                        {
+                            ViewBag.UserInfo = Model.UserInfo.UserName;
+                        }
+                        else
+                        {
+                            ViewBag.UserInfo = "N/A";
+                        }
+
+                        <span class="fw-bold">User: </span> @ViewBag.UserInfo
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

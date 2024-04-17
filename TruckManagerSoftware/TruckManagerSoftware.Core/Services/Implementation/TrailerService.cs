@@ -10,7 +10,9 @@
     using Contract;
     using Infrastructure.Data.Models;
     using Infrastructure.UnitOfWork.Contract;
+    using Models.Garage;
     using Models.Trailer;
+    using Models.Truck;
 
     using static Common.DataConstants.DataConstants.Image;
     using static Common.Messages.Messages.Image;
@@ -171,7 +173,7 @@
                 if (trailer.Image != null && trailer.Image.Length != 0)
                 {
                     // Create the destination path with the new image title
-                    string imagePath = Path.Combine(trailersImagesPath, trailer.Image);
+                    string imagePath = Path.Combine(trailersImagesPath, $"{trailer.Image}.jpg");
 
                     // Check if the image
                     // From the image path exists
@@ -254,11 +256,21 @@
                 // Get the trailer's garage
                 // With id == trailer.GarageId
                 // From the database
-                trailerAdditionalInfo.Garage = await unitOfWork.Garage.GetById(trailer.GarageId.Value);
+                Garage garage = await unitOfWork.Garage.GetById(trailer.GarageId.Value);
+
+                // Assign the data
+                // From the garage
+                // To the GarageInfoViewModel
+                trailerAdditionalInfo.GarageInfo = new GarageInfoViewModel()
+                {
+                    Country = garage.Country,
+                    City = garage.City,
+                    Size = garage.Size
+                };
             }
             else
             {
-                trailerAdditionalInfo.Garage = null;
+                trailerAdditionalInfo.GarageInfo = null;
             }
 
             // If the trailer's property called TruckId has value
@@ -270,11 +282,21 @@
                 // Get the trailer's truck
                 // With id == trailer.TruckId
                 // From the database
-                trailerAdditionalInfo.Truck = await unitOfWork.Truck.GetById(trailer.TruckId.Value);
+                Truck truck = await unitOfWork.Truck.GetById(trailer.TruckId.Value);
+
+
+                // Assign the data
+                // From the truck
+                // TO the TruckInfoViewModel
+                trailerAdditionalInfo.TruckInfo = new TruckInfoViewModel()
+                {
+                    Brand = truck.Brand,
+                    Series = truck.Series
+                };
             }
             else
             {
-                trailerAdditionalInfo.Truck = null;
+                trailerAdditionalInfo.TruckInfo = null;
             }
 
             return trailerAdditionalInfo;

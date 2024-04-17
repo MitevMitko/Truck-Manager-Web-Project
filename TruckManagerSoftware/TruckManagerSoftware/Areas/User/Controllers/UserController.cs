@@ -4,29 +4,129 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    using Core.Models.User;
+    using Core.Services.Contract;
     using Infrastructure.Data.Models;
 
+    using static Common.DataConstants.DataConstants.Unauthorized;
     using static Common.DataConstants.DataConstants.User;
+    using static Common.Messages.Messages.Common;
 
     [Area(UserAreaName)]
     [Authorize(Roles = UserRoleName)]
     public class UserController : Controller
     {
-        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
 
-        public UserController(SignInManager<User> signInManager)
+        private readonly IUserService userService;
+
+        public UserController(UserManager<User> userManager,
+            IUserService userService
+            )
         {
-            this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.userService = userService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            // Sign out the user
-            await signInManager.SignOutAsync();
+            try
+            {
+                await userService.LogoutUser();
 
-            // Redirect to action Index from Home controller
-            return RedirectToAction("Index", "Home", new { area = "Unauthorized" });
+                return RedirectToAction("Index", "Home", new { area = UnauthorizedAreaName });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                UserInfoViewModel serviceModel = await userService.GetUserInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStatus(Guid id)
+        {
+            try
+            {
+                UserInfoViewModel userInfo = await userService.GetUserInfoById(id);
+
+                return View(new ChangeStatusViewModel()
+                {
+                    Id = userInfo.Id,
+                    Status = userInfo.Status
+                });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
+        {
+            // If the entered data
+            // Is not valid
+            // Return the model
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await userService.ChangeUserStatus(model);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UploadImage()
+        {
+            // Get user with
+            // UserName == User.Identity.Name
+            // From the database
+            var user = await userManager.FindByNameAsync(User.Identity!.Name);
+
+            return View(new UploadUserImageViewModel()
+            {
+                Id = user.Id
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(UploadUserImageViewModel model)
+        {
+            try
+            {
+                await userService.UploadUserImage(model);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
         }
     }
 }

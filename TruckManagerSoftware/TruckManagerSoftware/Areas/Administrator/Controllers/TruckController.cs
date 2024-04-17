@@ -39,26 +39,33 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            // Service which returns
-            // All garages with free space
-            // For trucks from the database
-            ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrucks = await garageService.GetAllGaragesInfoWithFreeSpaceForTrucks();
-
-            // Service which returns
-            // All engines from the database
-            ICollection<EngineInfoViewModel> engines = await engineService.GetAllEnginesInfo();
-
-            // Service which returns
-            // All transmissions from the database
-            ICollection<TransmissionInfoViewModel> transmissions = await transmissionService.GetAllTransmissionsInfo();
-
-            // Return add truck view model
-            return View(new AddTruckViewModel()
+            try
             {
-                Garages = garagesWithFreeSpaceForTrucks,
-                Engines = engines,
-                Transmissions = transmissions
-            });
+                // Service which returns
+                // All garages with free space
+                // For trucks from the database
+                ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrucks = await garageService.GetAllGaragesInfoWithFreeSpaceForTrucks();
+
+                // Service which returns
+                // All engines from the database
+                ICollection<EngineInfoViewModel> engines = await engineService.GetAllEnginesInfo();
+
+                // Service which returns
+                // All transmissions from the database
+                ICollection<TransmissionInfoViewModel> transmissions = await transmissionService.GetAllTransmissionsInfo();
+
+                // Return add truck view model
+                return View(new AddTruckViewModel()
+                {
+                    Garages = garagesWithFreeSpaceForTrucks,
+                    Engines = engines,
+                    Transmissions = transmissions
+                });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
         }
 
         [HttpPost]
@@ -84,9 +91,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -129,9 +134,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Truck");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -158,9 +161,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -179,9 +180,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Truck");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -204,9 +203,7 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
-
-                return View("Index", "Home");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
             }
         }
 
@@ -223,9 +220,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Truck");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -242,9 +237,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Truck");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

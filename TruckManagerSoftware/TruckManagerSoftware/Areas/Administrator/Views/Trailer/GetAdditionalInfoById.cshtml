@@ -25,7 +25,7 @@
                 </div>
 
                 <div>
-                    <span class="fw-bold">Tare Weight: </span> @Model.TareWeight
+                    <span class="fw-bold">Tare Weight: </span> @Model.TareWeight Kilograms
                 </div>
 
                 <div>
@@ -33,7 +33,7 @@
                 </div>
 
                 <div>
-                    <span class="fw-bold">Total Length: </span> @Model.TotalLength
+                    <span class="fw-bold">Total Length: </span> @Model.TotalLength Meters
                 </div>
 
                 <div>
@@ -48,32 +48,32 @@
 
                 <div>
                     @{
-                        if (Model.Garage != null)
+                        if (Model.GarageInfo != null)
                         {
-                            ViewBag.Garage = $"{Model.Garage.Country}/{Model.Garage.City}/{Model.Garage.Size}";
+                            ViewBag.GarageInfo = $"{Model.GarageInfo.Country}/{Model.GarageInfo.City}/{Model.GarageInfo.Size}";
                         }
                         else
                         {
-                            ViewBag.Garage = "N/A";
+                            ViewBag.GarageInfo = "N/A";
                         }
                     }
 
-                    <span class="fw-bold">Garage: </span> @ViewBag.Garage
+                    <span class="fw-bold">Garage: </span> @ViewBag.GarageInfo
                 </div>
 
                 <div>
                     @{
-                        if (Model.Truck != null)
+                        if (Model.TruckInfo != null)
                         {
-                            ViewBag.Truck = $"{Model.Truck.Brand} {Model.Truck.Series}";
+                            ViewBag.TruckInfo = $"{Model.TruckInfo.Brand} {Model.TruckInfo.Series}";
                         }
                         else
                         {
-                            ViewBag.Truck = "N/A";
+                            ViewBag.TruckInfo = "N/A";
                         }
                     }
 
-                    <span class="fw-bold">Truck: </span> @ViewBag.Truck
+                    <span class="fw-bold">Truck: </span> @ViewBag.TruckInfo
                 </div>
             </div>
         </div>

@@ -5,10 +5,16 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-@if (TempData["ExceptionMessage"] != null)
+@if (TempData["Message"] != null)
 {
-    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
+    <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
 }
+
+<form asp-area="Administrator" asp-controller="Garage" asp-action="Add" method="get" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>
 
 <div>
     <table class="table table-bordered table-striped"

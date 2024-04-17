@@ -1,6 +1,7 @@
 ﻿namespace TruckManagerSoftware.Core.Models.Trailer
 {
-    using Infrastructure.Data.Models;
+    using Garage;
+    using Truck;
 
     public class TrailerAdditionalInfoViewModel
     {
@@ -24,8 +25,8 @@
 
         public string? Image { get; set; }
 
-        public Garage? Garage { get; set; }
+        public GarageInfoViewModel? GarageInfo { get; set; }
 
-        public Truck? Truck { get; set; }
+        public TruckInfoViewModel? TruckInfo { get; set; }
     }
 }

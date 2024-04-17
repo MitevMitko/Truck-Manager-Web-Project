@@ -8,6 +8,6 @@
 
         public int GearsCount { get; set; }
 
-        public bool Retarder { get; set; }
+        public string Retarder { get; set; } = null!;
     }
 }

@@ -21,6 +21,12 @@
         }
 
         [HttpGet]
+        public IActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -29,13 +35,28 @@
                 // All trailers from the database
                 ICollection<TrailerInfoViewModel> serviceModel = await trailerService.GetAllTrailersInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional trailer info
+                // By id from the database
+                TrailerAdditionalInfoViewModel serviceModel = await trailerService.GetAdditionalTrailerInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

@@ -1,5 +1,7 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
+    using Microsoft.AspNetCore.Identity;
+
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -13,13 +15,18 @@
     using static Common.Messages.Messages.Garage;
     using static Common.Messages.Messages.Trailer;
     using static Common.Messages.Messages.Truck;
+    using static Common.Messages.Messages.User;
 
     public class GarageService : IGarageService
     {
+        private readonly UserManager<User> userManager;
+
         private readonly IUnitOfWork unitOfWork;
 
-        public GarageService(IUnitOfWork unitOfWork)
+        public GarageService(UserManager<User> userManager,
+            IUnitOfWork unitOfWork)
         {
+            this.userManager = userManager;
             this.unitOfWork = unitOfWork;
         }
 
@@ -489,11 +496,11 @@
 
             // Assign the garageTrailer
             // To the garageTruck
-            garageTruck.Trailer = garageTrailer;
+            garageTruck.TrailerId = garageTrailer.Id;
 
             // Assign the garageTruck
             // To the garageTrailer
-            garageTrailer.Truck = garageTruck;
+            garageTrailer.TruckId = garageTruck.Id;
 
             // Save changes to the database
             await unitOfWork.CompleteAsync();
@@ -534,6 +541,95 @@
             // Remove the garageTruck
             // From the garageTrailer
             garageTrailer.Truck = null;
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
+        }
+
+        public async Task AddGarageTruckToUser(Guid id, Guid truckId)
+        {
+            // Get user with
+            // Property Id == id
+            // From the database
+            User user = await userManager.FindByIdAsync(id.ToString());
+
+            // Check if the user exists
+            // If the user does not exist
+            // Throw argument exception
+            if (user == null)
+            {
+                throw new ArgumentException(UserNotExistMessage);
+            }
+
+            // Get truck with
+            // Property Id == truckId
+            // From the database
+            Truck garageTruck = await unitOfWork.Truck.GetById(truckId);
+
+            // Check if the truck exists
+            // If the truck does not exist
+            // Throw argument exception
+            if (garageTruck == null)
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
+
+            // Assign the user
+            // To the garageTruck.User
+            garageTruck.UserId = user.Id;
+
+            // Assign the garageTruck
+            // To the user.Truck
+            user.TruckId = garageTruck.Id;
+
+            // Assign the garageTruck.Garage
+            // To the user.Garage
+            user.GarageId = garageTruck.GarageId;
+
+            // Save changes to the database
+            await unitOfWork.CompleteAsync();
+        }
+
+        public async Task RemoveGarageTruckFromUser(Guid id, Guid truckId)
+        {
+            // Get user with
+            // Property Id == id
+            // From the database
+            User user = await userManager.FindByIdAsync(id.ToString());
+
+            // Check if the user exists
+            // If the user does not exist
+            // Throw argument exception
+            if (user == null)
+            {
+                throw new ArgumentException(UserNotExistMessage);
+            }
+
+            // Get truck with
+            // Property Id == truckId
+            // From the database
+            Truck garageTruck = await unitOfWork.Truck.GetById(truckId);
+
+            // Check if the truck exists
+            // If the truck does not exist
+            // Throw argument exception
+            if (garageTruck == null)
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
+
+            // Remove the garageTruck
+            // From the user
+            garageTruck.UserId = null;
+
+            // Remove the user
+            // From the garageTruck
+            user.TruckId = null;
+
+            // Remove the garage
+            // With Id == garageTruck.GarageId
+            // From the user property GarageId
+            user.GarageId = null;
 
             // Save changes to the database
             await unitOfWork.CompleteAsync();

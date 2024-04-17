@@ -1,0 +1,111 @@
+﻿@model UserInfoViewModel
+
+@{
+    ViewBag.Title = "User Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Username: </span> @Model.UserName
+                </div>
+
+                <div>
+                    <span class="fw-bold">Email: </span> @Model.Email
+                </div>
+
+                <div>
+                    <span class="fw-bold">Status: </span> @Model.Status
+                </div>
+
+                @{
+                    ViewBag.Image = $"{Model.Avatar}.jpg";
+                }
+
+                <img src="~/Images/Avatars/@ViewBag.Image" class="card-img-top" alt="image">
+
+                <div>
+                    @{
+                        if (Model.GarageInfo != null)
+                        {
+                            ViewBag.GarageInfo = $"{Model.GarageInfo.Country}/{Model.GarageInfo.City}/{Model.GarageInfo.Size}";
+                        }
+                        else
+                        {
+                            ViewBag.GarageInfo = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Garage: </span> @ViewBag.GarageInfo
+                </div>
+
+                <div>
+                    @{
+                        if (Model.TruckInfo != null)
+                        {
+                            ViewBag.TruckInfo = $"{Model.TruckInfo.Brand} {Model.TruckInfo.Series}";
+                        }
+                        else
+                        {
+                            ViewBag.TruckInfo = "N/A";
+                        }
+
+                        <span class="fw-bold">Truck: </span> @ViewBag.TruckInfo
+                    }
+                </div>
+
+                <div>
+                    @{
+                        if (Model.OrderInfo != null)
+                        {
+                            ViewBag.OrderInfo = Model.OrderInfo.Cargo;
+                        }
+                        else
+                        {
+                            ViewBag.OrderInfo = "N/A";
+                        }
+
+                        <span class="fw-bold">Order: </span> @ViewBag.OrderInfo
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.GarageInfo != null && Model.TruckInfo != null && Model.OrderInfo == null)
+{
+    <form asp-area="User" asp-controller="Garage" asp-action="RemoveGarageTruckFromUser" method="get" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="truckId" value="@Model.TruckInfo.Id" />
+        <div class="form-group mb-3">
+            <input class="btn btn-primary" type="submit" value="Remove Truck" />
+        </div>
+    </form>
+
+    <form asp-area="User" asp-controller="Truck" asp-action="ChooseTruckOrder" asp-route-id="@Model.TruckInfo.Id" method="get">
+        <div class="form-group mb-3">
+            <input class="btn btn-primary" type="submit" value="Choose Order" />
+        </div>
+    </form>
+}
+
+@if (Model.GarageInfo != null && Model.TruckInfo != null && Model.OrderInfo != null)
+{
+    <form asp-area="User" asp-controller="Order" asp-action="FinishOrder" asp-route-id="@Model.OrderInfo.Id" method="get">
+        <div class="form-group mb-3">
+            <input class="btn btn-primary" type="submit" value="Finish Order" />
+        </div>
+    </form>
+
+    <form asp-area="User" asp-controller="User" asp-action="ChangeStatus" asp-route-id="@Model.Id" method="get">
+        <div class="form-group mb-3">
+            <input class="btn btn-primary" type="submit" value="Change Status" />
+        </div>
+    </form>
+}

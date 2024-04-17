@@ -51,9 +51,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessag = ex.Message });
             }
         }
 
@@ -82,9 +80,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Order");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -111,9 +107,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -132,9 +126,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Order");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -157,9 +149,22 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                OrderAdditionalInfoViewModel serviceModel = await orderService.GetAdditionalOrderInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

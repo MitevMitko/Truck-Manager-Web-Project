@@ -1,8 +1,8 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
-    using SixLabors.ImageSharp;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
+    using SixLabors.ImageSharp;
 
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,13 @@
     using Contract;
     using Infrastructure.Data.Models;
     using Infrastructure.UnitOfWork.Contract;
+    using Models.Engine;
+    using Models.Order;
+    using Models.Garage;
+    using Models.Trailer;
+    using Models.Transmission;
     using Models.Truck;
+    using Models.User;
 
     using static Common.DataConstants.DataConstants.Image;
     using static Common.Messages.Messages.Engine;
@@ -30,7 +36,10 @@
 
         private readonly UserManager<User> userManager;
 
-        public TruckService(IUnitOfWork unitOfWork, IImageService imageService, IWebHostEnvironment webHostEnvironment, UserManager<User> userManager)
+        public TruckService(IUnitOfWork unitOfWork,
+            IImageService imageService,
+            IWebHostEnvironment webHostEnvironment,
+            UserManager<User> userManager)
         {
             this.unitOfWork = unitOfWork;
             this.imageService = imageService;
@@ -207,7 +216,7 @@
                 if (truck.Image != null && truck.Image.Length != 0)
                 {
                     // Create the destination path with the new image title
-                    string imagePath = Path.Combine(trucksImagesPath, truck.Image);
+                    string imagePath = Path.Combine(trucksImagesPath, $"{truck.Image}.jpg");
 
                     // Check if the image
                     // From the image path exists
@@ -285,11 +294,22 @@
                 // Get the truck's garage
                 // With id == truck.GarageId
                 // From the database
-                truckAdditionalInfo.Garage = await unitOfWork.Garage.GetById(truck.GarageId.Value);
+                Garage garage = await unitOfWork.Garage.GetById(truck.GarageId.Value);
+
+                // Assign the data
+                // From garage
+                // To the GarageInfoViewModel
+                truckAdditionalInfo.GarageInfo = new GarageInfoViewModel()
+                {
+                    Id = garage.Id,
+                    Country = garage.Country,
+                    City = garage.City,
+                    Size = garage.Size
+                };
             }
             else
             {
-                truckAdditionalInfo.Garage = null;
+                truckAdditionalInfo.GarageInfo = null;
             }
 
             // If the truck's property called TrailerId has value
@@ -301,11 +321,20 @@
                 // Get the truck's trailer
                 // With id == truck.TrailerId
                 // From the database
-                truckAdditionalInfo.Trailer = await unitOfWork.Trailer.GetById(truck.TrailerId.Value);
+                Trailer trailer = await unitOfWork.Trailer.GetById(truck.TrailerId.Value);
+
+                // Assign the data
+                // From trailer
+                // To the TrailerInfoViewModel
+                truckAdditionalInfo.TrailerInfo = new TrailerInfoViewModel()
+                {
+                    Title = trailer.Title,
+                    Series = trailer.Series
+                };
             }
             else
             {
-                truckAdditionalInfo.Trailer = null;
+                truckAdditionalInfo.TrailerInfo = null;
             }
 
             // If the truck's property called OrderId has value
@@ -317,11 +346,19 @@
                 // Get the truck's order
                 // With id == truck.OrderId
                 // From the database
-                truckAdditionalInfo.Order = await unitOfWork.Order.GetById(truck.OrderId.Value);
+                Order order = await unitOfWork.Order.GetById(truck.OrderId.Value);
+
+                // Assign the data
+                // From order
+                // To the OrderInfoViewModel
+                truckAdditionalInfo.OrderInfo = new OrderInfoViewModel()
+                {
+                    Cargo = order.Cargo
+                };
             }
             else
             {
-                truckAdditionalInfo.Order = null;
+                truckAdditionalInfo.OrderInfo = null;
             }
 
             // If the truck's property called EngineId has value
@@ -333,11 +370,20 @@
                 // Get the truck's engine
                 // With id == truck.EngineId
                 // From the database
-                truckAdditionalInfo.Engine = await unitOfWork.Engine.GetById(truck.EngineId.Value);
+                Engine engine = await unitOfWork.Engine.GetById(truck.EngineId.Value);
+
+
+                // Assign the data
+                // From engine
+                // To the EngineInfoViewModel
+                truckAdditionalInfo.EngineInfo = new EngineInfoViewModel()
+                {
+                    Title = engine.Title
+                };
             }
             else
             {
-                truckAdditionalInfo.Engine = null;
+                truckAdditionalInfo.EngineInfo = null;
             }
 
             // If the truck's property called TransmissionId has value
@@ -349,11 +395,19 @@
                 // Get the truck's transmission
                 // With id == truck.TransmissionId
                 // From the database
-                truckAdditionalInfo.Transmission = await unitOfWork.Transmission.GetById(truck.TransmissionId.Value);
+                Transmission transmission = await unitOfWork.Transmission.GetById(truck.TransmissionId.Value);
+
+                // Assign the data
+                // From transmission
+                // To the TransmissionInfoViewModel
+                truckAdditionalInfo.TransmissionInfo = new TransmissionInfoViewModel()
+                {
+                    Title = transmission.Title
+                };
             }
             else
             {
-                truckAdditionalInfo.Transmission = null;
+                truckAdditionalInfo.TransmissionInfo = null;
             }
 
             // If the truck's property called UserId has value
@@ -365,11 +419,19 @@
                 // Get the truck's user
                 // With id == truck.UserId
                 // From the database
-                truck.User = await userManager.FindByIdAsync(truck.UserId.ToString());
+                User user = await userManager.FindByIdAsync(truck.UserId.ToString());
+
+                // Assign the data
+                // From user
+                // To the UserInfoViewModel
+                truckAdditionalInfo.UserInfo = new UserInfoViewModel()
+                {
+                    UserName = user.UserName
+                };
             }
             else
             {
-                truck.User= null;
+                truck.User = null;
             }
 
             return truckAdditionalInfo;

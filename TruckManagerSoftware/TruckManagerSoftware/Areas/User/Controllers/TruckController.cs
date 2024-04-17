@@ -21,6 +21,12 @@
         }
 
         [HttpGet]
+        public IActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -29,13 +35,46 @@
                 // All trucks from the database
                 ICollection<TruckInfoViewModel> serviceModel = await truckService.GetAllTrucksInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return View("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional truck info
+                // By id from the database
+                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChooseTruckOrder(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Additional info for
+                // Truck with property Id == id
+                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

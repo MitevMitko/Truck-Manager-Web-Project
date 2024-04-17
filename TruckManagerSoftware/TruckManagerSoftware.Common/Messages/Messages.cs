@@ -19,6 +19,11 @@
             public const string BankContactSuccessfullyRemovedMessage = "Bank contact was successfully removed!";
         }
 
+        public static class Common
+        {
+            public const string SomethingWentWrongMessage = "Something went wrong!";
+        }
+
         public static class Engine
         {
             public const string EngineNotExistMessage = "Engine does not exist!";
@@ -30,6 +35,13 @@
             public const string EngineSuccessfullyEditedMessage = "Engine was successfully edited!";
 
             public const string EngineSuccessfullyRemovedMessage = "Engine was successfully removed!";
+        }
+
+        public static class Image
+        {
+            public const string FolderNotExistMessage = "Folder does not exist!";
+
+            public const string ImageNotExistMessage = "Image does not exist!";
         }
 
         public static class Garage
@@ -45,6 +57,10 @@
             public const string GarageTrailerSuccessfullyAddedToGarageTruckMessage = "Garage trailer was successfully added to the garage truck!";
 
             public const string GarageTrailerSuccessfullyRemovedFromGarageTruckMessage = "Garage trailer was successfully removed from the garage truck!";
+
+            public const string GarageTruckSuccessfullyAddedToUserMessage = "Garage truck was successfully added to the user!";
+
+            public const string GarageTruckSuccessfullyRemovedFromUserMessage = "Garage truck was successfully removed from the user!";
         }
 
         public static class Order
@@ -95,16 +111,15 @@
             public const string TruckSuccessfullyRemovedMessage = "Truck was successfully removed!";
         }
 
-        public static class Image
+        public static class User
         {
-            public const string FolderNotExistMessage = "Folder does not exist!";
+            public const string UserNotExistMessage = "User does not exist!";
 
-            public const string ImageNotExistMessage = "Image does not exist!";
-        }
+            public const string UserUserNameAlreadyExits = "Username already exists!";
 
-        public static class Common
-        {
-            public const string SomethingWentWrongMessage = "Something went wrong!";
+            public const string UserEmailAlreadyExists = "Email already exists!";
+
+            public const string UserSuccessfullyCreated = "User was successfully created!";
         }
     }
 }

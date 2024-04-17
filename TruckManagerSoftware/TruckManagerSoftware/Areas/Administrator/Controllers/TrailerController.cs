@@ -3,14 +3,13 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using Core.Models.Garage;
     using Core.Models.Trailer;
     using Core.Services.Contract;
 
     using static Common.DataConstants.DataConstants.Admin;
     using static Common.Messages.Messages.Common;
     using static Common.Messages.Messages.Trailer;
-    using TruckManagerSoftware.Core.Models.Garage;
-    using TruckManagerSoftware.Core.Services.Implementation;
 
     [Area(AdminAreaName)]
     [Authorize(Roles = AdminRoleName)]
@@ -29,16 +28,23 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            // Service which returns
-            // All garages with free space
-            // For trailers from the database
-            ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrailers = await garageService.GetAllGaragesInfoWithFreeSpaceForTrailers();
-
-            // Return add trailer view model
-            return View(new AddTrailerViewModel()
+            try
             {
-                Garages = garagesWithFreeSpaceForTrailers
-            });
+                // Service which returns
+                // All garages with free space
+                // For trailers from the database
+                ICollection<GarageInfoViewModel> garagesWithFreeSpaceForTrailers = await garageService.GetAllGaragesInfoWithFreeSpaceForTrailers();
+
+                // Return add trailer view model
+                return View(new AddTrailerViewModel()
+                {
+                    Garages = garagesWithFreeSpaceForTrailers
+                });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
         }
 
         [HttpPost]
@@ -64,9 +70,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -102,9 +106,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Trailer");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -131,9 +133,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -142,7 +142,7 @@
         {
             try
             {
-                // Service which is removing
+                // Service which removes
                 // Trailer from the database
                 await trailerService.RemoveTrailer(id);
 
@@ -152,9 +152,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Trailer");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message});
             }
         }
 
@@ -177,9 +175,24 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetAdditionalInfoById(Guid id)
+        {
+            try
+            {
+                // Get additional trailer info
+                // By id from the database
+                TrailerAdditionalInfoViewModel serviceModel = await trailerService.GetAdditionalTrailerInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

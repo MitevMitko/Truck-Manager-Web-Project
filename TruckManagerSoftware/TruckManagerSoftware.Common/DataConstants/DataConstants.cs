@@ -175,6 +175,10 @@
             public const int AvatarMinLength = 3;
             public const int AvatarMaxLength = 50;
 
+            // Status value When Adding
+            // Order to Truck
+            public const string StatusValueWhenAddingOrderToTruck = "on duty";
+
             // Status Value When Register User
             public const string StatusValueWhenRegisterUser = "roaming";
 

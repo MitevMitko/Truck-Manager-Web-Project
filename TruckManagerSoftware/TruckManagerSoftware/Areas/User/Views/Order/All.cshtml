@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "All Orders";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div>
+    <table class="table table-bordered table-striped"
+           id="table"
+           data-click-to-select="true"
+           data-toggle="table"
+           data-search="true"
+           data-pagination="true"
+           data-url="@Url.Action("GetAll", "Order", new { area = "User" })"
+           data-page-size="5"
+           data-page-list="[10, 25, 50, 100]">
+        <thead>
+            <tr>
+                <th data-field="count" data-formatter="rowNumberFormatter">No.</th>
+                <th data-field="cargo" data-sortable="true">Cargo</th>
+                <th data-field="cargoWeight" data-sortable="true">Cargo Weight (Ton)</th>
+                <th data-field="startPoint" data-sortable="true">Start Point</th>
+                <th data-field="endPoint" data-sortable="true">End Point</th>
+                <th data-field="deliveryType" data-sortable="true">Delivery Type</th>
+                <th data-field="tripDistance" data-sortable="true">Trip Distance (Km)</th>
+                <th data-field="tripTime" data-sortable="true">Trip Time</th>
+                <th data-field="deliveryPrice" data-sortable="true">Delivery Price (BGN)</th>
+                <th data-field="buttons" class="table-hover" data-formatter="actionButtons">Actions</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        function actionButtons(row, value) {
+            let detailsUrl = "@Url.Action("GetAdditionalInfoById", "Order", new { area = "User", id = '0' })";
+            detailsUrl = detailsUrl.replace('0', value.id);
+
+            return `<a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a>`;
+        }
+    </script>
+
+    <script>
+        function rowNumberFormatter(value, row, index) {
+            return index + 1;
+        }
+    </script>
+}

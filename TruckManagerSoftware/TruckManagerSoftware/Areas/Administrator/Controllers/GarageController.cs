@@ -22,7 +22,9 @@
 
         private readonly ITruckService truckService;
 
-        public GarageController(IGarageService garageService, ITrailerService trailerService, ITruckService truckService)
+        public GarageController(IGarageService garageService,
+            ITrailerService trailerService,
+            ITruckService truckService)
         {
             this.garageService = garageService;
             this.trailerService = trailerService;
@@ -59,9 +61,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -85,9 +85,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -114,9 +112,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return View(model);
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -135,9 +131,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -160,9 +154,7 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
             }
         }
 
@@ -179,9 +171,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -196,9 +186,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -215,9 +203,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -232,9 +218,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -244,16 +228,14 @@
             try
             {
                 // Service which returns
-                // garage with property Id == id
-                GarageInfoViewModel garageInfo = await garageService.GetGarageInfoById(id);
+                // Garage with property Id == id
+                GarageInfoViewModel serviceModel = await garageService.GetGarageInfoById(id);
 
-                return View(garageInfo);
+                return View(serviceModel);
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -268,47 +250,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAdditionalGarageTruckInfoById(Guid id)
-        {
-            try
-            {
-                // Get additional garage's truck info
-                // By id from the database
-                TruckAdditionalInfoViewModel serviceModel = await truckService.GetAdditionalTruckInfoById(id);
-
-                return View(serviceModel);
-            }
-            catch (Exception ex)
-            {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucks", "Garage");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAdditionalGarageTrailerInfoById(Guid id)
-        {
-            try
-            {
-                // Get additional garage's trailer info
-                // By id from the database
-                TrailerAdditionalInfoViewModel serviceModel = await trailerService.GetAdditionalTrailerInfoById(id);
-
-                return View(serviceModel);
-            }
-            catch (Exception ex)
-            {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrailers", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -325,9 +267,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucks", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -344,11 +284,9 @@
 
                 return Json(serviceModel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
-
-                return RedirectToAction("GarageTrucks", "Home");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -364,13 +302,11 @@
 
                 TempData["Message"] = GarageTrailerSuccessfullyAddedToGarageTruckMessage;
 
-                return RedirectToAction("GetAdditionalGarageTruckInfoById", "Garage", new { id = id });
+                return RedirectToAction("All", "Garage");
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucks", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -386,13 +322,11 @@
 
                 TempData["Message"] = GarageTrailerSuccessfullyRemovedFromGarageTruckMessage;
 
-                return RedirectToAction("GetAdditionalGarageTruckInfoById", "Garage", new { id = id });
+                return RedirectToAction("All", "Garage" );
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucks", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

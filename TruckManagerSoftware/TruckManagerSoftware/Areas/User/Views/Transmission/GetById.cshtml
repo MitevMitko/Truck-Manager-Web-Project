@@ -1,0 +1,28 @@
+﻿@model TransmissionInfoViewModel
+
+@{
+    ViewBag.Title = "Transmission Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Title: </span> @Model.Title
+                </div>
+
+                <div>
+                    <span class="fw-bold">Gears Count: </span> @Model.GearsCount
+                </div>
+
+                <div>
+                    <span class="fw-bold">Retarder: </span> @Model.Retarder
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

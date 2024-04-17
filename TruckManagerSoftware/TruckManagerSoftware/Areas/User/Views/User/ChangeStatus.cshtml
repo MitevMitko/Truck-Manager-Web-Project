@@ -1,0 +1,36 @@
+﻿@model ChangeStatusViewModel
+
+@{
+    ViewBag.Title = "Change User's Status";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<p>@Html.ValidationSummary(false)</p>
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-area="User" asp-controller="User" asp-action="ChangeStatus" method="post" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label asp-for="@Model.Status" class="form-label-add-edit fw-bold">Status</label>
+                <select asp-for="@Model.Status" class="form-control">
+                    @foreach (var option in Html.GetEnumSelectList<UserStatusEnum>())
+                    {
+                        <option value="@option.Text">@option.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Edit" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

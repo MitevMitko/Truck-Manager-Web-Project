@@ -57,10 +57,10 @@
 @section Scripts {
     <script>
         function actionButtons(row, value) {
-            let garageTruckUrl = "@Url.Action("GetAdditionalGarageTruckInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            let garageTruckUrl = "@Url.Action("GetAdditionalInfoById", "Truck", new { area = "Administrator", id = '0' })";
             garageTruckUrl = garageTruckUrl.replace('0', value.truckId);
 
-            let garageTrailerUrl = "@Url.Action("GetAdditionalGarageTrailerInfoById", "Garage", new { area = "Administrator", id = '0' })";
+            let garageTrailerUrl = "@Url.Action("GetAdditionalInfoById", "Trailer", new { area = "Administrator", id = '0' })";
             garageTrailerUrl = garageTrailerUrl.replace('0', value.trailerId);
 
             return `<a href="${garageTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Truck</a>

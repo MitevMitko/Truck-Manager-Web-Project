@@ -21,21 +21,44 @@
         }
 
         [HttpGet]
+        public IActionResult All()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
                 // Service which returns
-                // All bank contacts from the database
+                // All bank contacts
+                // From the database
                 ICollection<BankContactInfoViewModel> serviceModel = await bankContactService.GetAllBankContactsInfo();
 
-                return View(serviceModel);
+                return Json(serviceModel);
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
+        }
 
-                return RedirectToAction("Index", "Home");
+        [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // Info about the bank contact
+                // With Id == id
+                BankContactInfoViewModel serviceModel = await bankContactService.GetBankContactInfoById(id);
+
+                return View(serviceModel);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

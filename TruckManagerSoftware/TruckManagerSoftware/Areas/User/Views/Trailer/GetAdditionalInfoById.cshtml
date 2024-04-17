@@ -1,0 +1,81 @@
+﻿@model TrailerAdditionalInfoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <span class="fw-bold">Title: </span> @Model.Title
+                </div>
+
+                <div>
+                    <span class="fw-bold">Series: </span> @Model.Series
+                </div>
+
+                <div>
+                    <span class="fw-bold">Trailer Type: </span> @Model.TrailerType
+                </div>
+
+                <div>
+                    <span class="fw-bold">Body Type: </span> @Model.BodyType
+                </div>
+
+                <div>
+                    <span class="fw-bold">Tare Weight: </span> @Model.TareWeight Kilograms
+                </div>
+
+                <div>
+                    <span class="fw-bold">Axle Count: </span> @Model.AxleCount
+                </div>
+
+                <div>
+                    <span class="fw-bold">Total Length: </span> @Model.TotalLength Meters
+                </div>
+
+                <div>
+                    <span class="fw-bold">Cargo Types: </span> @Model.CargoTypes
+                </div>
+
+                @{
+                    ViewBag.Image = $"{Model.Image}.jpg";
+                }
+
+                <img src="~/Images/Trailers/@ViewBag.Image" class="card-img-top" alt="image">
+
+                <div>
+                    @{
+                        if (Model.GarageInfo != null)
+                        {
+                            ViewBag.GarageInfo = $"{Model.GarageInfo.Country}/{Model.GarageInfo.City}/{Model.GarageInfo.Size}";
+                        }
+                        else
+                        {
+                            ViewBag.GarageInfo = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Garage: </span> @ViewBag.GarageInfo
+                </div>
+
+                <div>
+                    @{
+                        if (Model.TruckInfo != null)
+                        {
+                            ViewBag.TruckInfo = $"{Model.TruckInfo.Brand} {Model.TruckInfo.Series}";
+                        }
+                        else
+                        {
+                            ViewBag.TruckInfo = "N/A";
+                        }
+                    }
+
+                    <span class="fw-bold">Truck: </span> @ViewBag.TruckInfo
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
