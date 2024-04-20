@@ -3,7 +3,9 @@
     using Microsoft.AspNetCore.Hosting;
     using Moq;
 
+    using Core.Models.Garage;
     using Core.Models.Trailer;
+    using Core.Models.Truck;
     using Core.Services.Contract;
     using Core.Services.Implementation;
     using Infrastructure.Data.Models;
@@ -11,8 +13,6 @@
 
     using static Common.Messages.Messages.Garage;
     using static Common.Messages.Messages.Trailer;
-    using TruckManagerSoftware.Core.Models.Truck;
-    using TruckManagerSoftware.Core.Models.Garage;
 
     public class TrailerServiceTests
     {

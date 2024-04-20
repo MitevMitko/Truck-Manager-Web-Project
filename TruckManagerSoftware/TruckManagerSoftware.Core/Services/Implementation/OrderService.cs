@@ -1,22 +1,24 @@
 ﻿namespace TruckManagerSoftware.Core.Services.Implementation
 {
+    using Microsoft.AspNetCore.Identity;
+
     using System;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
     using Contract;
-    using Infrastructure.Data.Models;
-    using Infrastructure.UnitOfWork.Contract;
-    using Microsoft.AspNetCore.Identity;
     using Models.Order;
     using Models.Truck;
     using Models.User;
+    using Infrastructure.Data.Models;
+    using Infrastructure.UnitOfWork.Contract;
 
     using static Common.DataConstants.DataConstants.Order;
     using static Common.DataConstants.DataConstants.User;
     using static Common.Messages.Messages.Order;
     using static Common.Messages.Messages.Truck;
+    using static Common.Messages.Messages.User;
 
     public class OrderService : IOrderService
     {
@@ -304,23 +306,45 @@
                 throw new ArgumentException(OrderNotExistMessage);
             }
 
-            // Get truck with
-            // Id == order.TruckId
-            // From the database
-            Truck truck = await unitOfWork.Truck.GetById(order.TruckId!.Value);
+            // If the order's property called TruckId has value
+            // Get the order's truck from the database
+            // If the order's property TruckId does not have value
+            // Throw argument exception
+            if (order.TruckId.HasValue)
+            {
+                // Get truck with
+                // Id == order.TruckId
+                // From the database
+                Truck truck = await unitOfWork.Truck.GetById(order.TruckId.Value);
 
-            // Get user with
-            // Id == order.UserId
-            // From the database
-            User user = await userManager.FindByIdAsync(order.UserId.ToString());
+                truck.OrderId = null;
+            }
+            else
+            {
+                throw new ArgumentException(TruckNotExistMessage);
+            }
+
+            // If the order's property called UserId has value
+            // Get the order's user from the database
+            // If the order's property UserId does not have value
+            // Throw argument exception
+            if (order.UserId.HasValue)
+            {
+                // Get user with
+                // Id == order.UserId
+                // From the database
+                User user = await userManager.FindByIdAsync(order.UserId.ToString());
+
+                user.OrderId = null;
+                user.Status = StatusValueWhenRegisterUser;
+            }
+            else
+            {
+                throw new ArgumentException(UserNotExistMessage);
+            }
 
             order.TruckId = null;
             order.UserId = null;
-
-            truck.OrderId = null;
-
-            user.OrderId = null;
-            user.Status = StatusValueWhenRegisterUser;
 
             // Save changes to the database
             await unitOfWork.CompleteAsync();
@@ -352,6 +376,19 @@
                 throw new ArgumentException(OrderNotExistMessage);
             }
 
+            // Get user with property
+            // Id == truck.UserId
+            // From the database
+            User user = await userManager.FindByIdAsync(truck.UserId.ToString());
+
+            // If the user
+            // Does not exist
+            // Throw argument exception
+            if (user == null)
+            {
+                throw new ArgumentException(UserNotExistMessage);
+            }
+
             // Assign data from order
             // To truck.OrderId
             truck.OrderId = order.Id;
@@ -361,11 +398,6 @@
             // And order.UserId
             order.TruckId = truck.Id;
             order.UserId = truck.UserId;
-
-            // Get user with property
-            // Id == truck.UserId
-            // From the database
-            User user = await userManager.FindByIdAsync(truck.UserId.ToString());
 
             // Assign data from order
             // To user.OrderId
