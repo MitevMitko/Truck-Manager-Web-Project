@@ -263,6 +263,7 @@
                 // To the GarageInfoViewModel
                 trailerAdditionalInfo.GarageInfo = new GarageInfoViewModel()
                 {
+                    Id = garage.Id,
                     Country = garage.Country,
                     City = garage.City,
                     Size = garage.Size
@@ -290,6 +291,7 @@
                 // TO the TruckInfoViewModel
                 trailerAdditionalInfo.TruckInfo = new TruckInfoViewModel()
                 {
+                    Id = truck.Id,
                     Brand = truck.Brand,
                     Series = truck.Series
                 };
@@ -398,7 +400,7 @@
                 CargoTypes = trailer.CargoTypes,
                 Image = trailer.Image,
                 GarageId = trailer.GarageId,
-                TruckId = trailer.TruckId,
+                TruckId = trailer.TruckId
             };
         }
 

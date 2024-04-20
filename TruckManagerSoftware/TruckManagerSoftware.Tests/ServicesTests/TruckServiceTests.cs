@@ -375,7 +375,7 @@
             };
 
             unitOfWorkMock.Setup(x => x.Truck.GetById(truckId)).ReturnsAsync(truck);
-            unitOfWorkMock.Setup(x => x.Garage.GetById(truck.GarageId!.Value)).ReturnsAsync(garage);
+            unitOfWorkMock.Setup(x => x.Garage.GetById(truck.GarageId.Value)).ReturnsAsync(garage);
             unitOfWorkMock.Setup(x => x.Trailer.GetById(truck.TrailerId.Value)).ReturnsAsync(trailer);
             unitOfWorkMock.Setup(x => x.Order.GetById(truck.OrderId.Value)).ReturnsAsync(order);
             unitOfWorkMock.Setup(x => x.Engine.GetById(truck.EngineId.Value)).ReturnsAsync(engine);
@@ -504,7 +504,7 @@
 
         // GetAllTrucksInfo
         [Test]
-        public async Task GetAllTrucksInfo_ShouldReturnCollectionOfTruckInfoViewModel()
+        public async Task GetAllTrucksInfo_ShouldReturnICollectionOfTruckInfoViewModel()
         {
             // Arrange
             Truck scaniaTruck = new Truck
