@@ -328,6 +328,7 @@
                 // To the TrailerInfoViewModel
                 truckAdditionalInfo.TrailerInfo = new TrailerInfoViewModel()
                 {
+                    Id = trailer.Id,
                     Title = trailer.Title,
                     Series = trailer.Series
                 };
@@ -353,6 +354,7 @@
                 // To the OrderInfoViewModel
                 truckAdditionalInfo.OrderInfo = new OrderInfoViewModel()
                 {
+                    Id = order.Id,
                     Cargo = order.Cargo
                 };
             }
@@ -378,6 +380,7 @@
                 // To the EngineInfoViewModel
                 truckAdditionalInfo.EngineInfo = new EngineInfoViewModel()
                 {
+                    Id = engine.Id,
                     Title = engine.Title
                 };
             }
@@ -402,6 +405,7 @@
                 // To the TransmissionInfoViewModel
                 truckAdditionalInfo.TransmissionInfo = new TransmissionInfoViewModel()
                 {
+                    Id = transmission.Id,
                     Title = transmission.Title
                 };
             }
@@ -426,6 +430,7 @@
                 // To the UserInfoViewModel
                 truckAdditionalInfo.UserInfo = new UserInfoViewModel()
                 {
+                    Id = user.Id,
                     UserName = user.UserName
                 };
             }
