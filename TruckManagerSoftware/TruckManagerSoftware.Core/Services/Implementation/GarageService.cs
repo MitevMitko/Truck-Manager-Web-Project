@@ -133,9 +133,10 @@
                 // Take the value of the garage's size
                 int garageSizeValue = (int)garageSize;
 
-                // Get all trailers with id == garage.Id
+                // Get all trailers with
+                // GarageId == garage.Id
                 // From the database
-                ICollection<Trailer> garageTrailers = unitOfWork.Trailer.Find(t => t.Id == garage.Id).ToList();
+                ICollection<Trailer> garageTrailers = unitOfWork.Trailer.Find(t => t.GarageId == garage.Id).ToList();
 
                 // Check if there is
                 // Free space for trailers
@@ -199,9 +200,10 @@
                 // Take the value of the garage's size
                 int garageSizeValue = (int)garageSize;
 
-                // Get all trucks with id == garage.Id
+                // Get all trucks with
+                // GarageId == garage.Id
                 // From the database
-                ICollection<Truck> garageTrucks = unitOfWork.Truck.Find(t => t.Id == garage.Id).ToList();
+                ICollection<Truck> garageTrucks = unitOfWork.Truck.Find(t => t.GarageId == garage.Id).ToList();
 
                 // Check if there is
                 // Free space for trucks
