@@ -2,7 +2,7 @@
 
 A web-based application for managing trucks, trailers, garages, drivers, etc. for transportation companies.
 
-## Technologies:
+## Technologies
 
 - Frontend: HTML, CSS, JavaScript (with Bootstrap framework);
 - Backend: ASP.NET Core (with C#), Entity Framework Core (for database access);
@@ -10,7 +10,7 @@ A web-based application for managing trucks, trailers, garages, drivers, etc. fo
 - Authentication and Authorization: ASP.NET Core Identity;
 - Testing: NUnit (for unit testing).
 
-## Dependencies:
+## Dependencies
 
 - coverlet.collector (Version: 3.2.0);
 - Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore (Version: 6.0.24);
@@ -27,7 +27,7 @@ A web-based application for managing trucks, trailers, garages, drivers, etc. fo
 - NUnit3TestAdapter (Version: 4.4.2);
 - SixLabors.ImageSharp (Version: 3.1.4).
 
-## Architecture:
+## Architecture
 
 The project follows the Model-View-Controller (MVC) architectural pattern and includes components such as:
 
@@ -53,12 +53,12 @@ This project includes the features such as Add, Edit, Remove, GetAll, GetById an
 - Truck;
 - User.
 
-### Seed roles in the database:
+### Seed roles in the database
 
 Check for role "administrator" and role "user" in the database is executed when project is started.
 If the roles does not exist the roles will be seeded in the database.
 
-## Usage:
+## Usage
 
 In order to start the project:
 
