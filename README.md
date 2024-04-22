@@ -1,4 +1,4 @@
-# Truck Management Web Project
+# Truck Manager Web Project
 
 A web-based application for managing trucks, trailers, garages, drivers, etc. for transportation companies.
 
@@ -53,7 +53,7 @@ This project includes the features such as Add, Edit, Remove, GetAll, GetById an
 - Truck;
 - User.
 
-# Seed roles in the database:
+### Seed roles in the database:
 
 Check for role "administrator" and role "user" in the database is executed when project is started.
 If the roles does not exist the roles will be seeded in the database.
