@@ -25,19 +25,6 @@
             using (Stream stream = imageFile.OpenReadStream())
             {
                 return Image.Load(stream);
-
-                // Copy the contents of the uploaded file
-                // To a memory stream
-                //imageFile.CopyTo(stream);
-
-                // Load the uploaded file from
-                // The memory stream called "stream"
-                // And then return the converted
-                // Uploaded file from IFormFile to Image
-                //using (Image image = Image.Load(stream.ToArray()))
-                //{
-                //    return image;
-                //}
             }
         }
 
