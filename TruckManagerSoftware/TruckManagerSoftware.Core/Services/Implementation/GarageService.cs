@@ -379,6 +379,7 @@
                 GarageTruckInfoViewModel garageTruckInfo = new GarageTruckInfoViewModel()
                 {
                     Id = garageTruck.Id,
+                    TruckUserId = garageTruck.UserId,
                     TrailerId = garageTruck.TrailerId,
                     Brand = garageTruck.Brand,
                     Series = garageTruck.Series
@@ -539,11 +540,11 @@
 
             // Remove the garageTrailer
             // From the garageTruck
-            garageTruck.Trailer = null;
+            garageTruck.TrailerId = null;
 
             // Remove the garageTruck
             // From the garageTrailer
-            garageTrailer.Truck = null;
+            garageTrailer.TruckId = null;
 
             // Save changes to the database
             await unitOfWork.CompleteAsync();

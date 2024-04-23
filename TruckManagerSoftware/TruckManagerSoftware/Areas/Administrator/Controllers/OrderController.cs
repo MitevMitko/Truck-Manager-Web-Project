@@ -51,7 +51,7 @@
             }
             catch (Exception ex)
             {
-                return RedirectToAction("BadRequest500", "Home", new { errorMessag = ex.Message });
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 

@@ -68,7 +68,10 @@
 
             let removeTrailerFromGarageTruckUrl = `/Administrator/Garage/RemoveGarageTruckFromGarageTrailer/${value.id}?trailerId=${value.trailerId}`;
 
-            if (value.trailerId !== null) {
+            if (value.trailerId !== null && value.truckUserId !== null) {
+                return `<a href="${garageTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a><a href="${garageTrailerUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Trailer</a>`;
+            }
+            else if (value.trailerId !== null && value.truckUserId == null) {
                 return `<a href="${garageTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a><a href="${garageTrailerUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Trailer</a><a href="${removeTrailerFromGarageTruckUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Remove Trailer</a>`;
             }
             else {

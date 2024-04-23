@@ -4,6 +4,8 @@
     {
         public Guid Id { get; set; }
 
+        public Guid? TruckUserId { get; set; }
+
         public Guid? TrailerId { get; set; }
 
         public string Brand { get; set; } = null!;
