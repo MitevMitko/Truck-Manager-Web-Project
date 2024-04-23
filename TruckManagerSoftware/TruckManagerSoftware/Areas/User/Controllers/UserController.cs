@@ -101,17 +101,24 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> UploadImage()
+        public IActionResult UploadImage()
         {
-            // Get user with
-            // UserName == User.Identity.Name
-            // From the database
-            var user = await userManager.FindByNameAsync(User.Identity!.Name);
-
-            return View(new UploadUserImageViewModel()
+            try
             {
-                Id = user.Id
-            });
+                // Get user with
+                // UserName == User.Identity.Name
+                // From the database
+                var user = userManager.FindByNameAsync(User.Identity!.Name);
+
+                return View(new UploadUserImageViewModel()
+                {
+                    Id = user.Result.Id
+                });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
+            }
         }
 
         [HttpPost]

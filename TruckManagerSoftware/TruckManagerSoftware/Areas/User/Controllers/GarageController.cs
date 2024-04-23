@@ -50,9 +50,7 @@
             }
             catch (Exception)
             {
-                TempData["ExceptionMessage"] = SomethingWentWrongMessage;
-
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = SomethingWentWrongMessage });
             }
         }
 
@@ -69,9 +67,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -86,9 +82,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("All", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -105,9 +99,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucks", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -124,9 +116,7 @@
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrailers", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -142,13 +132,11 @@
 
                 TempData["Message"] = GarageTruckSuccessfullyAddedToUserMessage;
 
-                return RedirectToAction("GarageTrucksTrailers", "Garage");
+                return RedirectToAction("GetById", "User", new { id = id });
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucksTrailers", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -164,13 +152,11 @@
 
                 TempData["Message"] = GarageTruckSuccessfullyRemovedFromUserMessage;
 
-                return RedirectToAction("GarageTrucksTrailers", "Garage");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                TempData["ExceptionMessage"] = ex.Message;
-
-                return RedirectToAction("GarageTrucksTrailers", "Garage");
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
             }
         }
     }

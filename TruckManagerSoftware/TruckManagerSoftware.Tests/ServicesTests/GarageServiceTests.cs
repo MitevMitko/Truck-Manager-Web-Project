@@ -807,6 +807,7 @@
                     Assert.IsInstanceOf<GarageTruckTrailerInfoViewModel>(garageTruckWithTrailer);
                     Assert.That(garageTruckWithTrailer.Id, Is.EqualTo(garageId));
                     Assert.That(garageTruckWithTrailer.TruckId, Is.EqualTo(scaniaTruck.Id));
+                    Assert.That(garageTruckWithTrailer.TruckUserId, Is.EqualTo(scaniaTruck.UserId));
                     Assert.That(garageTruckWithTrailer.TrailerId, Is.EqualTo(scaniaTrailer.Id));
                     Assert.That(garageTruckWithTrailer.TruckBrand, Is.EqualTo(scaniaTruck.Brand));
                     Assert.That(garageTruckWithTrailer.TruckSeries, Is.EqualTo(scaniaTruck.Series));

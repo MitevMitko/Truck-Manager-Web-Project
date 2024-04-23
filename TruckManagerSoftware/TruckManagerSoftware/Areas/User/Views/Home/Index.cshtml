@@ -6,9 +6,9 @@
     var user = UserManager.FindByNameAsync(User.Identity!.Name);
 }
 
-@if (TempData["ExceptionMessage"] != null)
+@if (TempData["Message"] != null)
 {
-    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
+    <div id="alert" class="alert alert-success" role="alert">@TempData["Message"]</div>
 }
 
 <div class="text-center">
@@ -30,7 +30,7 @@
     }
 </div>
 
-@section Scripts{
+@section Scripts {
     <script>
         window.setTimeout(function () {
             $("#alert").fadeTo(500, 0).slideUp(500, function () {

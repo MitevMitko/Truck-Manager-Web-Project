@@ -5,10 +5,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-@if (TempData["ExceptionMessage"] != null)
-{
-    <div id="alert" class="alert alert-danger" role="alert">@TempData["ExceptionMessage"]</div>
-}
+<p class="fw-bold">Choose Truck + Trailer from one of all garages</p>
 
 <div>
     <table class="table table-bordered table-striped"
@@ -46,13 +43,5 @@
 
             return `<a href="${garageTrucksTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks + Trailers</a>`;
         }
-    </script>
-
-    <script>
-        window.setTimeout(function () {
-            $("#alert").fadeTo(500, 0).slideUp(500, function () {
-                $(this).remove();
-            });
-        }, 5000);
     </script>
 }

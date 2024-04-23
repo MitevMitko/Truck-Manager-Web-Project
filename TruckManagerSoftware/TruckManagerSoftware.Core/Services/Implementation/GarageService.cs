@@ -453,6 +453,7 @@
                 {
                     Id = id,
                     TruckId = garageTruckWithTrailer.Id,
+                    TruckUserId = garageTruckWithTrailer.UserId,
                     TrailerId = garageTruckTrailer.Id,
                     TruckBrand = garageTruckWithTrailer.Brand,
                     TruckSeries = garageTruckWithTrailer.Series,
