@@ -37,7 +37,15 @@ The project follows the Model-View-Controller (MVC) architectural pattern and in
 - **Services**: Contains business logic for interaction with the UnitOfWork pattern, UserManager and SignManager;
 - **ViewModels**: Contains classes that represent the data to be displayed in views.
 - **Controllers**: Acts as an intermediary between the view model and the view. It receives user requests, processes them and returns an appropriate response.
-- **Views**: Represents the user interface (UI) of the application. It displays data to the user and sends user input to the controller for processing;
+- **Views**: Represents the user interface (UI) of the application. It displays data to the user and sends user input to the controller for processing.
+
+The project is separated in five parts:
+
+- **TruckManagerSoftware**: Contains areas, controllers, views and etc.;
+- **TruckManagerSoftware.Common**: Contains information for data constants and messages;
+- **TruckManagerSoftware.Core**: Contains view models, services and enums which are needed for the business logic;
+- **TruckManagerSoftware.Infrastructure**: Contains data for models, models configurations, extensions, migrations, model binders, repositories and unit of work;
+- **TruckManagerSoftware.Tests**: Contains tests for all services.
 
 ## Features
 
@@ -57,6 +65,10 @@ This project includes the features such as Add, Edit, Remove, GetAll, GetById an
 
 Check for role "administrator" and role "user" in the database is executed when project is started.
 If the roles does not exist the roles will be seeded in the database.
+
+### Seeded user data
+
+The data for the seeded users can be found in TruckManagerSoftware.Infrastructure -> Data -> Configurations -> UserEntityConfiguration.
 
 ## Usage
 
