@@ -61,9 +61,15 @@
             let detailsUrl = "@Url.Action("GetAdditionalInfoById", "Trailer", new { area = "Administrator", id = '0' })";
             detailsUrl = detailsUrl.replace('0', value.id);
 
-            return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
-                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
-                    <a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a>`;
+            if (value.truckId !== null) {
+                return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
+                        <a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a>`;
+            }
+            else {
+                return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
+                        <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
+                        <a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class="btn btn - primary edit - button">Details</a>`;
+            }
         }
     </script>
 

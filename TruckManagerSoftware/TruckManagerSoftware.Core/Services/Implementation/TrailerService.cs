@@ -330,7 +330,9 @@
                     AxleCount = trailer.AxleCount,
                     TotalLength = trailer.TotalLength,
                     CargoTypes = trailer.CargoTypes,
-                    Image = trailer.Image
+                    Image = trailer.Image,
+                    GarageId = trailer.GarageId,
+                    TruckId = trailer.TruckId
                 };
 
                 model.Add(trailerInfo);

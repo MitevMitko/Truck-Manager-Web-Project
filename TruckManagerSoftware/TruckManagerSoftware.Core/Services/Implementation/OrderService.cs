@@ -118,7 +118,9 @@
                     DeliveryType = order.DeliveryType,
                     TripDistance = order.TripDistance,
                     TripTime = order.TripTime,
-                    DeliveryPrice = order.DeliveryPrice
+                    DeliveryPrice = order.DeliveryPrice,
+                    TruckId = order.TruckId,
+                    UserId = order.UserId
                 };
 
                 model.Add(orderInfo);

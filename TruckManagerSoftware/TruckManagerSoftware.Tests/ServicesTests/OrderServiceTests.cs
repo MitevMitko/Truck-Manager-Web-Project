@@ -129,6 +129,8 @@
                     Assert.That(orderInfo.TripDistance, Is.EqualTo(scaniaOrder.TripDistance));
                     Assert.That(orderInfo.TripTime, Is.EqualTo(scaniaOrder.TripTime));
                     Assert.That(orderInfo.DeliveryPrice, Is.EqualTo(scaniaOrder.DeliveryPrice));
+                    Assert.That(orderInfo.TruckId, Is.EqualTo(scaniaOrder.TruckId));
+                    Assert.That(orderInfo.UserId, Is.EqualTo(scaniaOrder.UserId));
 
                     cnt++;
                 }
@@ -144,6 +146,8 @@
                     Assert.That(orderInfo.TripDistance, Is.EqualTo(dafOrder.TripDistance));
                     Assert.That(orderInfo.TripTime, Is.EqualTo(dafOrder.TripTime));
                     Assert.That(orderInfo.DeliveryPrice, Is.EqualTo(dafOrder.DeliveryPrice));
+                    Assert.That(orderInfo.TruckId, Is.EqualTo(dafOrder.TruckId));
+                    Assert.That(orderInfo.UserId, Is.EqualTo(dafOrder.UserId));
                 }
             }
         }

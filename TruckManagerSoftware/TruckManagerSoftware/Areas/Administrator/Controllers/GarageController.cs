@@ -136,6 +136,23 @@
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                // Service which returns
+                // garage with property Id == id
+                GarageInfoViewModel garageInfo = await garageService.GetGarageInfoById(id);
+
+                return View(garageInfo);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("BadRequest500", "Home", new { errorMessage = ex.Message });
+            }
+        }
+
+        [HttpGet]
         public IActionResult All()
         {
             return View();

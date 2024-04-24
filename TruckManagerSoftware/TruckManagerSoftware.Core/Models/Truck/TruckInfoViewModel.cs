@@ -17,5 +17,11 @@
         public Guid? EngineId { get; set; }
 
         public Guid? TransmissionId { get; set; }
+
+        public Guid? TrailerId { get; set; }
+
+        public Guid? OrderId { get; set; }
+
+        public Guid? UserId { get; set; }
     }
 }

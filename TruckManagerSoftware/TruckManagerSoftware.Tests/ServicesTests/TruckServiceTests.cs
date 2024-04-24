@@ -553,6 +553,12 @@
                     Assert.That(truckInfo.Series, Is.EqualTo(scaniaTruck.Series));
                     Assert.That(truckInfo.DrivenDistance, Is.EqualTo(scaniaTruck.DrivenDistance));
                     Assert.That(truckInfo.Image, Is.EqualTo(scaniaTruck.Image));
+                    Assert.That(truckInfo.GarageId, Is.EqualTo(scaniaTruck.GarageId));
+                    Assert.That(truckInfo.EngineId, Is.EqualTo(scaniaTruck.EngineId));
+                    Assert.That(truckInfo.TransmissionId, Is.EqualTo(scaniaTruck.TransmissionId));
+                    Assert.That(truckInfo.TrailerId, Is.EqualTo(scaniaTruck.TrailerId));
+                    Assert.That(truckInfo.OrderId, Is.EqualTo(scaniaTruck.OrderId));
+                    Assert.That(truckInfo.UserId, Is.EqualTo(scaniaTruck.UserId));
 
                     cnt++;
                 }
@@ -564,6 +570,12 @@
                     Assert.That(truckInfo.Series, Is.EqualTo(dafTruck.Series));
                     Assert.That(truckInfo.DrivenDistance, Is.EqualTo(dafTruck.DrivenDistance));
                     Assert.That(truckInfo.Image, Is.EqualTo(dafTruck.Image));
+                    Assert.That(truckInfo.GarageId, Is.EqualTo(dafTruck.GarageId));
+                    Assert.That(truckInfo.EngineId, Is.EqualTo(dafTruck.EngineId));
+                    Assert.That(truckInfo.TransmissionId, Is.EqualTo(dafTruck.TransmissionId));
+                    Assert.That(truckInfo.TrailerId, Is.EqualTo(dafTruck.TrailerId));
+                    Assert.That(truckInfo.OrderId, Is.EqualTo(dafTruck.OrderId));
+                    Assert.That(truckInfo.UserId, Is.EqualTo(dafTruck.UserId));
                 }
             }
         }

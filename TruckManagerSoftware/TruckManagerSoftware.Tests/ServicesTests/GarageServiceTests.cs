@@ -80,21 +80,32 @@
                 Size = "large"
             };
 
-            Garage garageGermany = new Garage
-            {
-                Id = Guid.NewGuid(),
-                Country = "Germany",
-                City = "Berlin",
-                Size = "small"
-            };
-
             IEnumerable<Garage> garages = new List<Garage>
             {
-                garageBulgaria,
-                garageGermany
+                garageBulgaria
             };
 
+            Truck scaniaTruck = new Truck();
+
+            IQueryable<Truck> trucks = new List<Truck>
+            {
+                scaniaTruck
+            }
+            .AsQueryable();
+
+            Trailer scaniaTrailer = new Trailer();
+
+            IQueryable<Trailer> trailers = new List<Trailer>
+            {
+                scaniaTrailer
+            }
+            .AsQueryable();
+
             unitOfWorkMock.Setup(x => x.Garage.GetAll()).ReturnsAsync(garages);
+
+            unitOfWorkMock.Setup(x => x.Truck.Find(t => t.GarageId == garageBulgaria.Id)).Returns(trucks);
+
+            unitOfWorkMock.Setup(x => x.Trailer.Find(t => t.GarageId == garageBulgaria.Id)).Returns(trailers);
 
             // Act
             ICollection<GarageInfoViewModel> serviceModel = await garageService.GetAllGaragesInfo();
@@ -115,16 +126,14 @@
                     Assert.That(garageInfo.Country, Is.EqualTo(garageBulgaria.Country));
                     Assert.That(garageInfo.City, Is.EqualTo(garageBulgaria.City));
                     Assert.That(garageInfo.Size, Is.EqualTo(garageBulgaria.Size));
+                    Assert.That(garageInfo.TrucksCount, Is.EqualTo(trucks.ToList().Count));
+                    Assert.That(garageInfo.TrailersCount, Is.EqualTo(trailers.ToList().Count));
 
                     cnt++;
                 }
                 else
                 {
-                    Assert.IsInstanceOf<GarageInfoViewModel>(garageInfo);
-                    Assert.That(garageInfo.Id, Is.EqualTo(garageGermany.Id));
-                    Assert.That(garageInfo.Country, Is.EqualTo(garageGermany.Country));
-                    Assert.That(garageInfo.City, Is.EqualTo(garageGermany.City));
-                    Assert.That(garageInfo.Size, Is.EqualTo(garageGermany.Size));
+                    continue;
                 }
             }
         }

@@ -463,7 +463,13 @@
                     Brand = truck.Brand,
                     Series = truck.Series,
                     DrivenDistance = truck.DrivenDistance,
-                    Image = truck.Image
+                    Image = truck.Image,
+                    GarageId = truck.GarageId,
+                    EngineId = truck.EngineId,
+                    TransmissionId = truck.TransmissionId,
+                    TrailerId = truck.TrailerId,
+                    OrderId = truck.OrderId,
+                    UserId = truck.UserId
                 };
 
                 model.Add(truckInfo);

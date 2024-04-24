@@ -13,5 +13,9 @@
         public int TrucksCapacity { get; set; }
 
         public int TrailersCapacity { get; set; }
+
+        public int TrucksCount { get; set; }
+
+        public int TrailersCount { get; set; }
     }
 }

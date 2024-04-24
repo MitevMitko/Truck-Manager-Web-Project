@@ -19,5 +19,9 @@
         public string TripTime { get; set; } = null!;
 
         public int DeliveryPrice { get; set; }
+
+        public Guid? TruckId { get; set; }
+
+        public Guid? UserId { get; set; }
     }
 }

@@ -355,6 +355,8 @@
                     Assert.That(trailerInfo.TotalLength, Is.EqualTo(scaniaTrailer.TotalLength));
                     Assert.That(trailerInfo.CargoTypes, Is.EqualTo(scaniaTrailer.CargoTypes));
                     Assert.That(trailerInfo.Image, Is.EqualTo(scaniaTrailer.Image));
+                    Assert.That(trailerInfo.GarageId, Is.EqualTo(scaniaTrailer.GarageId));
+                    Assert.That(trailerInfo.TruckId, Is.EqualTo(scaniaTrailer.TruckId));
 
                     cnt++;
                 }
@@ -371,6 +373,8 @@
                     Assert.That(trailerInfo.TotalLength, Is.EqualTo(dafTrailer.TotalLength));
                     Assert.That(trailerInfo.CargoTypes, Is.EqualTo(dafTrailer.CargoTypes));
                     Assert.That(trailerInfo.Image, Is.EqualTo(dafTrailer.Image));
+                    Assert.That(trailerInfo.GarageId, Is.EqualTo(dafTrailer.GarageId));
+                    Assert.That(trailerInfo.TruckId, Is.EqualTo(dafTrailer.TruckId));
                 }
             }
         }

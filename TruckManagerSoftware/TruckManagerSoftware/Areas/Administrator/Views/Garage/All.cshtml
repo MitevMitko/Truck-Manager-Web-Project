@@ -53,6 +53,9 @@
             let removeUrl = "@Url.Action("Remove", "Garage", new { area = "Administrator", id = '0' })";
             removeUrl = removeUrl.replace('0', value.id);
 
+            let detailsUrl = "@Url.Action("GetById", "Garage", new { area = "Administrator", id = '0' })";
+            detailsUrl = detailsUrl.replace('0', value.id);
+
             let garageTrucksUrl = "@Url.Action("GarageTrucks", "Garage", new { area = "Administrator", id = '0' })";
             garageTrucksUrl = garageTrucksUrl.replace('0', value.id);
 
@@ -62,11 +65,17 @@
             let garageTrucksTrailersUrl = "@Url.Action("GarageTrucksTrailers", "Garage", new { area = "Administrator", id = '0' })";
             garageTrucksTrailersUrl = garageTrucksTrailersUrl.replace('0', value.id);
 
-            return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
-                    <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
-                    <a href="${garageTrucksUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks</a>
-                    <a href="${garageTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trailers</a>
-                    <a href="${garageTrucksTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks + Trailers</a>`;
+            if (value.trucksCount !== 0 || value.trailersCount !== 0) {
+                return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
+                        <a href="${detailsUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Details</a>`;
+            }
+            else {
+                return `<a href="${editUrl}" style="background-color: #8DC0EB; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Edit</a>
+                        <a href="${removeUrl}" style="background-color: #fa8072; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Delete</a>
+                        <a href="${garageTrucksUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks</a>
+                        <a href="${garageTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trailers</a>
+                        <a href="${garageTrucksTrailersUrl}" style="background-color: #00ff7f; border-color: #8DC0EB; color: #2a2e72;" class='btn btn-primary edit-button'>Trucks + Trailers</a>`;
+            }
         }
     </script>
 

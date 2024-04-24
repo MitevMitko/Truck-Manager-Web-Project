@@ -85,12 +85,24 @@
             // To the collection of garage view model
             foreach (Garage garage in garages)
             {
+                // Get the count of all trucks
+                // In the current garage
+                // From the database
+                ICollection<Truck> garageTrucks = unitOfWork.Truck.Find(t => t.GarageId == garage.Id).ToList();
+
+                // Get the count of all trailers
+                // In the current garage
+                // From the database
+                ICollection<Trailer> garageTrailers = unitOfWork.Trailer.Find(t => t.GarageId == garage.Id).ToList();
+
                 GarageInfoViewModel garageInfo = new GarageInfoViewModel()
                 {
                     Id = garage.Id,
                     Country = garage.Country,
                     City = garage.City,
-                    Size = garage.Size
+                    Size = garage.Size,
+                    TrucksCount = garageTrucks.Count,
+                    TrailersCount = garageTrailers.Count
                 };
 
                 model.Add(garageInfo);
