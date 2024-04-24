@@ -39,9 +39,9 @@
                 AxleCount = 2,
                 TotalLength = 13.70,
                 CargoTypes = "Construction equipment and materials",
-                Image = "fadd6754-0ce5-430a-a13d-bdaed1e201c4",
+                Image = null,
                 GarageId = Guid.Parse("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"),
-                TruckId = Guid.Parse("7d380a02-1932-4c39-b2d6-cd58678fd442")
+                TruckId = null
             };
 
             trailers.Add(trailer);
@@ -57,9 +57,9 @@
                 AxleCount = 3,
                 TotalLength = 12.40,
                 CargoTypes = "Containers and container tanks",
-                Image = "6dcf5eef-e16d-4fbb-98c0-7b4d145e7fa6",
+                Image = null,
                 GarageId = Guid.Parse("16d31ab1-2b09-44a0-ae5e-0c1526078157"),
-                TruckId = Guid.Parse("6a647b36-271f-4434-a152-2548f8a2ff0e")
+                TruckId = null
             };
 
             trailers.Add(trailer);
@@ -75,9 +75,9 @@
                 AxleCount = 2,
                 TotalLength = 13.70,
                 CargoTypes = "General, Dry goods",
-                Image = "ada888de-4db3-4212-b50f-92fed8ca5874",
+                Image = null,
                 GarageId = Guid.Parse("c17a0f07-e39c-4420-a338-3f7b15a15f59"),
-                TruckId = Guid.Parse("4ccf808a-2db5-4d36-82f0-e6ff4a1f8b4b")
+                TruckId = null
             };
 
             trailers.Add(trailer);
@@ -93,8 +93,8 @@
                 AxleCount = 3,
                 TotalLength = 9.10,
                 CargoTypes = "Bulk cargo and materials",
-                Image = "02403d2f-9448-4e4a-b84c-6ca9377ccb7d",
-                GarageId = Guid.Parse("16d31ab1-2b09-44a0-ae5e-0c1526078157"),
+                Image = null,
+                GarageId = Guid.Parse("54779e9a-eb54-491a-b442-78dcff15462f"),
                 TruckId = null
             };
 

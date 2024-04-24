@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.Extensions.DependencyInjection;
+
     using Models;
 
     using static Common.DataConstants.DataConstants.User;

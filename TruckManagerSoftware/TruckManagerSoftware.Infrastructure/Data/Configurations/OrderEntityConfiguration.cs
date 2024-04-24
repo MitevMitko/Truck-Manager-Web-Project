@@ -39,7 +39,7 @@
                 TripDistance = 1824,
                 TripTime = "26h 12m",
                 DeliveryPrice = 95493,
-                TruckId = Guid.Parse("7d380a02-1932-4c39-b2d6-cd58678fd442"),
+                TruckId = null,
                 UserId = null
             };
 
@@ -56,7 +56,7 @@
                 TripDistance = 1045,
                 TripTime = "15h 18m",
                 DeliveryPrice = 32273,
-                TruckId = Guid.Parse("6a647b36-271f-4434-a152-2548f8a2ff0e"),
+                TruckId = null,
                 UserId = null
             };
 

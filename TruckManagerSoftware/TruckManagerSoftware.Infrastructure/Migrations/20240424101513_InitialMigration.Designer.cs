@@ -12,7 +12,7 @@ using TruckManagerSoftware.Infrastructure.Data;
 namespace TruckManagerSoftware.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240407180410_InitialMigration")]
+    [Migration("20240424101513_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -376,8 +376,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             EndPoint = "Grimsby",
                             StartPoint = "Bratislava",
                             TripDistance = 1824,
-                            TripTime = "26h 12m",
-                            TruckId = new Guid("7d380a02-1932-4c39-b2d6-cd58678fd442")
+                            TripTime = "26h 12m"
                         },
                         new
                         {
@@ -389,8 +388,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             EndPoint = "Mannheim",
                             StartPoint = "Vienna",
                             TripDistance = 1045,
-                            TripTime = "15h 18m",
-                            TruckId = new Guid("6a647b36-271f-4434-a152-2548f8a2ff0e")
+                            TripTime = "15h 18m"
                         },
                         new
                         {
@@ -470,13 +468,11 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             BodyType = "Flatbed",
                             CargoTypes = "Construction equipment and materials",
                             GarageId = new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"),
-                            Image = "fadd6754-0ce5-430a-a13d-bdaed1e201c4",
                             Series = "FLB",
                             TareWeight = 5300,
                             Title = "Wooden Floor Flatbed",
                             TotalLength = 13.699999999999999,
-                            TrailerType = "Single",
-                            TruckId = new Guid("7d380a02-1932-4c39-b2d6-cd58678fd442")
+                            TrailerType = "Single"
                         },
                         new
                         {
@@ -485,13 +481,11 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             BodyType = "Container Carrier",
                             CargoTypes = "Containers and container tanks",
                             GarageId = new Guid("16d31ab1-2b09-44a0-ae5e-0c1526078157"),
-                            Image = "6dcf5eef-e16d-4fbb-98c0-7b4d145e7fa6",
                             Series = "CNT",
                             TareWeight = 5100,
                             Title = "Container Carrier",
                             TotalLength = 12.4,
-                            TrailerType = "Single",
-                            TruckId = new Guid("6a647b36-271f-4434-a152-2548f8a2ff0e")
+                            TrailerType = "Single"
                         },
                         new
                         {
@@ -500,13 +494,11 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             BodyType = "Curtainsider",
                             CargoTypes = "General, Dry goods",
                             GarageId = new Guid("c17a0f07-e39c-4420-a338-3f7b15a15f59"),
-                            Image = "ada888de-4db3-4212-b50f-92fed8ca5874",
                             Series = "STD",
                             TareWeight = 5860,
                             Title = "Curtainsider",
                             TotalLength = 13.699999999999999,
-                            TrailerType = "single",
-                            TruckId = new Guid("4ccf808a-2db5-4d36-82f0-e6ff4a1f8b4b")
+                            TrailerType = "single"
                         },
                         new
                         {
@@ -514,8 +506,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                             AxleCount = 3,
                             BodyType = "Dumper",
                             CargoTypes = "Bulk cargo and materials",
-                            GarageId = new Guid("16d31ab1-2b09-44a0-ae5e-0c1526078157"),
-                            Image = "02403d2f-9448-4e4a-b84c-6ca9377ccb7d",
+                            GarageId = new Guid("54779e9a-eb54-491a-b442-78dcff15462f"),
                             Series = "DMP",
                             TareWeight = 6650,
                             Title = "Steel Dumper",
@@ -633,38 +624,30 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         {
                             Id = new Guid("7d380a02-1932-4c39-b2d6-cd58678fd442"),
                             Brand = "Scania",
-                            DrivenDistance = 15.0,
+                            DrivenDistance = 1500.0,
                             EngineId = new Guid("7f02705e-b364-4a2d-8b7a-734458317e5d"),
                             GarageId = new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"),
-                            Image = "22266a8f-caf6-404f-bd66-d87228595cda",
-                            OrderId = new Guid("5ccb7fe1-1c13-4dd0-8dec-12867917581c"),
                             Series = "R",
-                            TrailerId = new Guid("3ce51feb-0d77-4f61-aeb0-c44a4b0540d3"),
                             TransmissionId = new Guid("e1663ec8-2b8c-4782-910c-435081921fac")
                         },
                         new
                         {
                             Id = new Guid("6a647b36-271f-4434-a152-2548f8a2ff0e"),
                             Brand = "DAF",
-                            DrivenDistance = 20.0,
+                            DrivenDistance = 2000.0,
                             EngineId = new Guid("682f1317-f1d8-46c4-b7ec-13af1ee27906"),
                             GarageId = new Guid("16d31ab1-2b09-44a0-ae5e-0c1526078157"),
-                            Image = "16a38f92-f19f-4480-bdc9-769e3f660456",
-                            OrderId = new Guid("3496d7fc-c71a-43e6-b1bf-cf4c4082feac"),
                             Series = "XD",
-                            TrailerId = new Guid("3c7e1a88-4c69-46c2-915f-3763f97c7fe5"),
                             TransmissionId = new Guid("b5f61d07-9576-491a-a337-809a31268a17")
                         },
                         new
                         {
                             Id = new Guid("4ccf808a-2db5-4d36-82f0-e6ff4a1f8b4b"),
                             Brand = "Renault",
-                            DrivenDistance = 25.0,
+                            DrivenDistance = 2500.0,
                             EngineId = new Guid("57677635-5723-437d-8a94-3d26f51cd0f8"),
-                            GarageId = new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"),
-                            Image = "0692f00d-1c3e-49c1-be3f-804b2bae48d7",
+                            GarageId = new Guid("c17a0f07-e39c-4420-a338-3f7b15a15f59"),
                             Series = "Premium",
-                            TrailerId = new Guid("928604bb-8f63-4b15-8bb6-fda54428c3a8"),
                             TransmissionId = new Guid("e71a4b60-1ed1-4982-b900-70a76f0706a8")
                         });
                 });
@@ -770,15 +753,15 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         {
                             Id = new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c9ba500-41d9-4b73-9ded-a612d597c42a",
+                            ConcurrencyStamp = "3c42f4e8-6f4a-4085-8be6-51d18d85f13e",
                             Email = "administrator@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINISTRATOR@MAIL.COM",
                             NormalizedUserName = "ADMINISTRATOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL0gZLK5MJUHSLk18C67ZvAeMiM3uDZJjOkuUs/eoLkxahhGCtzYqK7ahP80Yx079A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKq9mDyUtlpJR9nATGrwng4K2Dq/Hcgkh24FvAYCgYrv80PDz+NSSeSfZ+RB3MlF/w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "AQAAAAEAACcQAAAAECQHfTAwNUaRvO451trA3Hfjtvu9qJ5/n31AEUQYr+gzuHD80TDJCP7CPNo39kNveQ==",
+                            SecurityStamp = "AQAAAAEAACcQAAAAEAsDAnoh64EQRJuSp/erYJJi6+uo7xIRIvX1eOHTSO2sFOptGlHGtvh44I97kvixmw==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
                             UserName = "administrator"
@@ -787,15 +770,15 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                         {
                             Id = new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9d578ac4-b91f-4fc0-ba10-bb92704b75cf",
+                            ConcurrencyStamp = "62816ce2-c245-44f7-8efc-64908fb39302",
                             Email = "user@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@MAIL.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFrjv3kX0JrSEfH9Ul0cNz2J/fBagHiDOD/5gI32v8MPJWUeLspdIK33/CI1F9S9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBigPDxVcSH+wNltJLFG1rTv2EnJz4u5iwgygkOpo7X+vmERLIwKz+V4zV2L/WrvKA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "AQAAAAEAACcQAAAAEHRPDwxLCimalXWz3qV0/+CY2jextE/Pw9RTwtEO8aBcYhUe00K3be8eZPy4Z23JCg==",
+                            SecurityStamp = "AQAAAAEAACcQAAAAEJEXV/6ivH4qZFKjIw6wQW2w66M0bHJXQwRvmDDzD8dhfd+JhJktDDKhWXhQkzK45w==",
                             Status = "roaming",
                             TwoFactorEnabled = false,
                             UserName = "user"
