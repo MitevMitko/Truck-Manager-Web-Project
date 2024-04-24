@@ -93,7 +93,7 @@
                 AxleCount = 3,
                 TotalLength = 9.10,
                 CargoTypes = "Bulk cargo and materials",
-                Image = null,
+                Image = "92c2bdf7-bd9b-4ca2-9d34-ef269e11d921",
                 GarageId = Guid.Parse("54779e9a-eb54-491a-b442-78dcff15462f"),
                 TruckId = null
             };

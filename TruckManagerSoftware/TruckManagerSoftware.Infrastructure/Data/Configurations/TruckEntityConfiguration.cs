@@ -58,7 +58,7 @@
                 Brand = "Scania",
                 Series = "R",
                 DrivenDistance = 1500,
-                Image = null,
+                Image = "984b0f36-cb0e-4d64-b517-cb25a1fd61cb",
                 GarageId = Guid.Parse("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"),
                 TrailerId = null,
                 OrderId = null,

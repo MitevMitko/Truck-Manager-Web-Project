@@ -66,7 +66,7 @@
                 Email = "administrator@mail.com",
                 NormalizedEmail = "ADMINISTRATOR@MAIL.COM",
                 Status = "roaming",
-                Avatar = null,
+                Avatar = "f15164b9-88e4-4d77-9d3a-814bc56cd9c5",
                 GarageId = null,
                 TruckId = null,
                 OrderId = null

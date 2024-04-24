@@ -339,8 +339,8 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "Email", "EmailConfirmed", "GarageId", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "OrderId", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TruckId", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"), 0, null, "62816ce2-c245-44f7-8efc-64908fb39302", "user@mail.com", false, null, false, null, "USER@MAIL.COM", "USER", null, "AQAAAAEAACcQAAAAEBigPDxVcSH+wNltJLFG1rTv2EnJz4u5iwgygkOpo7X+vmERLIwKz+V4zV2L/WrvKA==", null, false, "AQAAAAEAACcQAAAAEJEXV/6ivH4qZFKjIw6wQW2w66M0bHJXQwRvmDDzD8dhfd+JhJktDDKhWXhQkzK45w==", "roaming", null, false, "user" },
-                    { new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"), 0, null, "3c42f4e8-6f4a-4085-8be6-51d18d85f13e", "administrator@mail.com", false, null, false, null, "ADMINISTRATOR@MAIL.COM", "ADMINISTRATOR", null, "AQAAAAEAACcQAAAAEKq9mDyUtlpJR9nATGrwng4K2Dq/Hcgkh24FvAYCgYrv80PDz+NSSeSfZ+RB3MlF/w==", null, false, "AQAAAAEAACcQAAAAEAsDAnoh64EQRJuSp/erYJJi6+uo7xIRIvX1eOHTSO2sFOptGlHGtvh44I97kvixmw==", "roaming", null, false, "administrator" }
+                    { new Guid("119ca1f9-3f45-4391-a92e-408dce588da6"), 0, null, "3c101505-3e55-4d31-b5fa-f328562fb2ad", "user@mail.com", false, null, false, null, "USER@MAIL.COM", "USER", null, "AQAAAAEAACcQAAAAEO6chT4eYlsUuvlamH8nr91rmCINCnhmackzZvbxfEAvMAc/c106dMrQwYcY2N7D3w==", null, false, "AQAAAAEAACcQAAAAEJsewV0170eaQBvhPRNgyeFPz/91hBS33Qi1QE/0cwZguLf0gOLTLUR2y01eIlVahw==", "roaming", null, false, "user" },
+                    { new Guid("71fb597c-02f6-4faa-909d-e25e60e8e4e7"), 0, "f15164b9-88e4-4d77-9d3a-814bc56cd9c5", "4432ec3e-bc99-45e2-b863-ed82c1e5c772", "administrator@mail.com", false, null, false, null, "ADMINISTRATOR@MAIL.COM", "ADMINISTRATOR", null, "AQAAAAEAACcQAAAAELee8xWWd1I+lU+YoXZsV8cP/ZwrtqroWIAxWUNM3/MubenM9ZXxh8pSUxnybYhbRg==", null, false, "AQAAAAEAACcQAAAAEHltk4gFWKJgkgCwiIbUvDq6jM2nsw/gANenngSieQLxroMcc+1DBGPbm5XgOrfFLw==", "roaming", null, false, "administrator" }
                 });
 
             migrationBuilder.InsertData(
@@ -399,7 +399,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 columns: new[] { "Id", "AxleCount", "BodyType", "CargoTypes", "GarageId", "Image", "Series", "TareWeight", "Title", "TotalLength", "TrailerType", "TruckId" },
                 values: new object[,]
                 {
-                    { new Guid("35328ace-d3cb-4208-8e48-358eb5905ae1"), 3, "Dumper", "Bulk cargo and materials", new Guid("54779e9a-eb54-491a-b442-78dcff15462f"), null, "DMP", 6650, "Steel Dumper", 9.0999999999999996, "Single", null },
+                    { new Guid("35328ace-d3cb-4208-8e48-358eb5905ae1"), 3, "Dumper", "Bulk cargo and materials", new Guid("54779e9a-eb54-491a-b442-78dcff15462f"), "92c2bdf7-bd9b-4ca2-9d34-ef269e11d921", "DMP", 6650, "Steel Dumper", 9.0999999999999996, "Single", null },
                     { new Guid("3c7e1a88-4c69-46c2-915f-3763f97c7fe5"), 3, "Container Carrier", "Containers and container tanks", new Guid("16d31ab1-2b09-44a0-ae5e-0c1526078157"), null, "CNT", 5100, "Container Carrier", 12.4, "Single", null },
                     { new Guid("3ce51feb-0d77-4f61-aeb0-c44a4b0540d3"), 2, "Flatbed", "Construction equipment and materials", new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"), null, "FLB", 5300, "Wooden Floor Flatbed", 13.699999999999999, "Single", null },
                     { new Guid("928604bb-8f63-4b15-8bb6-fda54428c3a8"), 2, "Curtainsider", "General, Dry goods", new Guid("c17a0f07-e39c-4420-a338-3f7b15a15f59"), null, "STD", 5860, "Curtainsider", 13.699999999999999, "single", null }
@@ -412,7 +412,7 @@ namespace TruckManagerSoftware.Infrastructure.Migrations
                 {
                     { new Guid("4ccf808a-2db5-4d36-82f0-e6ff4a1f8b4b"), "Renault", 2500.0, new Guid("57677635-5723-437d-8a94-3d26f51cd0f8"), new Guid("c17a0f07-e39c-4420-a338-3f7b15a15f59"), null, null, "Premium", null, new Guid("e71a4b60-1ed1-4982-b900-70a76f0706a8"), null },
                     { new Guid("6a647b36-271f-4434-a152-2548f8a2ff0e"), "DAF", 2000.0, new Guid("682f1317-f1d8-46c4-b7ec-13af1ee27906"), new Guid("16d31ab1-2b09-44a0-ae5e-0c1526078157"), null, null, "XD", null, new Guid("b5f61d07-9576-491a-a337-809a31268a17"), null },
-                    { new Guid("7d380a02-1932-4c39-b2d6-cd58678fd442"), "Scania", 1500.0, new Guid("7f02705e-b364-4a2d-8b7a-734458317e5d"), new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"), null, null, "R", null, new Guid("e1663ec8-2b8c-4782-910c-435081921fac"), null }
+                    { new Guid("7d380a02-1932-4c39-b2d6-cd58678fd442"), "Scania", 1500.0, new Guid("7f02705e-b364-4a2d-8b7a-734458317e5d"), new Guid("e1945cc7-f084-4c9c-b0a1-0e7824d6bc9b"), "984b0f36-cb0e-4d64-b517-cb25a1fd61cb", null, "R", null, new Guid("e1663ec8-2b8c-4782-910c-435081921fac"), null }
                 });
 
             migrationBuilder.CreateIndex(
